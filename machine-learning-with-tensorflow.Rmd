@@ -169,23 +169,30 @@ head(data.matrix(iris), n = 10)
 
 - Breadth and depth of educational resources
 
-## Home Page Illustration
+## TensorFlow APIs | Distinct interfaces for various tasks and levels of abstraction
 
+<img src="images/tensorflow-apis.png" width=1000/>
 
 
 ## R Packages
 
-*too dense / premature*
+<div class="columns-2">
 
-| Package | Description |
-|---|--------------|
-| [keras](https://tensorflow.rstudio.com/keras/)  | Interface for neural networks, with a focus on enabling fast experimentation.  | 
-| [tfestimators](https://tensorflow.rstudio.com/tfestimators/)  | Implementations of common model types such as regressors and classifiers. | 
-| [tensorflow](https://tensorflow.rstudio.com/tensorflow/)  |  Low-level interface to the TensorFlow computational graph. | 
-| [tfdatasets](https://tensorflow.rstudio.com/tools/tfdatasets/)  | Scalable input pipelines for TensorFlow models. | 
-| [tfruns](https://tensorflow.rstudio.com/tools/tfruns/)  | Track, visualize, and manage TensorFlow training runs and experiments. | 
-| [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/)  | Tools designed to make exporting and serving TensorFlow models straightforward.  | 
-| [cloudml](https://tensorflow.rstudio.com/tools/cloudml/)  | R interface to Google Cloud Machine Learning Engine.  | 
+### TensorFlow APIs
+
+- [keras](https://tensorflow.rstudio.com/keras/)---Interface for neural networks, with a focus on enabling fast experimentation.
+- [tfestimators](https://tensorflow.rstudio.com/tfestimators/)--- Implementations of common model types such as regressors and classifiers. 
+- [tensorflow](https://tensorflow.rstudio.com/tensorflow/)---Low-level interface to the TensorFlow computational graph.
+- [tfdatasets](https://tensorflow.rstudio.com/tools/tfdatasets/)---Scalable input pipelines for TensorFlow models. 
+
+### Supporting Tools
+
+- [tfruns](https://tensorflow.rstudio.com/tools/tfruns/)---Track, visualize, and manage TensorFlow training runs and experiments.
+- [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/)---Tools designed to make exporting and serving TensorFlow models straightforward.
+- [cloudml](https://tensorflow.rstudio.com/tools/cloudml/)---R interface to Google Cloud Machine Learning Engine. 
+
+</div>
+
 
 ## <img src="images/keras-logo-2018-large-1200.png" width=300/>
 
@@ -209,35 +216,18 @@ head(data.matrix(iris), n = 10)
 
 </div>
 
-## Keras Concepts / Illustrations
+## Layers in Neural Networks | A data-processing module that you can think of as a filter for data
+
+
+<img src="images/a_deep_network.png" width=800 class="illustration"/>
+
+## Layers in Neural Networks (cont.) | Layers implement a form of progressive data distillation
+
+<img src="images/mnist_representations.png" width=800 class="illustration"/>
 
 
 
-## First Look at Keras | Training a simple multi-layer perceptron (MLP) {.smaller}
-
-```{r}
-library(keras)
-
-model <- keras_model_sequential() %>% 
-  layer_dense(units = 32, activation = 'relu', input_shape = c(100)) %>% 
-  layer_dropout(rate = 0.2) %>% 
-  layer_dense(units = 16, activation = 'relu') %>% 
-  layer_dense(units = 1, activation = 'sigmoid') 
-
-model %>% compile(
-  optimizer = 'rmsprop',
-  loss = 'binary_crossentropy',
-  metrics = c('accuracy')
-)
-
-model %>% fit(
-  x = data, y = labels, 
-  epochs = 10, 
-  batch_size = 32
-)
-```
-
-## Keras Layers | Operations that are chained together to progressively distill data 
+## Keras Layers | A grammer for specifying the layers of a neural network
 
 ```{r}
 model <- keras_model_sequential() %>%
@@ -249,11 +239,11 @@ model <- keras_model_sequential() %>%
   layer_flatten() %>% 
   layer_dense(units = 128, activation = 'relu') %>% 
   layer_dropout(rate = 0.5) %>% 
-  layer_dense(units = num_classes, activation = 'softmax')
+  layer_dense(units = 10, activation = 'softmax')
 ```
 
 
-## Keras Workflow -- Data Preprocessing 
+## Keras: Data Preprocessing 
 
 <img src="images/MNIST.png" width=200 class="illustration" style="margin-top: -38px;"/>
 
@@ -274,7 +264,7 @@ y_train <- to_categorical(y_train, 10)
 y_test <- to_categorical(y_test, 10)
 ```
 
-## Keras Workflow -- Define Model
+## Keras: Model Definition
 
 ```{r}
 model <- keras_model_sequential()  %>% 
@@ -291,7 +281,7 @@ model %>% compile(
 )
 ```
 
-## Keras Workflow -- Define Model (cont.) {.smaller}
+## Keras: Model Definition (cont.) {.smaller}
 
 ```{r}
 summary(model)
@@ -317,7 +307,7 @@ ________________________________________________________________________________
 ```
 
 
-## Keras Workflow -- Training
+## Keras: Model Training
 
 ```{r}
 history <- model %>% fit(
@@ -340,14 +330,14 @@ Final epoch (plot to see history):
 val_loss: 1.088 
 ```
 
-## Keras Workflow -- Training (cont.)
+## Keras: Model Training (cont.)
 
 ```{r}
 plot(history)
 ```
-<img src="images/keras_training_history.png" width=650 class="illustration"/>
+<img src="images/keras_training_history.png" width=600 class="illustration"/>
 
-## Keras Workflow -- Evaluation and Prediction
+## Keras: Evaluation and Prediction
 
 ```{r}
 model %>% evaluate(x_test, y_test)
@@ -380,6 +370,10 @@ model %>% predict_classes(x_test[1:100,])
 | dnn_classifier() |	Dynamic nueral network classification. |
 | dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
 | dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
+
+## TensorFlow Estimators
+
+example
 
 
 ## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
