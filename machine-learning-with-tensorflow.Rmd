@@ -27,8 +27,6 @@ knitr::opts_chunk$set(eval = FALSE)
 
 - Supporting Tools 
 
-- Case Studies
-
 - Deployment
 
 - Learning More
@@ -44,6 +42,16 @@ knitr::opts_chunk$set(eval = FALSE)
 - Supports distributed execution and very large datasets
 
 - Supports [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
+
+## Why should R users care about TensorFlow?
+
+- A new general purpose numerical computing library with many potential applications! 
+
+- Models created with TensorFlow can be deployed with a low-latency C++ runtime
+
+- Robust foundation for many deep learning applications
+
+- R has a lot to offer as an *interface language* for TensorFlow
 
 ## What are tensors? | *Data stored in multidimensional arrays*
 
@@ -109,15 +117,11 @@ head(data.matrix(iris), n = 10)
   - **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
 </div>
 
-## Why should R users care about TensorFlow?
+## Transition to Greta
 
-- A new general purpose numerical computing library with many potential applications! 
+- CRAN use of RcppArmadillo and RcppEigen
 
-- Models created with TensorFlow can be deployed with a low-latency C++ runtime
 
-- Robust foundation for many deep learning applications
-
-- R has a lot to offer as an *interface language* for TensorFlow
 
 ## Example: Greta | Writing statistical models and fitting them by MCMC
 
@@ -137,8 +141,13 @@ head(data.matrix(iris), n = 10)
 
 - Breadth and depth of educational resources
 
+## Home Page Illustration
+
+
 
 ## R Packages
+
+*too dense / premature*
 
 | Package | Description |
 |---|--------------|
@@ -171,6 +180,10 @@ head(data.matrix(iris), n = 10)
 <img src="images/keras-research.png" width=400 class="illustration"/>
 
 </div>
+
+## Keras Concepts / Illustrations
+
+
 
 ## First Look at Keras | Training a simple multi-layer perceptron (MLP) {.smaller}
 
@@ -210,22 +223,6 @@ model <- keras_model_sequential() %>%
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = num_classes, activation = 'softmax')
 ```
-
-
-## In Place Modification | Object semantics are not by-value! (as is conventional in R)
-
-```{r}
-# Modify model object in place (note that it is not assigned back to)
-model %>% compile(
-  optimizer = 'rmsprop',
-  loss = 'binary_crossentropy',
-  metrics = c('accuracy')
-)
-```
-
-- Keras models are directed acyclic graphs of layers whose state is updated during training.
-
-- Keras layers can be shared by mutliple parts of a Keras model.
 
 
 ## Keras Workflow -- Data Preprocessing 
@@ -356,6 +353,7 @@ model %>% predict_classes(x_test[1:100,])
 | dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
 | dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
 
+
 ## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
 
 ```{r}
@@ -377,6 +375,63 @@ for (step in 1:200) {
 }
 ```
 
+
+## Learning more | <https://tensorflow.rstudio.com/learn/>
+
+- Recommended reading
+
+- Keras for R cheatsheet
+
+- Gallery and examples
+
+- Subscribe to the TensorFlow for R blog!
+
+
+## Recommended Reading
+
+<div class="columns-2" style="margin-top: -38px">
+
+<a style="border-bottom: none;"  href="https://www.amazon.com/Deep-Learning-R-Francois-Chollet/dp/161729554X"><img src="images/Allaire-DLwithR-HI.png" width=400 class="illustration"/></a>
+
+<a style="border-bottom: none;"  href="https://www.amazon.com/Deep-Learning-Adaptive-Computation-Machine/dp/0262035618/"><img src="images/deep-learning-goodfellow.png" width=382 class="illustration"/></a>
+
+</div>
+
+
+## Keras for R cheatsheet | <https://github.com/rstudio/cheatsheets/raw/master/keras.pdf>
+
+<a style="border-bottom: none;" href="https://github.com/rstudio/cheatsheets/raw/master/keras.pdf"><img src="images/resources-cheatsheet.png" width=600 class="illustration" style="margin-top: -38px;"/></a>
+
+## Gallery and examples | <https://tensorflow.rstudio.com/learn/gallery.html>
+
+<a style="border-bottom: none;" href="https://tensorflow.rstudio.com/learn/gallery.html"><img src="images/gallery.png" width=625 class="illustration" style="margin-top: -38px;"/></a>
+
+## Thank you!
+
+<img src="images/r-logo.png" width=100/> <img src="images/tensorflow-logo.png" width=100 style="margin-left: 20px; ma"/> 
+
+
+TensorFlow for R: <https://tensorflow.rstudio.com>
+
+Stay up to date at: <https://tensorflow.rstudio.com/blog/>
+
+**Questions?**
+
+
+## In Place Modification | Object semantics are not by-value! (as is conventional in R)
+
+```{r}
+# Modify model object in place (note that it is not assigned back to)
+model %>% compile(
+  optimizer = 'rmsprop',
+  loss = 'binary_crossentropy',
+  metrics = c('accuracy')
+)
+```
+
+- Keras models are directed acyclic graphs of layers whose state is updated during training.
+
+- Keras layers can be shared by mutliple parts of a Keras model.
 
 
 
