@@ -124,7 +124,9 @@
 <li><p>TensorFlow Basics</p></li>
 <li><p>R Interfaces to TensorFlow</p></li>
 <li><p>Deep Learning</p></li>
+<li><p>Supporting Tools</p></li>
 <li><p>Case Studies</p></li>
+<li><p>Deployment</p></li>
 <li><p>Learning More</p></li>
 </ul>
 
@@ -441,7 +443,59 @@ $acc
 
 <pre >  [1] 7 2 1 0 4 1 4 9 5 9 0 6 9 0 1 5 9 7 3 4 9 6 6 5 4 0 7 4 0 1 3 1 3 4 7
  [36] 2 7 1 2 1 1 7 4 2 3 5 1 2 4 4 6 3 5 5 6 0 4 1 9 5 7 8 9 3 7 4 6 4 3 0
- [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9</pre></article></slide>
+ [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9</pre>
+
+</article></slide><slide class=""><hgroup><h2>TensorFlow Estimators </h2><h3> High level API for TensorFlow models <a href='https://tensorflow.rstudio.com/tfestimators/' title=''>https://tensorflow.rstudio.com/tfestimators/</a></h3></hgroup><article  id="tensorflow-estimators-high-level-api-for-tensorflow-models-httpstensorflow.rstudio.comtfestimators" class="smaller">
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="left">Estimator</th>
+<th align="left">Description</th>
+</tr>
+<tr class="odd">
+<td align="left">linear_regressor()</td>
+<td align="left">Linear regressor model.</td>
+</tr>
+<tr class="even">
+<td align="left">linear_classifier()</td>
+<td align="left">Linear classifier model.</td>
+</tr>
+<tr class="odd">
+<td align="left">dnn_regressor()</td>
+<td align="left">Dynamic nueral network regression.</td>
+</tr>
+<tr class="even">
+<td align="left">dnn_classifier()</td>
+<td align="left">Dynamic nueral network classification.</td>
+</tr>
+<tr class="odd">
+<td align="left">dnn_linear_combined_regressor()</td>
+<td align="left">DNN Linear Combined Regression.</td>
+</tr>
+<tr class="even">
+<td align="left">dnn_linear_combined_classifier()</td>
+<td align="left">DNN Linear Combined Classification.</td>
+</tr>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>TensorFlow Core API </h2><h3> Low level access to TensorFlow graph operations <a href='https://tensorflow.rstudio.com/tensorflow/' title=''>https://tensorflow.rstudio.com/tensorflow/</a></h3></hgroup><article  id="tensorflow-core-api-low-level-access-to-tensorflow-graph-operations-httpstensorflow.rstudio.comtensorflow" class="smaller">
+
+<pre class = 'prettyprint lang-r'>W &lt;- tf$Variable(tf$random_uniform(shape(1L), -1.0, 1.0))
+b &lt;- tf$Variable(tf$zeros(shape(1L)))
+y &lt;- W * x_data + b
+
+loss &lt;- tf$reduce_mean((y - y_data) ^ 2)
+optimizer &lt;- tf$train$GradientDescentOptimizer(0.5)
+train &lt;- optimizer$minimize(loss)
+
+sess = tf$Session()
+sess$run(tf$global_variables_initializer())
+
+for (step in 1:200) {
+  sess$run(train)
+  if (step %% 20 == 0)
+    cat(step, &quot;-&quot;, sess$run(W), sess$run(b), &quot;\n&quot;)
+}</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

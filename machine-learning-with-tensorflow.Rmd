@@ -25,7 +25,11 @@ knitr::opts_chunk$set(eval = FALSE)
 
 - Deep Learning
 
+- Supporting Tools 
+
 - Case Studies
+
+- Deployment
 
 - Learning More
 
@@ -338,6 +342,39 @@ model %>% predict_classes(x_test[1:100,])
   [1] 7 2 1 0 4 1 4 9 5 9 0 6 9 0 1 5 9 7 3 4 9 6 6 5 4 0 7 4 0 1 3 1 3 4 7
  [36] 2 7 1 2 1 1 7 4 2 3 5 1 2 4 4 6 3 5 5 6 0 4 1 9 5 7 8 9 3 7 4 6 4 3 0
  [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
+```
+
+
+## TensorFlow Estimators | High level API for TensorFlow models <https://tensorflow.rstudio.com/tfestimators/> {.smaller}
+
+| Estimator | Description |
+|---|--------------|
+| linear_regressor() | Linear regressor model. |
+| linear_classifier()	| Linear classifier model. |
+| dnn_regressor()	| Dynamic nueral network regression. |
+| dnn_classifier() |	Dynamic nueral network classification. |
+| dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
+| dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
+
+## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
+
+```{r}
+W <- tf$Variable(tf$random_uniform(shape(1L), -1.0, 1.0))
+b <- tf$Variable(tf$zeros(shape(1L)))
+y <- W * x_data + b
+
+loss <- tf$reduce_mean((y - y_data) ^ 2)
+optimizer <- tf$train$GradientDescentOptimizer(0.5)
+train <- optimizer$minimize(loss)
+
+sess = tf$Session()
+sess$run(tf$global_variables_initializer())
+
+for (step in 1:200) {
+  sess$run(train)
+  if (step %% 20 == 0)
+    cat(step, "-", sess$run(W), sess$run(b), "\n")
+}
 ```
 
 
