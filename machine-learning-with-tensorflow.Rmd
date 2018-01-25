@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, eval = FALSE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 <style type="text/css">
@@ -66,7 +66,7 @@ features)`
 
 ## 2D Tensors | *Vector data*
 
-```{r, echo = TRUE}
+```{r}
 head(data.matrix(iris), n = 10)
 ```
 ```
@@ -146,34 +146,201 @@ head(data.matrix(iris), n = 10)
 | [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/)  | Tools designed to make exporting and serving TensorFlow models straightforward.  | 
 | [cloudml](https://tensorflow.rstudio.com/tools/cloudml/)  | R interface to Google Cloud Machine Learning Engine.  | 
 
+## <img src="images/keras-logo-2018-large-1200.png" width=300/>
 
+- High-level neural networks API capable of running on top of [TensorFlow](https://www.tensorflow.org), [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/), or [Theano](http://www.deeplearning.net/software/theano/) (and soon [MXNet](https://mxnet.apache.org/)).
 
-## Keras Momentum
+- Allows for easy and fast prototyping (through user friendliness, modularity, and extensibility).
+
+- Supports both convolutional networks and recurrent networks, as well as combinations of the two.
+
+- Runs seamlessly on CPU and GPU.
+
+- https://keras.rstudio.com
+
+## Keras Adoption
 
 <div class="columns-2">
 
 <img src="images/keras-search.png" width=450 class="illustration"/>
 
-<img src="images/keras-search.png" width=450/>
+<img src="images/keras-research.png" width=400 class="illustration"/>
 
 </div>
 
+## First Look at Keras | Training a simple multi-layer perceptron (MLP) {.smaller}
 
-## Slide with Bullets
+```{r}
+library(keras)
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+model <- keras_model_sequential() %>% 
+  layer_dense(units = 32, activation = 'relu', input_shape = c(100)) %>% 
+  layer_dropout(rate = 0.2) %>% 
+  layer_dense(units = 16, activation = 'relu') %>% 
+  layer_dense(units = 1, activation = 'sigmoid') 
 
-## Slide with R Output
+model %>% compile(
+  optimizer = 'rmsprop',
+  loss = 'binary_crossentropy',
+  metrics = c('accuracy')
+)
 
-```{r cars, echo = TRUE}
-summary(cars)
+model %>% fit(
+  x = data, y = labels, 
+  epochs = 10, 
+  batch_size = 32
+)
 ```
 
-## Slide with Plot
+## Keras Layers | Operations that are chained together to progressively distill data 
 
-```{r pressure}
-plot(pressure)
+```{r}
+model <- keras_model_sequential() %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
+                input_shape = input_shape) %>% 
+  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
+  layer_dropout(rate = 0.25) %>% 
+  layer_flatten() %>% 
+  layer_dense(units = 128, activation = 'relu') %>% 
+  layer_dropout(rate = 0.5) %>% 
+  layer_dense(units = num_classes, activation = 'softmax')
 ```
+
+
+## In Place Modification | Object semantics are not by-value! (as is conventional in R)
+
+```{r}
+# Modify model object in place (note that it is not assigned back to)
+model %>% compile(
+  optimizer = 'rmsprop',
+  loss = 'binary_crossentropy',
+  metrics = c('accuracy')
+)
+```
+
+- Keras models are directed acyclic graphs of layers whose state is updated during training.
+
+- Keras layers can be shared by mutliple parts of a Keras model.
+
+
+## Keras Workflow -- Data Preprocessing 
+
+<img src="images/MNIST.png" width=200 class="illustration" style="margin-top: -38px;"/>
+
+```{r}
+library(keras)
+
+# Load MNIST images datasets (built in to Keras)
+c(c(x_train, y_train), c(x_test, y_test)) %<-% dataset_mnist()
+
+# Flatten images and transform RGB values into [0,1] range 
+x_train <- array_reshape(x_train, c(nrow(x_train), 784))
+x_test <- array_reshape(x_test, c(nrow(x_test), 784))
+x_train <- x_train / 255
+x_test <- x_test / 255
+
+# Convert class vectors to binary class matrices
+y_train <- to_categorical(y_train, 10)
+y_test <- to_categorical(y_test, 10)
+```
+
+## Keras Workflow -- Define Model
+
+```{r}
+model <- keras_model_sequential()  %>% 
+  layer_dense(units = 256, activation = 'relu', input_shape = c(784)) %>% 
+  layer_dropout(rate = 0.4) %>% 
+  layer_dense(units = 128, activation = 'relu') %>%
+  layer_dropout(rate = 0.3) %>%
+  layer_dense(units = 10, activation = 'softmax')
+
+model %>% compile(
+  loss = 'categorical_crossentropy',
+  optimizer = optimizer_rmsprop(),
+  metrics = c('accuracy')
+)
+```
+
+## Keras Workflow -- Define Model (cont.) {.smaller}
+
+```{r}
+summary(model)
+```
+```
+_____________________________________________________________________________________
+Layer (type)                          Output Shape                      Param #      
+=====================================================================================
+dense_1 (Dense)                       (None, 256)                       200960       
+_____________________________________________________________________________________
+dropout_1 (Dropout)                   (None, 256)                       0            
+_____________________________________________________________________________________
+dense_2 (Dense)                       (None, 128)                       32896        
+_____________________________________________________________________________________
+dropout_2 (Dropout)                   (None, 128)                       0            
+_____________________________________________________________________________________
+dense_3 (Dense)                       (None, 10)                        1290         
+=====================================================================================
+Total params: 235,146
+Trainable params: 235,146
+Non-trainable params: 0
+_____________________________________________________________________________________
+```
+
+
+## Keras Workflow -- Training
+
+```{r}
+history <- model %>% fit(
+  x_train, y_train,
+  batch_size = 128,
+  epochs = 30,
+  validation_split = 0.2
+)
+```
+
+```{r}
+history
+```
+```
+Trained on 48,000 samples, validated on 12,000 samples (batch_size=128, epochs=30)
+Final epoch (plot to see history):
+     acc: 0.9057
+    loss: 1.5
+ val_acc: 0.9317
+val_loss: 1.088 
+```
+
+## Keras Workflow -- Training (cont.)
+
+```{r}
+plot(history)
+```
+<img src="images/keras_training_history.png" width=650 class="illustration"/>
+
+## Keras Workflow -- Evaluation and Prediction
+
+```{r}
+model %>% evaluate(x_test, y_test)
+```
+```
+$loss
+[1] 0.1078904
+
+$acc
+[1] 0.9815
+```
+
+```{r}
+model %>% predict_classes(x_test[1:100,])
+```
+```
+  [1] 7 2 1 0 4 1 4 9 5 9 0 6 9 0 1 5 9 7 3 4 9 6 6 5 4 0 7 4 0 1 3 1 3 4 7
+ [36] 2 7 1 2 1 1 7 4 2 3 5 1 2 4 4 6 3 5 5 6 0 4 1 9 5 7 8 9 3 7 4 6 4 3 0
+ [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
+```
+
+
+
+
 
