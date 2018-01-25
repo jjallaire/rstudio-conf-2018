@@ -359,6 +359,10 @@ model %>% predict_classes(x_test[1:100,])
  [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
 ```
 
+## Keras: Demo
+
+<img src="images/keras-demo.png" width=800 class="illustration" style="margin-top: -38px;"/>
+
 
 ## TensorFlow Estimators | High level API for TensorFlow models <https://tensorflow.rstudio.com/tfestimators/> {.smaller}
 
@@ -370,11 +374,6 @@ model %>% predict_classes(x_test[1:100,])
 | dnn_classifier() |	Dynamic nueral network classification. |
 | dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
 | dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
-
-## TensorFlow Estimators
-
-example
-
 
 ## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
 
@@ -396,6 +395,37 @@ for (step in 1:200) {
     cat(step, "-", sess$run(W), sess$run(b), "\n")
 }
 ```
+
+
+## Deep Learning
+
+TODO: Deep learning section
+
+## Supporting Tools
+
+- [tfruns](https://tensorflow.rstudio.com/tools/tfruns/) package
+
+- [cloudml](https://tensorflow.rstudio.com/tools/cloudml/) package
+
+- [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/) package
+
+
+## tfruns package | Track, visualize, and manage training runs and experiments
+
+<img src="images/view_run.png" width=450 class="illustration" style="margin-top: -38px;"/>&nbsp;&nbsp;<img src="images/compare_runs.png" width=450 class="illustration" style="margin-top: -38px;"/>
+
+## cloudml package
+
+
+## tfdeploy package
+
+## Deployment: SavedModels
+
+## Deployment: TensorFlow Serving
+
+## Deployment: RStudio Connect
+
+## Deployment: CloudML
 
 
 ## Learning more | <https://tensorflow.rstudio.com/learn/>
