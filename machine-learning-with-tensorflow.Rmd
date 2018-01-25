@@ -43,15 +43,51 @@ knitr::opts_chunk$set(eval = FALSE)
 
 - Supports [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
 
-## Why should R users care about TensorFlow?
+## Why should R users care?
 
-- A new general purpose numerical computing library with many potential applications! 
-
-- Models created with TensorFlow can be deployed with a low-latency C++ runtime
+- A new general purpose numerical computing library! 
+     - Hardware independent
+     - Distributed execution
+     - Large datasets
+     - Automatic differentiation
 
 - Robust foundation for many deep learning applications
 
+- TensorFlow models can be deployed with a low-latency C++ runtime
+
 - R has a lot to offer as an *interface language* for TensorFlow
+
+
+## Example: Greta | Writing statistical models and fitting them by MCMC
+
+<img src="images/greta.png" width=625px style="margin-top: -38px;" class="illustration"/>
+
+<https://greta-dev.github.io/greta/>
+
+## Greta Air Model 
+
+```{r}
+# Greta
+theta = normal(0, 32, dim = 2)
+mu <- alpha + beta * Z
+X = normal(mu, sigma)
+p <- ilogit(theta[1] + theta[2] * X)
+distribution(y) = binomial(n, p)
+```
+
+
+```{r}
+# BUGS/JAGS
+for(j in 1 : J) {
+   y[j] ~ dbin(p[j], n[j])
+   logit(p[j]) <- theta[1] + theta[2] * X[j]
+   X[j] ~ dnorm(mu[j], tau)
+   mu[j] <- alpha + beta * Z[j]
+}
+theta[1] ~ dnorm(0.0, 0.001)
+theta[2] ~ dnorm(0.0, 0.001)
+```
+
 
 ## What are tensors? | *Data stored in multidimensional arrays*
 
@@ -117,17 +153,9 @@ head(data.matrix(iris), n = 10)
   - **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
 </div>
 
-## Transition to Greta
-
-- CRAN use of RcppArmadillo and RcppEigen
 
 
 
-## Example: Greta | Writing statistical models and fitting them by MCMC
-
-<img src="images/greta.png" width=650px style="margin-top: -38px;" class="illustration"/>
-
-<https://greta-dev.github.io/greta/>
 
 ## R Interface to Tensorflow
 
