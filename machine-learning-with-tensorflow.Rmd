@@ -359,11 +359,6 @@ model %>% predict_classes(x_test[1:100,])
  [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
 ```
 
-## Keras: Demo
-
-<img src="images/keras-demo.png" width=800 class="illustration" style="margin-top: -38px;"/>
-
-
 ## TensorFlow Estimators | High level API for TensorFlow models <https://tensorflow.rstudio.com/tfestimators/> {.smaller}
 
 | Estimator | Description |
@@ -505,21 +500,233 @@ Data frame: 9 x 28
 1 runs/2018-01-26T13-27-14Z    0.1330   0.9769      0.0957     0.9744          0.1304         0.9751
 ```
 
+## cloudml package | <https://tensorflow.rstudio.com/tools/cloudml/> {.smaller}
+
+<div class="columns-2" style="margin-top: -10px;">
+<img src="images/cloudml.png" />
+
+<br/>
+
+- Scalable training of models built with the keras, tfestimators, and tensorflow R packages.
+
+- On-demand access to training on GPUs, including the new Tesla P100 GPUs from NVIDIA®.
+
+- Hyperparameter tuning to optmize key attributes of model architectures in order to maximize predictive accuracy.
 
 
+</div>
 
-## cloudml package
+## cloudml::cloudml_train() 
+
+Train on default CPU instance:
+
+```{r}
+library(cloudml)
+cloudml_train("mnist_mlp.R")
+```
+
+- Automatically uploads contents of working directory along with script
+
+- Automatically installs all required R packages on CloudML servers
 
 
-## tfdeploy package
+```{r}
+# Train on a GPU instance
+cloudml_train("mnist_mlp.R", master_type = "standard_gpu")
 
-## Deployment: SavedModels
+# Train on an NVIDIA Tesla P100 GPU
+cloudml_train("mnist_mlp.R", master_type = "standard_p100")
+```
 
-## Deployment: TensorFlow Serving
+
+## cloudml::job_collect()
+
+```{r}
+job_collect()
+```
+
+<div class="columns-2">
+<img src="images/cloudml-training-run.png" width=400 class="illustration"/>
+
+- Collects job metadata and all files created by the job (e.g. event logs, saved models)
+
+- Uses tfruns to allow inspection, enumeration, and comparision of jobs
+
+</div>
+
+## cloudml: ls_runs() {.smaller}
+
+```{r}
+ls_runs()
+```
+```
+Data frame: 6 x 37 
+                            run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
+6 runs/cloudml_2018_01_26_135812740    0.1049   0.9789      0.0852     0.9760          0.1093         0.9770
+2 runs/cloudml_2018_01_26_140015601    0.1402   0.9664      0.1708     0.9517          0.1379         0.9687
+5 runs/cloudml_2018_01_26_135848817    0.1159   0.9793      0.0378     0.9887          0.1130         0.9792
+3 runs/cloudml_2018_01_26_135936130    0.0963   0.9780      0.0701     0.9792          0.0969         0.9790
+1 runs/cloudml_2018_01_26_140045584    0.1486   0.9682      0.1860     0.9504          0.1453         0.9693
+4 runs/cloudml_2018_01_26_135912819    0.1141   0.9759      0.1272     0.9655          0.1087         0.9762
+# ... with 30 more columns:
+#   flag_dense_units1, flag_dropout1, flag_dense_units2, flag_dropout2, samples, validation_samples,
+#   batch_size, epochs, epochs_completed, metrics, model, loss_function, optimizer, learning_rate,
+#   script, start, end, completed, output, source_code, context, type, cloudml_console_url,
+#   cloudml_created, cloudml_end, cloudml_job, cloudml_log_url, cloudml_ml_units, cloudml_start,
+#   cloudml_state
+```
+
+## CloudML Hyperparameter Tuning | Start by using FLAGS in your training script
+
+<div style="margin-top: -38px;">
+```{r}
+FLAGS <- flags(
+  flag_integer("dense_units1", 128),
+  flag_numeric("dropout1", 0.4),
+  flag_integer("dense_units2", 128),
+  flag_numeric("dropout2", 0.3)
+)
+
+model <- keras_model_sequential() %>% 
+  layer_dense(units = FLAGS$dense_units1, activation = 'relu', 
+              input_shape = c(784)) %>%
+  layer_dropout(rate = FLAGS$dropout1) %>%
+  layer_dense(units = FLAGS$dense_units2, activation = 'relu') %>%
+  layer_dropout(rate = FLAGS$dropout2) %>%
+  layer_dense(units = 10, activation = 'softmax')
+```
+</div>
+
+## CloudML Hyperparameter Tuning (cont.) | Create a tuning configuration file (tuning.yml)
+
+<div style="margin-top: -38px;">
+```yaml
+trainingInput:
+  hyperparameters:
+    goal: MAXIMIZE
+    hyperparameterMetricTag: acc
+    maxTrials: 10
+    params:
+      - parameterName: dropout1
+        type: DOUBLE
+        minValue: 0.2
+        maxValue: 0.6
+        scaleType: UNIT_LINEAR_SCALE
+      - parameterName: dropout2
+        type: DOUBLE
+        minValue: 0.1
+        maxValue: 0.5
+        scaleType: UNIT_LINEAR_SCALE
+```
+</div>
+
+## CloudML Hyperparameter Tuning (cont.) | Run the tuning job and inspect trials{.smaller}
+
+<div style="margin-top: -38px;">
+```{r}
+cloudml_train("minst_mlp.R", config = "tuning.yml")
+```
+
+```{r}
+job_trials()
+```
+```
+finalMetric.objectiveValue finalMetric.trainingStep hyperparameters.dropout1 hyperparameters.dropout2 trialId
+1                    0.973854                       19       0.2011326172916916      0.32774705750441724      10
+2                    0.973458                       19      0.20090378506439671      0.10079321757280404       3
+3                    0.973354                       19       0.5476299090261757      0.49998941144858033       6
+4                    0.972875                       19        0.597820322273044       0.4074512354566201       7
+5                    0.972729                       19      0.25969787952729828      0.42851076497180118       1
+6                    0.972417                       19      0.20045494784980847      0.15927383711937335       4
+7                    0.972188                       19      0.33367593781223304      0.10077055587860367       5
+8                    0.972188                       19      0.59880072314674071      0.10476853415572558       9
+9                    0.972021                       19         0.40078175292512      0.49982245025905447       8
+10          
+```
+</div>
+
+## CloudML Hyperparameter Tuning (cont.) | Collect the best performing trial
+
+<div style="margin-top: -38px;">
+```{r}
+job_collect(trials = "best")
+```
+
+<div class="columns-2">
+<img src="images/cloudml-training-run.png" width=400 class="illustration"/>
+
+- Collects trial with best objective metric by default
+
+- Specify `trials = "all"` to collect all trials (runs) and then perform offline anaysis of hyperparameter interactions via `ls_runs()`.
+
+</div>
+</div>
+
+## CloudML: Additional Talk and Contest
+
+- Talk by Google
+
+## tfdeploy package | <https://tensorflow.rstudio.com/tools/tfdeploy/>
+
+- TensorFlow was built from the ground up to enable deployment using a low-latency C++ runtime.
+
+- Deploying TensorFlow models requires no runtime R or Python code.
+
+- Key enabler for this is the TensorFlow [SavedModel](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md format):
+
+    *SavedModel provides a language-neutral format to save machine-learned models that is recoverable and hermetic. It enables higher-level systems and tools to produce, consume and transform TensorFlow models.*
+
+- TensorFlow models can be deployed to servers, embedded devices, mobile phones, and even to a web browser!
+
+## Deployment: Exporting a SavedModel
+
+```{r}
+model <- keras_model_sequential( %>% )
+  layer_dense(units = 256, activation = 'relu', input_shape = c(784),
+### <b>
+              name = "image") %>%
+### </b>
+  layer_dense(units = 128, activation = 'relu') %>%
+  layer_dense(units = 10, activation = 'softmax',
+### <b>
+              name = "prediction")
+### </b>
+```
+
+Note that we give the input and output layers names ("image" and "prediction")
+
+```{r}
+# ...compile and fit model
+
+# export model
+library(tfdeploy)
+export_savedmodel(model, "minst-model")
+```
+
+## Deployment: serve_savedmodel() | Provide a local HTTP REST interface to the model from R
+
+<div style="margin-top: -38px;">
+```{r}
+serve_savedmodel("mnist-model")
+```
+
+<img src="images/swagger.png" width=400 class="illustration" style="margin-left: 100px;"/>
+</div>
+
+## Deployment: TensorFlow Serving | <https://www.tensorflow.org/serving/>
+
+
 
 ## Deployment: RStudio Connect
 
 ## Deployment: CloudML
+
+## Deployment: Mobile and Browser
+
+- Additional talk by Javier
+
+## Deployment: Shiny
+
 
 
 ## Learning more | <https://tensorflow.rstudio.com/learn/>
@@ -556,12 +763,17 @@ Data frame: 9 x 28
 
 <img src="images/r-logo.png" width=100/> <img src="images/tensorflow-logo.png" width=100 style="margin-left: 20px; ma"/> 
 
+<br/>
+
+Slides: <https://beta.rstudioconnect.com/ml-with-tensorflow-and-r/>
+
+<br/>
 
 TensorFlow for R: <https://tensorflow.rstudio.com>
 
-Stay up to date at: <https://tensorflow.rstudio.com/blog/>
+<br/>
 
-**Questions?**
+Stay up to date at: <https://tensorflow.rstudio.com/blog/>
 
 
 ## In Place Modification | Object semantics are not by-value! (as is conventional in R)
