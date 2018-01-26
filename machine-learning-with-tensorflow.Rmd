@@ -410,9 +410,103 @@ TODO: Deep learning section
 - [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/) package
 
 
-## tfruns package | Track, visualize, and manage training runs and experiments
+## tfruns package | <https://tensorflow.rstudio.com/tools/tfruns/>
 
-<img src="images/view_run.png" width=450 class="illustration" style="margin-top: -38px;"/>&nbsp;&nbsp;<img src="images/compare_runs.png" width=450 class="illustration" style="margin-top: -38px;"/>
+- Successful deep learning requires a huge amount of experimentation
+
+- This requires a systematic approach to conducting and tracking the results of experiements
+
+
+The `training_run()` function is like the `source()` function, but it automatically tracks and records output and metadata for the execution of the script:
+
+```{r}
+library(tfruns)
+training_run("mnist_mlp.R")
+```
+
+## tfruns::ls_runs() {.smaller}
+
+```{r}
+ls_runs()
+```
+```
+Data frame: 4 x 28 
+                    run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
+1 runs/2017-12-09T21-01-11Z    0.1485   0.9562      0.2577     0.9240          0.1482         0.9545
+2 runs/2017-12-09T21-00-11Z    0.1438   0.9573      0.2655     0.9208          0.1505         0.9559
+3 runs/2017-12-09T19-59-44Z    0.1407   0.9580      0.2597     0.9241          0.1402         0.9578
+4 runs/2017-12-09T19-56-48Z    0.1437   0.9555      0.2610     0.9227          0.1459         0.9551
+```
+
+```{r}
+ls_runs(eval_acc > 0.9570, order = eval_acc)
+```
+```
+Data frame: 2 x 28 
+                    run_dir eval_acc eval_loss metric_loss metric_acc metric_val_loss metric_val_acc
+1 runs/2017-12-09T19-59-44Z   0.9580    0.1407      0.2597     0.9241          0.1402         0.9578
+2 runs/2017-12-09T21-00-11Z   0.9573    0.1438      0.2655     0.9208          0.1505         0.9559
+```
+## tfruns::view_run()
+
+<img src="images/view_run.png" width=560 class="illustration" style="margin-top: -38px; margin-left: 100px;"/>
+
+## tfruns::compare_runs()
+
+<img src="images/compare_runs.png" width=560 class="illustration" style="margin-top: -38px; margin-left: 100px;"/>
+
+## tfruns::flags()
+
+```{r}
+# define flags and their defaults
+FLAGS <- flags(
+  flag_integer("dense_units1", 128),
+  flag_numeric("dropout1", 0.4),
+  flag_integer("dense_units2", 128),
+  flag_numeric("dropout2", 0.3)
+)
+```
+
+```{r}
+# use flag 
+layer_dropout(rate = FLAGS$dropout1)
+```
+
+```{r}
+# train with flag
+training_run("mnist_mlp.R", flags = list(dropout1 = 0.3))
+```
+
+## tfruns::tuning_run() {.smaller}
+
+```{r}
+# run various combinations of dropout1 and dropout2
+runs <- tuning_run("mnist_mlp.R", flags = list(
+  dropout1 = c(0.2, 0.3, 0.4),
+  dropout2 = c(0.2, 0.3, 0.4)
+))
+```
+
+```{r}
+# find the best evaluation accuracy
+runs[order(runs$eval_acc, decreasing = TRUE), ]
+```
+```
+Data frame: 9 x 28 
+                    run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
+9 runs/2018-01-26T13-21-03Z    0.1002   0.9817      0.0346     0.9900          0.1086         0.9794
+6 runs/2018-01-26T13-23-26Z    0.1133   0.9799      0.0409     0.9880          0.1236         0.9778
+5 runs/2018-01-26T13-24-11Z    0.1056   0.9796      0.0613     0.9826          0.1119         0.9777
+4 runs/2018-01-26T13-24-57Z    0.1098   0.9788      0.0868     0.9770          0.1071         0.9771
+2 runs/2018-01-26T13-26-28Z    0.1185   0.9783      0.0688     0.9819          0.1150         0.9783
+3 runs/2018-01-26T13-25-43Z    0.1238   0.9782      0.0431     0.9883          0.1246         0.9779
+8 runs/2018-01-26T13-21-53Z    0.1064   0.9781      0.0539     0.9843          0.1086         0.9795
+7 runs/2018-01-26T13-22-40Z    0.1043   0.9778      0.0796     0.9772          0.1094         0.9777
+1 runs/2018-01-26T13-27-14Z    0.1330   0.9769      0.0957     0.9744          0.1304         0.9751
+```
+
+
+
 
 ## cloudml package
 
