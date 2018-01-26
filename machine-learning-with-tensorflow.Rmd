@@ -664,7 +664,9 @@ job_collect(trials = "best")
 
 ## CloudML: Additional Talk and Contest
 
-- Talk by Google
+Attend Michael Quinn's *Large scale machine learning using TensorFlow, BigQuery and CloudML Engine* talk after the break (interop track) to learn more.
+
+Content details will be announced at the talk!
 
 ## tfdeploy package | <https://tensorflow.rstudio.com/tools/tfdeploy/>
 
@@ -700,14 +702,14 @@ Note that we give the input and output layers names ("image" and "prediction")
 
 # export model
 library(tfdeploy)
-export_savedmodel(model, "minst-model")
+export_savedmodel(model, "savedmodel")
 ```
 
 ## Deployment: serve_savedmodel() | Provide a local HTTP REST interface to the model from R
 
 <div style="margin-top: -38px;">
 ```{r}
-serve_savedmodel("mnist-model")
+serve_savedmodel("savedmodel")
 ```
 
 <img src="images/swagger.png" width=400 class="illustration" style="margin-left: 100px;"/>
@@ -715,17 +717,99 @@ serve_savedmodel("mnist-model")
 
 ## Deployment: TensorFlow Serving | <https://www.tensorflow.org/serving/>
 
+<div style="margin-top: -38px;">
+<div class="columns-2">
+<img src="images/tf_serving_diagram.svg" width="400" class="illustration"/>
+
+TensorFlow Serving is a flexible, high-performance serving system for machine learning models, designed for production environments. 
+
+TensorFlow Serving makes it easy to deploy new algorithms and experiments, while keeping the same server architecture and APIs. 
+
+TensorFlow Serving provides out-of-the-box integration with TensorFlow models, but can be easily extended to serve other types of models and data.
+
+</div>
+</div>
 
 
-## Deployment: RStudio Connect
+## Deployment: RStudio Connect | <https://www.rstudio.com/products/connect/>
 
-## Deployment: CloudML
+<div style="margin-top: -30px;">
+```{r}
+library(rsconnect)
+deployTFModel("savedmodel", account = <username>, server = <internal_connect_server>)
+```
 
-## Deployment: Mobile and Browser
+<div class="columns-2">
+<img src="images/cloudml-training-run.png" width=350 class="illustration"/>
 
-- Additional talk by Javier
+
+
+</div>
+</div>
+
+
+
+## Deployment: CloudML | <https://tensorflow.rstudio.com/tools/cloudml/articles/deployment.html>
+
+```{r}
+library(cloudml)
+cloudml_deploy("savedmodel", name = "keras_mnist")
+```
+```
+Copying file://savedmodel/variables/variables.data-00000-of-00001 ...
+Copying file://savedmodel/saved_model.pb ...
+Copying file://savedmodel/variables/variables.index ...
+/ [3/3 files][  1.9 MiB/  1.9 MiB] 100% Done                                    
+Operation completed over 3 objects/1.9 MiB.
+
+Model created and available in https://console.cloud.google.com/mlengine/models/keras_mnist
+```
+
+
+## Deployment: Embedded, Mobile, and Browser
+
+- Run on embedded devices (e.g. [Raspberry Pi](https://github.com/samjabrahams/tensorflow-on-raspberry-pi))
+
+- Keras models can be converted to iOS [CoreML](https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml)
+
+- Keras models can be deployed to the browser with [Keras.js](https://transcranial.github.io/keras-js/#/)
+
+- Additional projects:
+    - [TensorFlow Lite](https://www.tensorflow.org/mobile/tflite/)
+    - [deeplearn.js](https://deeplearnjs.org/)
+    
+
+Attend Javier Luraschi's *Deploying TensorFlow models with tfdeploy* talk after the break (interop track) to learn more!
 
 ## Deployment: Shiny
+
+<a href="https://jjallaire.shinyapps.io/keras-customer-churn/"><img src="images/keras-customer-churn.png" align="left" width=241 class="illustration" style="margin-right: 60px;"/></a>
+
+- Straightforward to load already trained models into Shiny applications.
+
+- Training code (and hardware!) not required for inference.
+
+<div style="clear: both; margin-bottom: 50px;"></div>
+
+```{r}
+model <- load_model_hdf5("model.hdf5")    # Keras 
+model %>% predict(input)
+
+predict_savedmodel(input, "savedmodel")   # SavedModel
+```
+
+## Data prepreprocessing for deployment
+
+- One catch: data fed to deployed models must be preprocessed (e.g. normalized) in the same fashion as it was preprocessed for training.
+
+- Ideally all preprocessing would happen within the deployed model (i.e. within the TensorFlow graph/runtime) so clients could pass raw data (e.g. text, images, time-series data, etc.)
+
+- The [tfestimators](https://tensorflow.rstudio.com/tfestimators/) package has a solution for this (Feature Columns) however more work is still required for Keras.
+
+- Clients can typically find a way to do the preprocessing but it's often awkward and inconvenient. We'd like to make it much more straightforward and automatic.
+
+
+
 
 
 
