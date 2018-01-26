@@ -34,9 +34,11 @@ knitr::opts_chunk$set(eval = FALSE)
 ## What is TensorFlow? | *A general purpose numerical computing library*
 
 - Hardware independent
-    - CPU (via C++ library [Eigen](http://eigen.tuxfamily.org/))
-    - GPU (via [CUDA](https://en.wikipedia.org/wiki/CUDA))
+    - CPU (via [Eigen](http://eigen.tuxfamily.org/) and [BLAS](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms))
+    - GPU (via [CUDA](https://en.wikipedia.org/wiki/CUDA) and [cuDNN](https://developer.nvidia.com/cudnn))
     - TPU ([Tenor Processing Unit](https://en.wikipedia.org/wiki/Tensor_processing_unit))
+    - Android & iOS
+    - Raspberry Pi
     - Others...
     
 - Supports distributed execution and very large datasets
@@ -146,13 +148,43 @@ head(data.matrix(iris), n = 10)
 <div class="columns-2">
   <img src="images/tensors_flowing.gif" style="margin-top: -38px; margin-left: 65px;"/>
  
+ - You define the graph in R
+ 
+ - Graph is compiled and optimized
 
-  - **Parallelism**--System identifies operations that can execute in parallel.
-  - **Distributed execution**--Graph can be partitioned accross multiple devices.
-  - **Compilation**--Use the information in your dataflow graph to generate faster code (e.g. fusing operations)
-  - **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
+ - Graph is executed (in part, or fully) on devices 
+
+ - Nodes represent computations
+
+ - Data (tensors) flows between them
 </div>
 
+
+## Why a dataflow graph?
+
+<div class="columns-2">
+  <img src="images/tensors_flowing.gif" style="margin-top: -38px; margin-left: 65px;"/>
+
+- **Parallelism**--System runs operations in parallel.
+- **Distributed execution**--Graph is partitioned accross multiple devices.
+- **Compilation**--Use the information in your dataflow graph to generate faster code (e.g. fusing operations)
+- **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
+</div>
+
+
+## Graph is generated automatically from R code
+
+<div class="columns-2">
+  
+**R Code**
+
+<img src="images/keras-graph-code.png" class="illustration" width=450 style="margin-bottom: 150px;" />
+  
+**TensorFlow Graph**  
+
+<img src="images/keras-graph.png" class="illustration" width=450/>
+
+</div>
 
 
 
@@ -396,6 +428,18 @@ for (step in 1:200) {
 
 TODO: Deep learning section
 
+- Use stats on adoption of TF within Google 
+
+Less feature engineering == more accessible
+
+## Why TensorFlow for Deep Learning?
+
+- scalable
+- deployment at google
+
+Momentum, 
+
+
 ## Supporting Tools
 
 - [tfruns](https://tensorflow.rstudio.com/tools/tfruns/) package
@@ -515,6 +559,10 @@ Data frame: 9 x 28
 
 
 </div>
+
+## Use this from the comfort of your own laptop!
+
+<img src="images/google-datacenter.png" width=900 style="margin-top: -25px;" />
 
 ## cloudml::cloudml_train() 
 
