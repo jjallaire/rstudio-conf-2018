@@ -788,7 +788,7 @@ deployTFModel("savedmodel", account = <username>, server = <internal_connect_ser
 ```
 
 <div class="columns-2">
-<img src="images/cloudml-training-run.png" width=350 class="illustration"/>
+<img src="images/rsconnect-server.png" width=350 class="illustration"/>
 
 
 
