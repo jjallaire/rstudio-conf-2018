@@ -31,19 +31,46 @@ knitr::opts_chunk$set(eval = FALSE)
 
 - Learning More
 
-## What is TensorFlow? | *A general purpose numerical computing library*
+## What is TensorFlow? | *A general purpose numerical computing library* {.smaller}
 
+<div class="columns-2" style="margin-top: -38px;">
+  
+  <img src="images/tensorflow-logo-large.png" width=400/>
+ 
+ 
+-  Originally developed by researchers and engineers working on the Google Brain Team for the purposes of conducting machine learning and deep neural networks research.
+- Open source software (Apache v2.0 license) 
 - Hardware independent
     - CPU (via [Eigen](http://eigen.tuxfamily.org/) and [BLAS](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms))
     - GPU (via [CUDA](https://en.wikipedia.org/wiki/CUDA) and [cuDNN](https://developer.nvidia.com/cudnn))
     - TPU ([Tenor Processing Unit](https://en.wikipedia.org/wiki/Tensor_processing_unit))
-    - Android & iOS
-    - Raspberry Pi
-    - Others...
-    
-- Supports distributed execution and very large datasets
-
 - Supports [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
+- Distributed execution and large datasets
+
+</div>
+
+## TensorFlow Community
+
+Rapid development, many outside contributors
+
+- 1,200+ contributors to TensorFlow (950+ non-Google) 
+- 26,500+ commits
+- 41,000+ GitHub repositories (forks)
+- 9.8M+  downloads
+- 84,000+ stars on Github
+- ~8,000 GitHub issues filed and answered
+- 10,000 Stack Overflow questions answered
+
+Use in ML classes is growing: 9 out of top 14 online deep learning courses use TensorFlow
+
+## Rapid Adoption | Cumulative GitHub stars
+
+<img src="images/github-stars.png" width=800px style="margin-top: -38px;" class="illustration"/>
+
+## Use in Research | Total scientific literature count
+
+<img src="images/tensorflow-scientific-literature.png" width=800px style="margin-top: -38px;" class="illustration"/>
+
 
 ## Why should R users care?
 
@@ -53,7 +80,7 @@ knitr::opts_chunk$set(eval = FALSE)
      - Large datasets
      - Automatic differentiation
 
-- Robust foundation for many deep learning applications
+- Robust foundation for machine learning and deep learning applications
 
 - TensorFlow models can be deployed with a low-latency C++ runtime
 
@@ -436,6 +463,7 @@ Less feature engineering == more accessible
 
 - scalable
 - deployment at google
+- https://docs.google.com/presentation/d/17RshHdryYgW1uwemSDl4zap79QooE82mPXTST22IbUo/edit#slide=id.g32873ab923_0_0
 
 Momentum, 
 
