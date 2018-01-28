@@ -14,6 +14,10 @@ knitr::opts_chunk$set(eval = FALSE)
 <style type="text/css">
 .illustration {
   border: solid 1px #cccccc;
+}
+small {
+  font-size: 0.7em;
+}
 </style>
 
 
@@ -566,9 +570,191 @@ Layers perform transformations using weights, but how do we learn the weights?
 <img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
  class="illustration"/>
 
-## TODO
+## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
 
-Acknowledge Francois before section
+<img src="images/geometric_interpretation_4.jpg" width=600 style="margin-top: -38px;"/>
+
+<div class="columns-2">
+
+<div>
+- Near-human-level image classification
+- Near-human-level speech recognition
+- Near-human-level handwriting transcription
+- Improved machine translation
+- Improved text-to-speech conversion
+</div>
+
+<div>
+- Near-human-level autonomous driving
+- Improved search results on the web
+- Abilty to answer natural language questions
+- Superhuman Go playing
+</div>
+
+</div>
+
+## Why now? | Many key algorithms were already developed by 1997
+
+- Hardware (NVIDIA GPUs)
+
+- Data (internet enabled collection and distribution of very large datasets)
+
+- Various algorithmic advances enabled training models with 10 or more layers
+    
+- Research now proceeding at a furious pace!
+
+## Some problems with deep learning | My model uses *deep* learning so it must be better!
+
+- Models cannot be easily interpreted (black box)
+- Models can be brittle (see "adversarial examples")
+- Models are often very expensive to train
+- Current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
+- It can be quite difficuilt (or impossible!) to out-perform traditional modeling techniques on many problems.
+
+## In spite of problems, extraordinarly useful! | We should help DL find it's appropriate place rather than dismiss it
+
+<img src="images/google-adoption.png" width=700 style="margin-top: -20px;"/>
+
+
+## Why should R users care about deep learning?
+
+- New problem domains for R:
+    - Computer vision
+    - Computer speech recognition and translation
+    - Various other forms of complex pattern recognition
+
+- Improved techniques for our traditional domains:
+    - Analyzing data with complex spatial or sequence dependencies
+    - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
+
+## Deep Learning Frontiers
+
+- Visual recognition
+
+- Language translation
+
+- Time series
+
+- Biology
+
+- What next?
+
+
+## Visual Recognition | <https://dl.acm.org/citation.cfm?id=2999257> {.smaller}
+
+<div class="columns-2" style="margin-top: -20px;">
+
+<img src="images/imagenet-frontier.png" width=350 style="" class="illustration"/>
+
+- ImageNet: 3.2 million labelled images, separated into 5,247 categories, sorted into 12 subtrees like “mammal,” “vehicle,” and “furniture.”
+
+- ImageNet Challenge: an annual competition (2010-2017) to see which algorithms could identify objects in the dataset’s images with the lowest error rate.
+
+- Accuracy improved from 71.8% to 97.3% over the lifetime of the contest.
+
+- Deep learning was used for the first time in 2012, and beat the field by 10.8%.
+
+</div>
+
+## Language Translation | https://arxiv.org/abs/1609.08144
+
+<div style="margin-top: -38px;">
+Google's Neural Machine Translation System
+
+<img src="images/language-frontier.png" width=700 style="" class="illustration"/>
+</div>
+
+## Time Series | http://ieeexplore.ieee.org/document/7870510/
+
+<img src="images/timeseries-frontier.png" width=600 class="illustration" style="margin-top: -38px;"/>
+
+## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760
+
+<img src="images/biology-frontier.png" width=550 class="illustration" style="margin-top: -38px;"/>
+
+## What Next? | <https://arxiv.org/abs/1801.07860>
+
+<img src="images/healthrecords-frontier.png" width=800 class="illustration" style="margin-top: -30px;"/>
+
+## Some Examples | https://tensorflow.rstudio.com/gallery/
+
+- Image classification on small datasets
+- Time series forecasting with recurrent networks
+- Peptide classification using convolutional networks
+- Credit card fraud detection using an autoencoder
+- Classifying duplicate questions from Quora
+- Learning word embeddings for Amazon reviews
+- Generative models
+
+
+## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets.html</small>
+
+```{r}
+# use a pretrained model as the base of a new classifier
+conv_base <- application_vgg16(
+  weights = "imagenet",
+  include_top = FALSE,
+  input_shape = c(150, 150, 3)
+)
+
+model <- keras_model_sequential() %>% 
+  conv_base %>% 
+  layer_flatten() %>% 
+  layer_dense(units = 256, activation = "relu") %>% 
+  layer_dense(units = 1, activation = "sigmoid")
+
+```
+
+## Time series forecasting with recurrent networks | <small>https://tensorflow.rstudio.com/blog/time-series-forecasting-with-recurrent-neural-networks.html</small>
+
+```{r}
+# stacked recurrent layers
+model <- keras_model_sequential() %>% 
+  layer_gru(units = 32, dropout = 0.1, recurrent_dropout = 0.5,
+            return_sequences = TRUE, input_shape = list(NULL, dim(data)[[-1]])) %>% 
+  layer_gru(units = 64, dropout = 0.1, recurrent_dropout = 0.5,
+            activation = "relu") %>% 
+  layer_dense(units = 1)
+
+# bidirectional recurrent layers
+model <- keras_model_sequential() %>% 
+  bidirectional(
+    layer_gru(units = 32), input_shape = list(NULL, dim(data)[[-1]])
+  ) %>% 
+  layer_dense(units = 1)
+```
+
+
+## Peptide classification using CNNs
+
+
+
+
+
+## Credit card fraud detection using an autoencoder | <https://tensorflow.rstudio.com/blog/keras-fraud-autoencoder.html> {.smaller}
+
+<div class="columns-2" style="margin-top: -30px;">
+
+<img src="images/joy-division.png" width=400 class="illustration"/>
+
+- An [autoencoder](https://en.wikipedia.org/wiki/Autoencoder) is a neural network that is used to learn a representation (encoding) for a set of data, typically for the purpose of dimensionality reduction.
+
+-  For this problem we train an autoencoder to encode non-fraud observations from our training set.
+
+- Since frauds are supposed to have a different distribution then normal transactions, we expect that our autoencoder will have higher reconstruction errors on frauds then on normal transactions.
+
+</div>
+
+
+## Classifying duplicate questions from Quora | <small>https://tensorflow.rstudio.com/blog/keras-duplicate-questions-quora.html</small>
+
+
+
+## Learning word embeddings for Amazon reviews
+
+
+## Generative models
+
 
 
 ## Supporting Tools
