@@ -451,21 +451,124 @@ for (step in 1:200) {
 ```
 
 
-## Deep Learning
+## TensorFlow and Deep Learning
 
-TODO: Deep learning section
+- Deep learning was a principle motivator for the creation of TensorFlow
 
-- Use stats on adoption of TF within Google 
+- What is deep learning and what is it useful for?
 
-Less feature engineering == more accessible
+- How is deep learning relevant to the R community?
 
-## Why TensorFlow for Deep Learning?
+<br/>
 
-- scalable
-- deployment at google
-- https://docs.google.com/presentation/d/17RshHdryYgW1uwemSDl4zap79QooE82mPXTST22IbUo/edit#slide=id.g32873ab923_0_0
+<img src="images/Allaire-DLwithR-HI.png" width=80  align=left class="illustration" style="margin-right: 25px;"/>
 
-Momentum, 
+
+Special thanks to François Chollet (creator of Keras) for the concepts and figures used to explain deep learning! (all drawn from Chapter 1 of his [Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) book)
+
+
+
+
+## Deep Learning and Machine Learning | A subfield of machine learning, which is in turn a subfield of AI
+
+<img src="images/ai-ml-dl.png" width=675  style="margin-top: -38px;"/>
+
+## Machine Learning Algorithms | Learning model parameters via exposure to many example data points
+
+- Input data points (e.g. *images*)
+
+- Labels (e.g. *cat* vs. *dog*)
+
+- Model architecture (e.g. *logistic regression*)
+
+- Loss function (measures performance of model, e.g. *categorical crossentroopy*)
+
+- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
+
+- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
+
+## Statistical Modeling vs. Machine Learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
+
+<div style="margin-top: -38px;">
+<https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning>
+</div>
+
+<div class="columns-2" >
+
+<img src="images/stats-vs-ml.png" width=470 class="illustration"/>
+
+<img src="images/machine_learning.png" width=305 />
+
+</div>
+
+## Learning Representations | ML models transform input data into useful representations
+
+<img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
+
+Machine-learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
+
+## The "Deep" in Deep Learning 
+
+A new take on learning representations from data that puts an emphasis on learning successive layers of increasingly meaningful representations.
+
+Other possibly more appropriate names for the field:
+
+- Layered representations learning
+
+- Hierarchical representations learning
+
+Modern deep learning often involves tens or even hundreds of successive layers of representation
+
+Other approaches to machine learning tend to focus on learning only one or two layers of representations of the data
+
+## Input to Output via Layers of Representation
+
+<img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
+ class="illustration"/>
+
+Layers perform transformations using weights, but how do we learn the weights?
+
+## Using Input Data and Labels to Learn Weights
+
+<img src="images/deep-learning-in-3-figures-1.png" width=750 style="margin-top: -20px;"/>
+
+## Evaluate the Loss for Each Training Batch {.smaller}
+
+<div class="columns-2">
+
+<img src="images/deep-learning-in-3-figures-2.png" width=450 class="illustration" style="margin-top: -20px;"/>
+
+- The *loss function* takes the predictions of the network and the true targets (what you wanted the network to output) and computes a distance score, capturing how well the network has done on a batch of examples. 
+
+- The fundamental trick in deep learning is to use this score as a feedback signal to adjust the value of the weights a little, in a direction that will lower the loss score for the current batch of examples. This adjustment is the job of the *optimizer*.
+
+</div>
+
+## Loss is a Feedback Signal Used to Update Weights {.smaller}
+
+<div class="columns-2">
+
+<img src="images/deep-learning-in-3-figures-3.png" width=450 class="illustration" style="margin-top: -20px;"/>
+
+- Updates are done via the [backpropagation algorithm](https://en.wikipedia.org/wiki/Backpropagation), using the using the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) (from calculus) to iteratively compute gradients for each layer.
+
+- The training loop, which, repeated a sufficient number of times (typically tens of iterations over thousands of examples), yields weight values that minimize the loss function.
+
+</div>
+
+## MNIST Layers of Representation
+
+<img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
+ class="illustration"/>
+
+## What is Deep Learning? | A simple mechanism that, once scaled, ends up looking like magic
+
+<img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
+ class="illustration"/>
+
+## TODO
+
+Acknowledge Francois before section
 
 
 ## Supporting Tools
