@@ -53,7 +53,7 @@ small {
 
 </div>
 
-## TensorFlow Community
+## TensorFlow community
 
 Rapid development, many outside contributors
 
@@ -67,11 +67,11 @@ Rapid development, many outside contributors
 
 Use in ML classes is growing: 9 out of top 14 online deep learning courses use TensorFlow
 
-## Rapid Adoption | Cumulative GitHub stars
+## Rapid adoption | Cumulative GitHub stars
 
 <img src="images/github-stars.png" width=800px style="margin-top: -38px;" class="illustration"/>
 
-## Use in Research | Total scientific literature count
+## Use in research | Total scientific literature count
 
 <img src="images/tensorflow-scientific-literature.png" width=800px style="margin-top: -38px;" class="illustration"/>
 
@@ -97,7 +97,7 @@ Use in ML classes is growing: 9 out of top 14 online deep learning courses use T
 
 <https://greta-dev.github.io/greta/>
 
-## Greta Air Model 
+## Greta air model 
 
 ```{r}
 # Greta
@@ -145,7 +145,7 @@ features)`
 - *Video*—5D tensors of shape `(samples, frames, height, width, channels)` 
 
 
-## 2D Tensors | *Vector data*
+## 2D tensors | *Vector data*
 
 ```{r}
 head(data.matrix(iris), n = 10)
@@ -164,12 +164,12 @@ head(data.matrix(iris), n = 10)
 [10,]          4.9         3.1          1.5         0.1       1
 ```
 
-## 3D Tensors | *Timeseries or sequence data*
+## 3D tensors | *Timeseries or sequence data*
 
 <img src="images/timeseries_data.png" width=800/>
 
 
-## 4D Tensors | *Image data*
+## 4D tensors | *Image data*
 
 <img src="images/image_data.png" width=450/>
 
@@ -190,19 +190,6 @@ head(data.matrix(iris), n = 10)
  - Data (tensors) flows between them
 </div>
 
-
-## Why a dataflow graph?
-
-<div class="columns-2">
-  <img src="images/tensors_flowing.gif" style="margin-top: -38px; margin-left: 65px;"/>
-
-- **Parallelism**--System runs operations in parallel.
-- **Distributed execution**--Graph is partitioned across multiple devices.
-- **Compilation**--Use the information in your dataflow graph to generate faster code (e.g. fusing operations)
-- **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
-</div>
-
-
 ## Graph is generated automatically from R code
 
 <div class="columns-2">
@@ -218,9 +205,19 @@ head(data.matrix(iris), n = 10)
 </div>
 
 
+## Why a dataflow graph?
+
+<div class="columns-2">
+  <img src="images/tensors_flowing.gif" style="margin-top: -38px; margin-left: 65px;"/>
+
+- **Parallelism**--System runs operations in parallel.
+- **Distributed execution**--Graph is partitioned across multiple devices.
+- **Compilation**--Use the information in your dataflow graph to generate faster code (e.g. fusing operations)
+- **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
+</div>
 
 
-## R Interface to Tensorflow
+## R interface to Tensorflow
 
 - High-level R interfaces for neural nets and traditional models
 
@@ -237,7 +234,7 @@ head(data.matrix(iris), n = 10)
 <img src="images/tensorflow-apis.png" width=1000/>
 
 
-## R Packages
+## R packages
 
 <div class="columns-2">
 
@@ -248,7 +245,7 @@ head(data.matrix(iris), n = 10)
 - [tensorflow](https://tensorflow.rstudio.com/tensorflow/)---Low-level interface to the TensorFlow computational graph.
 - [tfdatasets](https://tensorflow.rstudio.com/tools/tfdatasets/)---Scalable input pipelines for TensorFlow models. 
 
-### Supporting Tools
+### Supporting tools
 
 - [tfruns](https://tensorflow.rstudio.com/tools/tfruns/)---Track, visualize, and manage TensorFlow training runs and experiments.
 - [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/)---Tools designed to make exporting and serving TensorFlow models straightforward.
@@ -269,7 +266,7 @@ head(data.matrix(iris), n = 10)
 
 - https://keras.rstudio.com
 
-## Keras Adoption
+## Keras adoption
 
 <div class="columns-2">
 
@@ -279,18 +276,18 @@ head(data.matrix(iris), n = 10)
 
 </div>
 
-## Layers in Neural Networks | A data-processing module that you can think of as a filter for data
+## Layers in neural networks | A data-processing module that you can think of as a filter for data
 
 
 <img src="images/a_deep_network.png" width=800 class="illustration"/>
 
-## Layers in Neural Networks (cont.) | Layers implement a form of progressive data distillation
+## Layers in neural networks (cont.) | Layers implement a form of progressive data distillation
 
 <img src="images/mnist_representations.png" width=800 class="illustration"/>
 
 
 
-## Keras Layers | A grammer for specifying the layers of a neural network
+## Keras layers | A grammer for specifying the layers of a neural network
 
 ```{r}
 model <- keras_model_sequential() %>%
@@ -306,7 +303,7 @@ model <- keras_model_sequential() %>%
 ```
 
 
-## Keras: Data Preprocessing 
+## Keras: Data preprocessing 
 
 <img src="images/MNIST.png" width=200 class="illustration" style="margin-top: -38px;"/>
 
@@ -327,7 +324,7 @@ y_train <- to_categorical(y_train, 10)
 y_test <- to_categorical(y_test, 10)
 ```
 
-## Keras: Model Definition
+## Keras: Model definition
 
 ```{r}
 model <- keras_model_sequential()  %>% 
@@ -344,7 +341,7 @@ model %>% compile(
 )
 ```
 
-## Keras: Model Definition (cont.) {.smaller}
+## Keras: Model definition (cont.) {.smaller}
 
 ```{r}
 summary(model)
@@ -370,7 +367,7 @@ ________________________________________________________________________________
 ```
 
 
-## Keras: Model Training
+## Keras: Model training
 
 ```{r}
 history <- model %>% fit(
@@ -393,14 +390,14 @@ Final epoch (plot to see history):
 val_loss: 1.088 
 ```
 
-## Keras: Model Training (cont.)
+## Keras: Model training (cont.)
 
 ```{r}
 plot(history)
 ```
 <img src="images/keras_training_history.png" width=600 class="illustration"/>
 
-## Keras: Evaluation and Prediction
+## Keras: Evaluation and prediction
 
 ```{r}
 model %>% evaluate(x_test, y_test)
@@ -455,7 +452,7 @@ for (step in 1:200) {
 ```
 
 
-## TensorFlow and Deep Learning
+## TensorFlow and deep learning
 
 - Deep learning was a principle motivator for the creation of TensorFlow
 
@@ -473,11 +470,11 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 
 
-## Deep Learning and Machine Learning | A subfield of machine learning, which is in turn a subfield of AI
+## Deep learning and machine learning | A subfield of machine learning, which is in turn a subfield of AI
 
 <img src="images/ai-ml-dl.png" width=675  style="margin-top: -38px;"/>
 
-## Machine Learning Algorithms | Learning model parameters via exposure to many example data points
+## Machine learning algorithms | Learning model parameters via exposure to many example data points
 
 - Input data points (e.g. *images*)
 
@@ -491,7 +488,7 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 - *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
 
-## Statistical Modeling vs. Machine Learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
+## Statistical modeling vs. machine learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
 
 <div style="margin-top: -38px;">
 <https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning>
@@ -505,13 +502,13 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 </div>
 
-## Learning Representations | ML models transform input data into useful representations
+## Learning representations | ML models transform input data into useful representations
 
 <img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
 
 Machine-learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
 
-## The "Deep" in Deep Learning 
+## The "deep" in deep learning 
 
 A new take on learning representations from data that puts an emphasis on learning successive layers of increasingly meaningful representations.
 
@@ -525,18 +522,18 @@ Modern deep learning often involves tens or even hundreds of successive layers o
 
 Other approaches to machine learning tend to focus on learning only one or two layers of representations of the data
 
-## Input to Output via Layers of Representation
+## Input to output via layers of representation
 
 <img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
  class="illustration"/>
 
 Layers perform transformations using weights, but how do we learn the weights?
 
-## Using Input Data and Labels to Learn Weights
+## Using input data and labels to learn weights
 
 <img src="images/deep-learning-in-3-figures-1.png" width=750 style="margin-top: -20px;"/>
 
-## Evaluate the Loss for Each Training Batch {.smaller}
+## Evaluate the loss for each training batch {.smaller}
 
 <div class="columns-2">
 
@@ -548,7 +545,7 @@ Layers perform transformations using weights, but how do we learn the weights?
 
 </div>
 
-## Loss is a Feedback Signal Used to Update Weights {.smaller}
+## Loss is a feedback signal used to update weights {.smaller}
 
 <div class="columns-2">
 
@@ -560,13 +557,13 @@ Layers perform transformations using weights, but how do we learn the weights?
 
 </div>
 
-## MNIST Layers of Representation
+## MNIST layers of representation
 
 <img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
  class="illustration"/>
  
 
-## Keras API: MNIST Layers
+## Keras API: MNIST layers
 
 ```{r}
 model <- keras_model_sequential() %>%
@@ -600,7 +597,7 @@ model <- keras_model_sequential() %>%
 </div>
 
 
-## Keras API: Compiling Models
+## Keras API: Compiling models
 
 ```{r}
 model %>% compile(
@@ -609,6 +606,23 @@ model %>% compile(
   metrics = c('accuracy')
 )
 ```
+
+## Keras API: In place modification | Object semantics are not by-value! (as is conventional in R)
+
+```{r}
+# Modify model object in place (note that it is not assigned back to)
+model %>% compile(
+  optimizer = 'rmsprop',
+  loss = 'binary_crossentropy',
+  metrics = c('accuracy')
+)
+```
+
+- Keras models are directed acyclic graphs of layers whose state is updated during training.
+
+- Keras layers can be shared by multiple parts of a Keras model.
+
+
 
 ## Keras API: Losses | https://tensorflow.rstudio.com/keras/reference/#section-losses {.smaller}
 
@@ -657,7 +671,7 @@ model %>% compile(
 `metric_squared_hinge()`  
 `metric_top_k_categorical_accuracy()`  
 
-## Keras API: Fitting Models
+## Keras API: Fitting models
 
 ```{r}
 history <- model %>% fit(
@@ -675,7 +689,7 @@ plot(history)
 <img src="images/keras_training_history.png" width=300 class="illustration"/>
 
 
-## What is Deep Learning? | A simple mechanism that, once scaled, ends up looking like magic
+## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
 
 <img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
  class="illustration"/>
@@ -704,7 +718,7 @@ plot(history)
 
 </div>
 
-## Why Now? | Key algorithms have been around for a long time
+## Why now? | Key algorithms have been around for a long time. What changed?
 
 - Hardware (NVIDIA GPUs)
 
@@ -714,13 +728,21 @@ plot(history)
     
 - Early successes have fueled additional research
 
-## Some problems with deep learning | My model uses *deep* learning so it must be better!
+## Some problems with deep learning 
 
 - Models cannot be easily interpreted (black box)
 - Models can be brittle (see "adversarial examples")
 - Models are often very expensive to train
-- Current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
-- It can be quite difficult (or impossible!) to out-perform traditional modeling techniques on many problems.
+- Often difficuilt to outperform traditional modeling techniques
+
+## Deep learning hype makes things worse | My model is *deep* so it must be better!
+
+- Deep learning is experiencing unprecedted hype, and...
+- The current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
+- It can be quite difficult (or impossible!) to out-perform traditional modeling techniques on many problems, so...
+- We will be trolled by bad deep learning models for the forseeable future
+
+Of course we can help here by promoting a more balanced dialog about the strenghts and weaknesses of these methods.
 
 ## In spite of problems, extraordinarly useful! | We should help DL find it's appropriate place rather than dismiss it
 
@@ -738,9 +760,9 @@ plot(history)
     - Analyzing data with complex spatial or sequence dependencies
     - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
 
-## Deep Learning Frontiers
+## Deep learning frontiers
 
-- Visual recognition
+- Computer vision
 
 - Language translation
 
@@ -751,7 +773,7 @@ plot(history)
 - What next?
 
 
-## Visual Recognition | <https://dl.acm.org/citation.cfm?id=2999257> {.smaller}
+## Computer vision | <https://dl.acm.org/citation.cfm?id=2999257> {.smaller}
 
 <div class="columns-2" style="margin-top: -20px;">
 
@@ -767,7 +789,7 @@ plot(history)
 
 </div>
 
-## Language Translation | https://arxiv.org/abs/1609.08144
+## Language translation | https://arxiv.org/abs/1609.08144
 
 <div style="margin-top: -38px;">
 Google's Neural Machine Translation System
@@ -775,7 +797,7 @@ Google's Neural Machine Translation System
 <img src="images/language-frontier.png" width=700 style="" class="illustration"/>
 </div>
 
-## Time Series | http://ieeexplore.ieee.org/document/7870510/
+## Time series | http://ieeexplore.ieee.org/document/7870510/
 
 <img src="images/timeseries-frontier.png" width=600 class="illustration" style="margin-top: -38px;"/>
 
@@ -783,11 +805,11 @@ Google's Neural Machine Translation System
 
 <img src="images/biology-frontier.png" width=550 class="illustration" style="margin-top: -38px;"/>
 
-## What Next? | <https://arxiv.org/abs/1801.07860>
+## What next? | <https://arxiv.org/abs/1801.07860>
 
 <img src="images/healthrecords-frontier.png" width=800 class="illustration" style="margin-top: -30px;"/>
 
-## Some Examples | https://tensorflow.rstudio.com/gallery/
+## Some examples | https://tensorflow.rstudio.com/gallery/
 
 - Image classification on small datasets
 - Time series forecasting with recurrent networks
@@ -903,7 +925,7 @@ TODO
 </div>
 
 
-## Deep Learning Frontiers (revisited)
+## Deep learning frontiers (revisited)
 
 - Many fields of inquiry have a deep learning frontier that has not yet been reached or even well approached.
 
@@ -916,7 +938,7 @@ TODO
     
 - To approach the frontier you need understanding of the full range of DL techniques, iteration, patience, and lots of compute power!    
 
-## Supporting Tools
+## Supporting tools
 
 - [tfruns](https://tensorflow.rstudio.com/tools/tfruns/) package
 
@@ -1100,7 +1122,7 @@ Data frame: 6 x 37
 #   cloudml_state
 ```
 
-## CloudML Hyperparameter Tuning | Start by using FLAGS in your training script
+## CloudML hyperparameter tuning | Start by using FLAGS in your training script
 
 <div style="margin-top: -38px;">
 ```{r}
@@ -1121,7 +1143,7 @@ model <- keras_model_sequential() %>%
 ```
 </div>
 
-## CloudML Hyperparameter Tuning (cont.) | Create a tuning configuration file (tuning.yml)
+## CloudML hyperparameter tuning (cont.) | Create a tuning configuration file (tuning.yml)
 
 <div style="margin-top: -38px;">
 ```yaml
@@ -1144,7 +1166,7 @@ trainingInput:
 ```
 </div>
 
-## CloudML Hyperparameter Tuning (cont.) | Run the tuning job and inspect trials{.smaller}
+## CloudML hyperparameter tuning (cont.) | Run the tuning job and inspect trials{.smaller}
 
 <div style="margin-top: -38px;">
 ```{r}
@@ -1169,7 +1191,7 @@ finalMetric.objectiveValue finalMetric.trainingStep hyperparameters.dropout1 hyp
 ```
 </div>
 
-## CloudML Hyperparameter Tuning (cont.) | Collect the best performing trial
+## CloudML hyperparameter tuning (cont.) | Collect the best performing trial
 
 <div style="margin-top: -38px;">
 ```{r}
@@ -1284,7 +1306,7 @@ Model created and available in https://console.cloud.google.com/mlengine/models/
 ```
 
 
-## Deployment: Embedded, Mobile, and Browser
+## Deployment: Embedded, mobile, and browser
 
 - Run on embedded devices (e.g. [Raspberry Pi](https://github.com/samjabrahams/tensorflow-on-raspberry-pi))
 
@@ -1327,10 +1349,6 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 - Clients can typically find a way to do the preprocessing but it's often awkward and inconvenient. We'd like to make it much more straightforward and automatic.
 
 
-
-
-
-
 ## Learning more | <https://tensorflow.rstudio.com/learn/>
 
 - Recommended reading
@@ -1342,7 +1360,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 - Subscribe to the TensorFlow for R blog!
 
 
-## Recommended Reading
+## Recommended reading
 
 <div class="columns-2" style="margin-top: -38px">
 
@@ -1376,22 +1394,6 @@ TensorFlow for R: <https://tensorflow.rstudio.com>
 <br/>
 
 Stay up to date at: <https://tensorflow.rstudio.com/blog/>
-
-
-## In Place Modification | Object semantics are not by-value! (as is conventional in R)
-
-```{r}
-# Modify model object in place (note that it is not assigned back to)
-model %>% compile(
-  optimizer = 'rmsprop',
-  loss = 'binary_crossentropy',
-  metrics = c('accuracy')
-)
-```
-
-- Keras models are directed acyclic graphs of layers whose state is updated during training.
-
-- Keras layers can be shared by multiple parts of a Keras model.
 
 
 
