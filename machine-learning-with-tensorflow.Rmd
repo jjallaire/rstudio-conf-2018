@@ -1,6 +1,6 @@
 ---
 title: "Machine Learning with TensorFlow and R"
-author: "J.J. Allaire<br/>rstudio::conf 2018"
+author: "J.J. Allaire --- RStudio"
 output: 
   ioslides_presentation:
     widescreen: true
