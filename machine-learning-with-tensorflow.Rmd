@@ -1387,7 +1387,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 
 <a style="border-bottom: none;" href="https://tensorflow.rstudio.com/learn/gallery.html"><img src="images/gallery.png" width=625 class="illustration" style="margin-top: -38px;"/></a>
 
-## Thank you!
+## Thank you! | https://tensorflow.rstudio.com
 
 <img src="images/r-logo.png" width=100/> <img src="images/tensorflow-logo.png" width=100 style="margin-left: 20px; ma"/> 
 
@@ -1397,11 +1397,9 @@ Slides: <https://beta.rstudioconnect.com/ml-with-tensorflow-and-r/>
 
 <br/>
 
-TensorFlow for R: <https://tensorflow.rstudio.com>
+Subscribe to the blog to stay up to date!
 
-<br/>
-
-Stay up to date at: <https://tensorflow.rstudio.com/blog/>
+<https://tensorflow.rstudio.com/blog/>
 
 
 
