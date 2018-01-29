@@ -680,11 +680,12 @@ Google's Neural Machine Translation System
 
 - Image classification on small datasets
 - Time series forecasting with recurrent networks
-- Peptide classification using convolutional networks
+- Deep learning for cancer immunotherapy
 - Credit card fraud detection using an autoencoder
 - Classifying duplicate questions from Quora
+- Deep learning to predict customer churn
 - Learning word embeddings for Amazon reviews
-- Generative models
+
 
 
 ## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets.html</small>
@@ -725,8 +726,9 @@ model <- keras_model_sequential() %>%
 ```
 
 
-## Peptide classification using CNNs
+## Deep learning for cancer immunotherapy
 
+TODO
 
 
 
@@ -746,15 +748,48 @@ model <- keras_model_sequential() %>%
 </div>
 
 
-## Classifying duplicate questions from Quora | <small>https://tensorflow.rstudio.com/blog/keras-duplicate-questions-quora.html</small>
+## Classifying duplicate questions from Quora | <small>https://tensorflow.rstudio.com/blog/keras-duplicate-questions-quora.html</small> {.smaller}
+
+<div class="columns-2" style="margin-top: -30px;">
+
+<img src="images/keras-duplicate-questions-quora.png" width=400 class="illustration"/>
+
+- Uses Kaggle [Quora Question Pairs](https://www.kaggle.com/c/quora-question-pairs) dataset and consists of approximately 400,000 pairs of questions along with a column indicating if the question pair is considered a duplicate.
+
+- Learn a function that maps input patterns into a target space such that a similarity measure in the target space approximates the “semantic” distance in the input space.
+
+- Bonus: Shiny front-end application to score example questions.
+
+</div>
 
 
+## Deep learning to predict customer churn | <small>https://tensorflow.rstudio.com/blog/keras-customer-churn.html</small> {.smaller}
 
-## Learning word embeddings for Amazon reviews
+<div class="columns-2" style="margin-top: -30px;">
+
+<img src="images/keras-customer-churn.png" width=449 class="illustration"/>
+
+- Model customer churn risk using a simple multi-layer perceptron
+- Demonstrates the use of the [recipes](https://topepo.github.io/recipes/) package for data preprocessing.
+- Demonstrates use of the [lime](https://github.com/thomasp85/lime) package to explain the features driving individual model predictions.
+- Includes a Shiny application with a customer scorecard to monitor customer churn risk.
+
+</div>
 
 
-## Generative models
+## Learning word embeddings for Amazon reviews | <small>https://tensorflow.rstudio.com/blog/word-embeddings-with-keras.html</small>{.smaller}
 
+
+<div class="columns-2" style="margin-top: -30px;">
+
+<img src="images/word-embeddings-with-keras.png" width=449 class="illustration"/>
+
+- Word embedding is a method used to map words of a vocabulary to dense vectors of real numbers where semantically similar words are mapped to nearby points. 
+
+- This in turn can improve natural language processing tasks like syntactic parsing and sentiment analysis by grouping similar words.
+
+
+</div>
 
 
 ## Supporting Tools
@@ -1026,12 +1061,6 @@ job_collect(trials = "best")
 
 </div>
 </div>
-
-## CloudML: Additional Talk and Contest
-
-Attend Michael Quinn's *Large scale machine learning using TensorFlow, BigQuery and CloudML Engine* talk after the break (interop track) to learn more.
-
-Content details will be announced at the talk!
 
 ## tfdeploy package | <https://tensorflow.rstudio.com/tools/tfdeploy/>
 
