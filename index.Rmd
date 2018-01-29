@@ -821,42 +821,31 @@ Google's Neural Machine Translation System
 
 
 
-## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets</small>
+## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets</small> {.smaller}
 
-```{r}
-# use a pretrained model as the base of a new classifier
-conv_base <- application_vgg16(
-  weights = "imagenet",
-  include_top = FALSE,
-  input_shape = c(150, 150, 3)
-)
+<div class="columns-2" style="margin-top: -10px;">
 
-model <- keras_model_sequential() %>% 
-  conv_base %>% 
-  layer_flatten() %>% 
-  layer_dense(units = 256, activation = "relu") %>% 
-  layer_dense(units = 1, activation = "sigmoid")
+<img src="images/swapping_fc_classifier.png" width=440 class="illustration"/>
 
-```
+- Demonstrates *transfer learning* (training a new model with a pre-trained model as a starting point) for image classification.
 
-## Time series forecasting with recurrent networks | <small>https://tensorflow.rstudio.com/blog/time-series-forecasting-with-recurrent-neural-networks.html</small>
+- Achieves 97% prediction accuracy on dogs-vs-cats dataset trained on only 2,000 input images.
+</div>
 
-```{r}
-# stacked recurrent layers
-model <- keras_model_sequential() %>% 
-  layer_gru(units = 32, dropout = 0.1, recurrent_dropout = 0.5,
-            return_sequences = TRUE, input_shape = list(NULL, dim(data)[[-1]])) %>% 
-  layer_gru(units = 64, dropout = 0.1, recurrent_dropout = 0.5,
-            activation = "relu") %>% 
-  layer_dense(units = 1)
 
-# bidirectional recurrent layers
-model <- keras_model_sequential() %>% 
-  bidirectional(
-    layer_gru(units = 32), input_shape = list(NULL, dim(data)[[-1]])
-  ) %>% 
-  layer_dense(units = 1)
-```
+
+## Time series forecasting with recurrent networks | <small>https://tensorflow.rstudio.com/blog/time-series-forecasting-with-recurrent-neural-networks.html</small> {.smaller}
+
+<div class="columns-2" style="margin-top: -10px;">
+
+<img src="images/jena_temp-r.png" width=440 class="illustration"/>
+
+- Forecasting temperatures with a [weather timeseries dataset](https://www.bgc-jena.mpg.de/wetter/) recorded at the Weather Station at the Max Planck Institute for Biogeochemistry in Jena, Germany.
+
+- Reviews three advanced techniques for improving the performance and generalization power of recurrent neural networks: recurrent dropout, stacking recurrent layers, and bidirectional recurrent layers.
+
+</div>
+
 
 
 ## Deep learning for cancer immunotherapy | <https://tensorflow.rstudio.com/blog/dl-for-cancer-immunotherapy.html> {.smaller}
