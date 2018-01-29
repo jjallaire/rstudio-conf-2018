@@ -821,7 +821,7 @@ Google's Neural Machine Translation System
 
 
 
-## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets.html</small>
+## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets</small>
 
 ```{r}
 # use a pretrained model as the base of a new classifier
@@ -859,10 +859,18 @@ model <- keras_model_sequential() %>%
 ```
 
 
-## Deep learning for cancer immunotherapy
+## Deep learning for cancer immunotherapy | <https://tensorflow.rstudio.com/blog/dl-for-cancer-immunotherapy.html> {.smaller}
 
-TODO
 
+<div class="columns-2" style="margin-top: -10px;">
+
+<img src="images/cancer-immunotherapy.png" width=400 class="illustration"/>
+
+- Illustrates how deep learning is successfully being applied to model key molecular interactions in the human immune system.
+
+- Molecular interactions are highly context dependent and therefore non-linear. Deep learning is a powerful tool for modeling this non-linearity.
+
+</div>
 
 
 
