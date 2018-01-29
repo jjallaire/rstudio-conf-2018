@@ -792,6 +792,19 @@ TODO
 </div>
 
 
+## Deep Learning Frontiers (revisited)
+
+- Many fields of inquiry have a deep learning frontier that has not yet been reached or even well approached.
+
+- In these cases traditional methods are invariably cheaper and more accurate.
+
+- Some possible approaches:
+    - Wait and see
+    - Follow/implement the latest research
+    - Attempt to approach the frontier in your own work
+    
+- To approach the frontier you need understanding of the full range of DL techniques, iteration, patience, and lots of compute power!    
+
 ## Supporting Tools
 
 - [tfruns](https://tensorflow.rstudio.com/tools/tfruns/) package
