@@ -197,7 +197,7 @@ head(data.matrix(iris), n = 10)
   <img src="images/tensors_flowing.gif" style="margin-top: -38px; margin-left: 65px;"/>
 
 - **Parallelism**--System runs operations in parallel.
-- **Distributed execution**--Graph is partitioned accross multiple devices.
+- **Distributed execution**--Graph is partitioned across multiple devices.
 - **Compilation**--Use the information in your dataflow graph to generate faster code (e.g. fusing operations)
 - **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
 </div>
@@ -226,7 +226,7 @@ head(data.matrix(iris), n = 10)
 
 - Low-level interface to allow enable new applications (e.g. Greta)
 
-- Tools to faciliate productive workflow / experiment management
+- Tools to facilitate productive workflow / experiment management
 
 - Easy access to GPUs for training models
 
@@ -428,8 +428,8 @@ model %>% predict_classes(x_test[1:100,])
 |---|--------------|
 | linear_regressor() | Linear regressor model. |
 | linear_classifier()	| Linear classifier model. |
-| dnn_regressor()	| Dynamic nueral network regression. |
-| dnn_classifier() |	Dynamic nueral network classification. |
+| dnn_regressor()	| Dynamic neural network regression. |
+| dnn_classifier() |	Dynamic neural network classification. |
 | dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
 | dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
 
@@ -698,7 +698,7 @@ plot(history)
 <div>
 - Near-human-level autonomous driving
 - Improved search results on the web
-- Abilty to answer natural language questions
+- Ability to answer natural language questions
 - Superhuman Go playing
 </div>
 
@@ -712,7 +712,7 @@ plot(history)
 
 - Various algorithmic advances enabled training models with 10 or more layers
     
-- Early sucesses have fueled additional research
+- Early successes have fueled additional research
 
 ## Some problems with deep learning | My model uses *deep* learning so it must be better!
 
@@ -720,7 +720,7 @@ plot(history)
 - Models can be brittle (see "adversarial examples")
 - Models are often very expensive to train
 - Current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
-- It can be quite difficuilt (or impossible!) to out-perform traditional modeling techniques on many problems.
+- It can be quite difficult (or impossible!) to out-perform traditional modeling techniques on many problems.
 
 ## In spite of problems, extraordinarly useful! | We should help DL find it's appropriate place rather than dismiss it
 
@@ -929,7 +929,7 @@ TODO
 
 - Successful deep learning requires a huge amount of experimentation
 
-- This requires a systematic approach to conducting and tracking the results of experiements
+- This requires a systematic approach to conducting and tracking the results of experiments
 
 
 The `training_run()` function is like the `source()` function, but it automatically tracks and records output and metadata for the execution of the script:
@@ -1031,7 +1031,7 @@ Data frame: 9 x 28
 
 - On-demand access to training on GPUs, including the new Tesla P100 GPUs from NVIDIA®.
 
-- Hyperparameter tuning to optmize key attributes of model architectures in order to maximize predictive accuracy.
+- Hyperparameter tuning to optimize key attributes of model architectures in order to maximize predictive accuracy.
 
 
 </div>
@@ -1074,7 +1074,7 @@ job_collect()
 
 - Collects job metadata and all files created by the job (e.g. event logs, saved models)
 
-- Uses tfruns to allow inspection, enumeration, and comparision of jobs
+- Uses tfruns to allow inspection, enumeration, and comparison of jobs
 
 </div>
 
@@ -1181,7 +1181,7 @@ job_collect(trials = "best")
 
 - Collects trial with best objective metric by default
 
-- Specify `trials = "all"` to collect all trials (runs) and then perform offline anaysis of hyperparameter interactions via `ls_runs()`.
+- Specify `trials = "all"` to collect all trials (runs) and then perform offline analysis of hyperparameter interactions via `ls_runs()`.
 
 </div>
 </div>
@@ -1391,7 +1391,7 @@ model %>% compile(
 
 - Keras models are directed acyclic graphs of layers whose state is updated during training.
 
-- Keras layers can be shared by mutliple parts of a Keras model.
+- Keras layers can be shared by multiple parts of a Keras model.
 
 
 
