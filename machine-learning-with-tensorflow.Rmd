@@ -564,11 +564,122 @@ Layers perform transformations using weights, but how do we learn the weights?
 
 <img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
  class="illustration"/>
+ 
+
+## Keras API: MNIST Layers
+
+```{r}
+model <- keras_model_sequential() %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
+                input_shape = input_shape) %>% 
+  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
+  layer_dropout(rate = 0.25) %>% 
+  layer_flatten() %>% 
+  layer_dense(units = 128, activation = 'relu') %>% 
+  layer_dropout(rate = 0.5) %>% 
+  layer_dense(units = 10, activation = 'softmax')
+```
+
+
+## Keras API: Layers | 65 layers available, you can also create your own layers {.smaller}
+
+<div style="margin-top: -35px;">
+|  |  |
+|---|--------------|
+| layer_dense() | Add a densely-connected NN layer to an output. |
+| layer_dropout()	| Applies Dropout to the input. |
+| layer_batch_normalization() | Batch normalization layer (Ioffe and Szegedy, 2014). |
+| layer_conv_2d()	| 2D convolution layer (e.g. spatial convolution over images). |
+| layer_max_pooling_2d()  | Max pooling operation for spatial data. |
+| layer_gru() | Gated Recurrent Unit - Cho et al. |
+| layer_lstm() |	Long-Short Term Memory unit. |
+| layer_embedding() |	Turns positive integers (indexes) into dense vectors of fixed size. |
+| layer_reshape() | Reshapes an output to a certain shape. |
+| layer_flatten() | Flattens an input. |
+</div>
+
+
+## Keras API: Compiling Models
+
+```{r}
+model %>% compile(
+  loss = 'categorical_crossentropy',
+  optimizer = optimizer_rmsprop(),
+  metrics = c('accuracy')
+)
+```
+
+## Keras API: Losses | https://tensorflow.rstudio.com/keras/reference/#section-losses {.smaller}
+
+`loss_binary_crossentropy()`   
+`loss_categorical_crossentropy()`   
+`loss_categorical_hinge()`  
+`loss_cosine_proximity()`  
+`loss_hinge()`  
+`loss_kullback_leibler_divergence()`   
+`loss_logcosh()`   
+`loss_mean_absolute_error()`   
+`loss_mean_absolute_percentage_error()`   
+`loss_mean_squared_error()`   
+`loss_mean_squared_logarithmic_error()`   
+`loss_poisson()`  
+`loss_sparse_categorical_crossentropy()`   
+`loss_squared_hinge()`   
+
+
+## Keras API: Optimizers | https://tensorflow.rstudio.com/keras/reference/#section-optimizers {.smaller}
+
+`optimizer_adadelta()`  
+`optimizer_adagrad()`  
+`optimizer_adam()`  
+`optimizer_adamax()`  
+`optimizer_nadam()`  
+`optimizer_rmsprop()`  
+`optimizer_sgd()`  
+
+## Keras API: Metrics | https://tensorflow.rstudio.com/keras/reference/#section-metrics {.smaller}
+
+`metric_binary_accuracy()`  
+`metric_binary_crossentropy()`  
+`metric_categorical_accuracy()`  
+`metric_categorical_crossentropy()`  
+`metric_cosine_proximity()`  
+`metric_hinge()`  
+`metric_kullback_leibler_divergence()`  
+`metric_mean_absolute_error()`  
+`metric_mean_absolute_percentage_error()`  
+`metric_mean_squared_error()`  
+`metric_mean_squared_logarithmic_error()`  
+`metric_poisson()`  
+`metric_sparse_categorical_crossentropy()`  
+`metric_sparse_top_k_categorical_accuracy()`  
+`metric_squared_hinge()`  
+`metric_top_k_categorical_accuracy()`  
+
+## Keras API: Fitting Models
+
+```{r}
+history <- model %>% fit(
+  x_train, y_train,
+  batch_size = 128,
+  epochs = 30,
+  validation_split = 0.2
+)
+```
+
+```{r}
+plot(history)
+```
+
+<img src="images/keras_training_history.png" width=300 class="illustration"/>
+
 
 ## What is Deep Learning? | A simple mechanism that, once scaled, ends up looking like magic
 
 <img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
  class="illustration"/>
+
 
 ## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
 
@@ -593,7 +704,7 @@ Layers perform transformations using weights, but how do we learn the weights?
 
 </div>
 
-## Why now? | Many key algorithms were already developed by 1997
+## Why Now? | Key algorithms have been around for a long time
 
 - Hardware (NVIDIA GPUs)
 
@@ -601,7 +712,7 @@ Layers perform transformations using weights, but how do we learn the weights?
 
 - Various algorithmic advances enabled training models with 10 or more layers
     
-- Research now proceeding at a furious pace!
+- Early sucesses have fueled additional research
 
 ## Some problems with deep learning | My model uses *deep* learning so it must be better!
 
