@@ -76,17 +76,22 @@ Use in ML classes is growing: 9 out of top 14 online deep learning courses use T
 <img src="images/tensorflow-scientific-literature.png" width=800px style="margin-top: -38px;" class="illustration"/>
 
 
-## Why should R users care?
+## Why should R users care? {.smaller}
 
 - A new general purpose numerical computing library! 
      - Hardware independent
      - Distributed execution
      - Large datasets
-     - Automatic differentiation
+     
+- Automatic differentiation. It's straightforward to write GLM models in TensorFlow by varying the activation and loss functions (link functions and likelihood in GLM)
+
+- Built in optimization algorithms (SGD, Adam) that don't require that all data is in RAM
 
 - Robust foundation for machine learning and deep learning applications
 
 - TensorFlow models can be deployed with a low-latency C++ runtime
+
+
 
 - R has a lot to offer as an *interface language* for TensorFlow
 
@@ -551,9 +556,9 @@ Layers perform transformations using weights, but how do we learn the weights?
 
 <img src="images/deep-learning-in-3-figures-3.png" width=450 class="illustration"/>
 
-- Updates are done via the [backpropagation algorithm](https://en.wikipedia.org/wiki/Backpropagation), using the using the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) (from calculus) to iteratively compute gradients for each layer.
+- Updates are done via the [backpropagation algorithm](https://en.wikipedia.org/wiki/Backpropagation), using the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) to iteratively compute gradients for each layer.
 
-- Since neural networks can have millions of coefficients, it's not practical to compute the gradient-based updates analytically. Instead, we use [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent).
+- Traditional optimization algorithms update weights by averaging the gradients for all data points. To economize computational cost we use [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent) and only calculate gradients for a small sample of the data. 
 
 - The training loop, which, repeated a sufficient number of times (typically tens of iterations over thousands of examples), yields weight values that minimize the loss function.
 
