@@ -511,11 +511,11 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 </div>
 
-## Learning representations | ML models transform input data into useful representations
+## Learning representations | Transforming input data into useful representations
 
 <img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
 
-Machine-learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
+Learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
 
 ## The "deep" in deep learning 
 
@@ -839,6 +839,10 @@ Google's Neural Machine Translation System
 ## Time series | http://ieeexplore.ieee.org/document/7870510/
 
 <img src="images/timeseries-frontier.png" width=600 class="illustration" style="margin-top: -38px;"/>
+
+## Time series | http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180944
+
+<img src="images/timeseries-frontier-2.png" width=600 class="illustration" style="margin-top: -30px;"/>
 
 ## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760
 
