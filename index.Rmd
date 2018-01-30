@@ -48,16 +48,15 @@ small {
 - Distributed execution and large datasets
 </div>
 
-## Why should R users care? {.smaller}
+## Why should R users care? 
 
 - A new general purpose numerical computing library! 
      - Hardware independent
      - Distributed execution
      - Large datasets
+     - Automatic differentiation
      
-- Automatic differentiation. It's straightforward to write GLM models in TensorFlow by varying the activation and loss functions (link functions and likelihood in GLM)
-
-- Built in optimization algorithms (SGD, Adam) that don't require that all data is in RAM
+- Very general built-in optimization algorithms (SGD, Adam) that don't require that all data is in RAM
 
 - Robust foundation for machine learning and deep learning applications
 
@@ -267,7 +266,7 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 ## Statistical modeling vs. machine learning | A difference in orientation
 
-- **Statistics**: Infer the process by which you data was generated.
+- **Statistics**: Infer the process by which your data was generated.
 
 - **Machine learning**: Predict future data with respect to some variable.
 
