@@ -16,7 +16,7 @@ knitr::opts_chunk$set(eval = FALSE)
   border: solid 1px #cccccc;
 }
 small {
-  font-size: 0.7em;
+  font-size: 0.6em;
 }
 </style>
 
@@ -148,6 +148,10 @@ features)`
 
 
 - *Video*—5D tensors of shape `(samples, frames, height, width, channels)` 
+
+<br/>
+
+Note that `samples` is always the first dimension
 
 
 ## 2D tensors | *Vector data*
@@ -755,6 +759,34 @@ Of course we can help here by promoting a more balanced dialog about the strengh
 
 <img src="images/google-adoption.png" width=700 style="margin-top: -20px;"/>
 
+## Explainability: Visualizing activations | <small>https://jjallaire.github.io/deep-learning-with-r-notebooks/notebooks/5.4-visualizing-what-convnets-learn.nb.html</small> 
+
+<div style="margin-top: -20px;">
+```{r}
+preds <- model %>% predict(img)
+imagenet_decode_predictions(preds, top = 3)[[1]]
+```
+```
+  class_name class_description       score
+1  n02504458  African_elephant 0.909420729
+2  n01871265            tusker 0.086183183
+3  n02504013   Indian_elephant 0.004354581
+```
+
+<img src="images/creative_commons_elephant.jpg" width=250"/>&nbsp;<img src="images/elephant_heatmap.png" width=167"/>&nbsp;<img src="images/elephant_overlay.png" width=250"/>
+</div>
+
+## Explainabilty: LIME | Local Interpretable Model-Agnostic Explanations {.smaller}
+
+<div style="margin-top: -30px;">
+- For any given prediction and any given classifier, determine a small set of features in the original data that has driven the outcome of the prediction.
+
+- Paper: <https://arxiv.org/abs/1602.04938>
+
+- R implementation: <https://github.com/thomasp85/lime>
+</div>
+
+<img src="images/lime-customer-churn.png" width=550 class="illustration"/>
 
 ## Why should R users care about deep learning?
 
