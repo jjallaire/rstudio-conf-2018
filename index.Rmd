@@ -25,23 +25,19 @@ small {
 
 - TensorFlow Basics
 
-- R Interfaces to TensorFlow
-
 - Deep Learning
+
+- R Interfaces to TensorFlow
 
 - Supporting Tools 
 
-- Deployment
-
 - Learning More
 
-## What is TensorFlow? | *A general purpose numerical computing library* {.smaller}
+## What is TensorFlow? | *A general purpose numerical computing library* 
 
-<div class="columns-2" style="margin-top: -38px;">
-  
-  <img src="images/tensorflow-logo-large.png" width=400/>
- 
- 
+<div style="margin-top: -30px;">
+<img src="images/tensorflow-logo-large.png" align=right width=350/>
+
 -  Originally developed by researchers and engineers working on the Google Brain Team for the purposes of conducting machine learning and deep neural networks research.
 - Open source software (Apache v2.0 license) 
 - Hardware independent
@@ -50,31 +46,7 @@ small {
     - TPU ([Tensor Processing Unit](https://en.wikipedia.org/wiki/Tensor_processing_unit))
 - Supports [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
 - Distributed execution and large datasets
-
 </div>
-
-## TensorFlow community
-
-Rapid development, many outside contributors
-
-- 1,200+ contributors to TensorFlow (950+ non-Google) 
-- 26,500+ commits
-- 41,000+ GitHub repositories (forks)
-- 9.8M+  downloads
-- 84,000+ stars on Github
-- ~8,000 GitHub issues filed and answered
-- 10,000 Stack Overflow questions answered
-
-Use in ML classes is growing: 9 out of top 14 online deep learning courses use TensorFlow
-
-## Rapid adoption | Cumulative GitHub stars
-
-<img src="images/github-stars.png" width=800px style="margin-top: -38px;" class="illustration"/>
-
-## Use in research | Total scientific literature count
-
-<img src="images/tensorflow-scientific-literature.png" width=800px style="margin-top: -38px;" class="illustration"/>
-
 
 ## Why should R users care? {.smaller}
 
@@ -91,40 +63,7 @@ Use in ML classes is growing: 9 out of top 14 online deep learning courses use T
 
 - TensorFlow models can be deployed with a low-latency C++ runtime
 
-
-
 - R has a lot to offer as an *interface language* for TensorFlow
-
-
-## Example: Greta | Writing statistical models and fitting them by MCMC
-
-<img src="images/greta.png" width=625px style="margin-top: -38px;" class="illustration"/>
-
-<https://greta-dev.github.io/greta/>
-
-## Greta air model 
-
-```{r}
-# Greta
-theta = normal(0, 32, dim = 2)
-mu <- alpha + beta * Z
-X = normal(mu, sigma)
-p <- ilogit(theta[1] + theta[2] * X)
-distribution(y) = binomial(n, p)
-```
-
-
-```{r}
-# BUGS/JAGS
-for(j in 1 : J) {
-   y[j] ~ dbin(p[j], n[j])
-   logit(p[j]) <- theta[1] + theta[2] * X[j]
-   X[j] ~ dnorm(mu[j], tau)
-   mu[j] <- alpha + beta * Z[j]
-}
-theta[1] ~ dnorm(0.0, 0.001)
-theta[2] ~ dnorm(0.0, 0.001)
-```
 
 
 ## What are tensors? | *Data stored in multidimensional arrays*
@@ -226,6 +165,268 @@ head(data.matrix(iris), n = 10)
 </div>
 
 
+## Deep Learning
+
+- What is deep learning?
+
+- What is it useful for?
+
+- Why should R users care?
+
+- How does it work?
+
+- Some examples
+
+<br/>
+
+<img src="images/Allaire-DLwithR-HI.png" width=80  align=left class="illustration" style="margin-right: 25px;"/>
+
+Special thanks to François Chollet (creator of Keras) for the concepts and figures used to explain deep learning! (all drawn from Chapter 1 of his [Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) book)
+
+
+
+
+## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
+
+<img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
+ class="illustration"/>
+
+
+## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
+
+<img src="images/geometric_interpretation_4.jpg" width=600 style="margin-top: -38px;"/>
+
+<div class="columns-2">
+
+<div>
+- Near-human-level image classification
+- Near-human-level speech recognition
+- Near-human-level handwriting transcription
+- Improved machine translation
+- Improved text-to-speech conversion
+</div>
+
+<div>
+- Near-human-level autonomous driving
+- Improved search results on the web
+- Ability to answer natural language questions
+- Superhuman Go playing
+</div>
+
+</div>
+
+
+## Why should R users care about deep learning?
+
+- New problem domains for R:
+    - Computer vision
+    - Computer speech recognition and translation
+    - Various other forms of complex pattern recognition
+
+- Improved techniques for our traditional domains:
+    - Analyzing data with complex spatial or sequence dependencies
+    - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
+
+## What is deep learning? | A subfield of machine learning, which is in turn a subfield of AI
+
+<img src="images/ai-ml-dl.png" width=675  style="margin-top: -38px;"/>
+
+
+## What is machine learning? | Learning model parameters via exposure to many example data points
+
+<div style="margin-top: -38px;">
+<img src="images/gradient_descent_3d.png" width=400  align=right class="illustration" style="margin-left: 15px;"/>
+
+- Input data points (e.g. *images*)
+
+- Labels (e.g. *cat* vs. *dog*)
+
+- Model architecture (e.g. *logistic regression*)
+
+- Loss function (measures performance of model, e.g. *categorical crossentroopy*)
+
+- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
+
+- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
+
+</div>
+
+## Statistical modeling vs. machine learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
+
+<div style="margin-top: -38px;">
+<https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning>
+</div>
+
+<div class="columns-2" >
+
+<img src="images/stats-vs-ml-zoomed.png" width=470 class="illustration"/>
+
+<img src="images/machine_learning.png" width=323 />
+
+</div>
+
+## Statistical modeling vs. machine learning | A difference in orientation
+
+- **Statistics**: Infer the process by which you data was generated.
+
+- **Machine learning**: Predict future data with respect to some variable.
+
+
+## Learning representations | Transforming input data into useful representations
+
+<img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
+
+Learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
+
+## The "deep" in deep learning 
+
+A new take on learning representations from data that puts an emphasis on learning successive layers of increasingly meaningful representations.
+
+Other possibly more appropriate names for the field:
+
+- Layered representations learning
+
+- Hierarchical representations learning
+
+Modern deep learning often involves tens or even hundreds of successive layers of representation
+
+Other approaches to machine learning tend to focus on learning only one or two layers of representations of the data
+
+## Input to output via layers of representation
+
+<img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
+ class="illustration"/>
+
+Layers perform transformations using weights, but how do we learn the weights?
+
+## Using input data and labels to learn weights
+
+<img src="images/deep-learning-in-3-figures-1.png" width=750 style="margin-top: -20px;"/>
+
+## Evaluate the loss for each training batch {.smaller}
+
+<div class="columns-2" style="margin-top: -20px;">
+
+<img src="images/deep-learning-in-3-figures-2.png" width=450 class="illustration"/>
+
+- The *loss function* takes the predictions of the network and the true targets (what you wanted the network to output) and computes a distance score, capturing how well the network has done on a batch of examples. 
+
+- The fundamental trick in deep learning is to use this score as a feedback signal to adjust the value of the weights a little, in a direction that will lower the loss score for the current batch of examples. This adjustment is the job of the *optimizer*.
+
+</div>
+
+## Loss is a feedback signal used to update weights {.smaller}
+
+<div class="columns-2"  style="margin-top: -20px;">
+
+<img src="images/deep-learning-in-3-figures-3.png" width=450 class="illustration"/>
+
+- Updates are done via the [backpropagation algorithm](https://en.wikipedia.org/wiki/Backpropagation), using the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) to iteratively compute gradients for each layer.
+
+- Traditional optimization algorithms update weights by averaging the gradients for all data points. To economize computational cost we use [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent) and only calculate gradients for a small sample of the data. 
+
+- The training loop, which, repeated a sufficient number of times (typically tens of iterations over thousands of examples), yields weight values that minimize the loss function.
+
+</div>
+
+## MNIST layers of representation
+
+<img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
+ class="illustration"/>
+ 
+
+## MNIST layers in R
+
+```{r}
+library(keras)
+model <- keras_model_sequential() %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
+                input_shape = input_shape) %>% 
+  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
+  layer_dropout(rate = 0.25) %>% 
+  layer_flatten() %>% 
+  layer_dense(units = 128, activation = 'relu') %>% 
+  layer_dropout(rate = 0.5) %>% 
+  layer_dense(units = 10, activation = 'softmax')
+```
+
+
+## Deep learning frontiers
+
+- Computer vision
+
+- Language translation
+
+- Time series
+
+- Biology
+
+- What next?
+
+
+## Computer vision | <https://dl.acm.org/citation.cfm?id=2999257> {.smaller}
+
+<div class="columns-2" style="margin-top: -20px;">
+
+<img src="images/imagenet-frontier.png" width=350 style="" class="illustration"/>
+
+- ImageNet: 3.2 million labelled images, separated into 5,247 categories, sorted into 12 subtrees like “mammal,” “vehicle,” and “furniture.”
+
+- ImageNet Challenge: an annual competition (2010-2017) to see which algorithms could identify objects in the dataset’s images with the lowest error rate.
+
+- Accuracy improved from 71.8% to 97.3% over the lifetime of the contest.
+
+- Deep learning was used for the first time in 2012, and beat the field by 10.8%.
+
+</div>
+
+## Language translation | https://arxiv.org/abs/1609.08144
+
+<div style="margin-top: -38px;">
+Google's Neural Machine Translation System
+
+<img src="images/language-frontier.png" width=700 style="" class="illustration"/>
+</div>
+
+## Time series | http://ieeexplore.ieee.org/document/7870510/
+
+<img src="images/timeseries-frontier.png" width=600 class="illustration" style="margin-top: -38px;"/>
+
+## Time series | http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180944
+
+<img src="images/timeseries-frontier-2.png" width=600 class="illustration" style="margin-top: -30px;"/>
+
+## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760
+
+<img src="images/biology-frontier.png" width=550 class="illustration" style="margin-top: -38px;"/>
+
+## What next? | <https://arxiv.org/abs/1801.07860>
+
+<img src="images/healthrecords-frontier.png" width=800 class="illustration" style="margin-top: -30px;"/>
+
+## Some problems with deep learning 
+
+- Models cannot be easily interpreted (black box)
+- Models can be brittle (see "adversarial examples")
+- Models are often very expensive to train
+- Often difficuilt to outperform traditional modeling techniques
+
+## Deep learning hype makes things worse | My model is *deep* so it must be better!
+
+- Deep learning is experiencing unprecedted hype, and...
+- The current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
+- It can be quite difficult (or impossible!) to out-perform traditional modeling techniques on many problems, so...
+- We will be trolled by bad deep learning models for the forseeable future
+
+Of course we can help here by promoting a more balanced dialog about the strenghts and weaknesses of these methods.
+
+## In spite of problems, extraordinarly useful! | We should help DL find it's appropriate place rather than dismiss it
+
+<img src="images/google-adoption.png" width=700 style="margin-top: -20px;"/>
+
+
+
 ## R interface to Tensorflow
 
 - High-level R interfaces for neural nets and traditional models
@@ -237,6 +438,7 @@ head(data.matrix(iris), n = 10)
 - Easy access to GPUs for training models
 
 - Breadth and depth of educational resources
+
 
 ## TensorFlow APIs | Distinct interfaces for various tasks and levels of abstraction
 
@@ -263,40 +465,7 @@ head(data.matrix(iris), n = 10)
 </div>
 
 
-## <img src="images/keras-logo-2018-large-1200.png" width=300/>
-
-- High-level neural networks API capable of running on top of [TensorFlow](https://www.tensorflow.org), [CNTK](https://www.microsoft.com/en-us/cognitive-toolkit/), or [Theano](http://www.deeplearning.net/software/theano/) (and soon [MXNet](https://mxnet.apache.org/)).
-
-- Allows for easy and fast prototyping (through user friendliness, modularity, and extensibility).
-
-- Supports both convolutional networks and recurrent networks, as well as combinations of the two.
-
-- Runs seamlessly on CPU and GPU.
-
-- https://keras.rstudio.com
-
-## Keras adoption
-
-<div class="columns-2">
-
-<img src="images/keras-search.png" width=450 class="illustration"/>
-
-<img src="images/keras-research.png" width=400 class="illustration"/>
-
-</div>
-
-## Layers in neural networks | A data-processing module that you can think of as a filter for data
-
-
-<img src="images/a_deep_network.png" width=800 class="illustration"/>
-
-## Layers in neural networks (cont.) | Layers implement a form of progressive data distillation
-
-<img src="images/mnist_representations.png" width=800 class="illustration"/>
-
-
-
-## Keras layers | A grammer for specifying the layers of a neural network
+## TensorFlow Keras API | High level API for nueral networks <br/> <https://tensorflow.rstudio.com/keras/> {.smaller}
 
 ```{r}
 model <- keras_model_sequential() %>%
@@ -311,6 +480,77 @@ model <- keras_model_sequential() %>%
   layer_dense(units = 10, activation = 'softmax')
 ```
 
+
+## TensorFlow Estimators | High level API for TensorFlow models <https://tensorflow.rstudio.com/tfestimators/> {.smaller}
+
+| Estimator | Description |
+|---|--------------|
+| linear_regressor() | Linear regressor model. |
+| linear_classifier()	| Linear classifier model. |
+| dnn_regressor()	| Dynamic neural network regression. |
+| dnn_classifier() |	Dynamic neural network classification. |
+| dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
+| dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
+
+## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
+
+```{r}
+W <- tf$Variable(tf$random_uniform(shape(1L), -1.0, 1.0))
+b <- tf$Variable(tf$zeros(shape(1L)))
+y <- W * x_data + b
+
+loss <- tf$reduce_mean((y - y_data) ^ 2)
+optimizer <- tf$train$GradientDescentOptimizer(0.5)
+train <- optimizer$minimize(loss)
+
+sess = tf$Session()
+sess$run(tf$global_variables_initializer())
+
+for (step in 1:200) {
+  sess$run(train)
+  if (step %% 20 == 0)
+    cat(step, "-", sess$run(W), sess$run(b), "\n")
+}
+```
+
+## Greta | Writing statistical models and fitting them by MCMC
+
+<img src="images/greta.png" width=625px style="margin-top: -38px;" class="illustration"/>
+
+<https://greta-dev.github.io/greta/>
+
+## Air model (Greta vs. BUGS/JAGS)
+
+<div style="margin-top: -20x;">
+```{r}
+# Greta
+theta = normal(0, 32, dim = 2)
+mu <- alpha + beta * Z
+X = normal(mu, sigma)
+p <- ilogit(theta[1] + theta[2] * X)
+distribution(y) = binomial(n, p)
+```
+
+```{r}
+# BUGS/JAGS
+for(j in 1 : J) {
+   y[j] ~ dbin(p[j], n[j])
+   logit(p[j]) <- theta[1] + theta[2] * X[j]
+   X[j] ~ dnorm(mu[j], tau)
+   mu[j] <- alpha + beta * Z[j]
+}
+theta[1] ~ dnorm(0.0, 0.001)
+theta[2] ~ dnorm(0.0, 0.001)
+```
+</div>
+
+## R interface to Keras
+
+- A complete example
+- Keras layers
+- Compiling models
+- Losses, optimizers, and metrics
+- Some examples
 
 ## Keras: Data preprocessing 
 
@@ -406,6 +646,7 @@ plot(history)
 ```
 <img src="images/keras_training_history.png" width=600 class="illustration"/>
 
+
 ## Keras: Evaluation and prediction
 
 ```{r}
@@ -428,168 +669,6 @@ model %>% predict_classes(x_test[1:100,])
  [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
 ```
 
-## TensorFlow Estimators | High level API for TensorFlow models <https://tensorflow.rstudio.com/tfestimators/> {.smaller}
-
-| Estimator | Description |
-|---|--------------|
-| linear_regressor() | Linear regressor model. |
-| linear_classifier()	| Linear classifier model. |
-| dnn_regressor()	| Dynamic neural network regression. |
-| dnn_classifier() |	Dynamic neural network classification. |
-| dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
-| dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
-
-## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
-
-```{r}
-W <- tf$Variable(tf$random_uniform(shape(1L), -1.0, 1.0))
-b <- tf$Variable(tf$zeros(shape(1L)))
-y <- W * x_data + b
-
-loss <- tf$reduce_mean((y - y_data) ^ 2)
-optimizer <- tf$train$GradientDescentOptimizer(0.5)
-train <- optimizer$minimize(loss)
-
-sess = tf$Session()
-sess$run(tf$global_variables_initializer())
-
-for (step in 1:200) {
-  sess$run(train)
-  if (step %% 20 == 0)
-    cat(step, "-", sess$run(W), sess$run(b), "\n")
-}
-```
-
-
-## TensorFlow and deep learning
-
-- Deep learning was a principle motivator for the creation of TensorFlow
-
-- What is deep learning and what is it useful for?
-
-- How is deep learning relevant to the R community?
-
-<br/>
-
-<img src="images/Allaire-DLwithR-HI.png" width=80  align=left class="illustration" style="margin-right: 25px;"/>
-
-
-Special thanks to François Chollet (creator of Keras) for the concepts and figures used to explain deep learning! (all drawn from Chapter 1 of his [Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) book)
-
-
-
-
-## Deep learning and machine learning | A subfield of machine learning, which is in turn a subfield of AI
-
-<img src="images/ai-ml-dl.png" width=675  style="margin-top: -38px;"/>
-
-## Machine learning algorithms | Learning model parameters via exposure to many example data points
-
-- Input data points (e.g. *images*)
-
-- Labels (e.g. *cat* vs. *dog*)
-
-- Model architecture (e.g. *logistic regression*)
-
-- Loss function (measures performance of model, e.g. *categorical crossentroopy*)
-
-- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
-
-- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
-
-## Statistical modeling vs. machine learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
-
-<div style="margin-top: -38px;">
-<https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning>
-</div>
-
-<div class="columns-2" >
-
-<img src="images/stats-vs-ml.png" width=470 class="illustration"/>
-
-<img src="images/machine_learning.png" width=305 />
-
-</div>
-
-## Learning representations | Transforming input data into useful representations
-
-<img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
-
-Learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
-
-## The "deep" in deep learning 
-
-A new take on learning representations from data that puts an emphasis on learning successive layers of increasingly meaningful representations.
-
-Other possibly more appropriate names for the field:
-
-- Layered representations learning
-
-- Hierarchical representations learning
-
-Modern deep learning often involves tens or even hundreds of successive layers of representation
-
-Other approaches to machine learning tend to focus on learning only one or two layers of representations of the data
-
-## Input to output via layers of representation
-
-<img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
- class="illustration"/>
-
-Layers perform transformations using weights, but how do we learn the weights?
-
-## Using input data and labels to learn weights
-
-<img src="images/deep-learning-in-3-figures-1.png" width=750 style="margin-top: -20px;"/>
-
-## Evaluate the loss for each training batch {.smaller}
-
-<div class="columns-2" style="margin-top: -20px;">
-
-<img src="images/deep-learning-in-3-figures-2.png" width=450 class="illustration"/>
-
-- The *loss function* takes the predictions of the network and the true targets (what you wanted the network to output) and computes a distance score, capturing how well the network has done on a batch of examples. 
-
-- The fundamental trick in deep learning is to use this score as a feedback signal to adjust the value of the weights a little, in a direction that will lower the loss score for the current batch of examples. This adjustment is the job of the *optimizer*.
-
-</div>
-
-## Loss is a feedback signal used to update weights {.smaller}
-
-<div class="columns-2"  style="margin-top: -20px;">
-
-<img src="images/deep-learning-in-3-figures-3.png" width=450 class="illustration"/>
-
-- Updates are done via the [backpropagation algorithm](https://en.wikipedia.org/wiki/Backpropagation), using the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) to iteratively compute gradients for each layer.
-
-- Traditional optimization algorithms update weights by averaging the gradients for all data points. To economize computational cost we use [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent) and only calculate gradients for a small sample of the data. 
-
-- The training loop, which, repeated a sufficient number of times (typically tens of iterations over thousands of examples), yields weight values that minimize the loss function.
-
-</div>
-
-## MNIST layers of representation
-
-<img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
- class="illustration"/>
- 
-
-## Keras API: MNIST layers
-
-```{r}
-model <- keras_model_sequential() %>%
-  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
-                input_shape = input_shape) %>% 
-  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
-  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
-  layer_dropout(rate = 0.25) %>% 
-  layer_flatten() %>% 
-  layer_dense(units = 128, activation = 'relu') %>% 
-  layer_dropout(rate = 0.5) %>% 
-  layer_dense(units = 10, activation = 'softmax')
-```
-
-
 ## Keras API: Layers | 65 layers available, you can also create your own layers {.smaller}
 
 <div style="margin-top: -35px;">
@@ -610,6 +689,12 @@ model <- keras_model_sequential() %>%
 
 ## Keras API: Compiling models
 
+Model compilation prepares the model for training by:
+
+1) Converting the layers into a TensorFlow graph
+2) Applying the specified loss function and optimizer
+3) Arranging for the collection of metrics during training
+
 ```{r}
 model %>% compile(
   loss = 'categorical_crossentropy',
@@ -617,6 +702,9 @@ model %>% compile(
   metrics = c('accuracy')
 )
 ```
+
+
+
 
 ## Keras API: In place modification | Object semantics are not by-value! (as is conventional in R)
 
@@ -682,177 +770,12 @@ model %>% compile(
 `metric_squared_hinge()`  
 `metric_top_k_categorical_accuracy()`  
 
-## Keras API: Fitting models
+## Keras for R cheatsheet | <https://github.com/rstudio/cheatsheets/raw/master/keras.pdf>
 
-```{r}
-history <- model %>% fit(
-  x_train, y_train,
-  batch_size = 128,
-  epochs = 30,
-  validation_split = 0.2
-)
-```
-
-```{r}
-plot(history)
-```
-
-<img src="images/keras_training_history.png" width=300 class="illustration"/>
+<a style="border-bottom: none;" href="https://github.com/rstudio/cheatsheets/raw/master/keras.pdf"><img src="images/resources-cheatsheet.png" width=600 class="illustration" style="margin-top: -38px;"/></a>
 
 
-## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
-
-<img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
- class="illustration"/>
-
-
-## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
-
-<img src="images/geometric_interpretation_4.jpg" width=600 style="margin-top: -38px;"/>
-
-<div class="columns-2">
-
-<div>
-- Near-human-level image classification
-- Near-human-level speech recognition
-- Near-human-level handwriting transcription
-- Improved machine translation
-- Improved text-to-speech conversion
-</div>
-
-<div>
-- Near-human-level autonomous driving
-- Improved search results on the web
-- Ability to answer natural language questions
-- Superhuman Go playing
-</div>
-
-</div>
-
-## Why now? | Key algorithms have been around for a long time. What changed?
-
-- Hardware (NVIDIA GPUs)
-
-- Data (internet enabled collection and distribution of very large datasets)
-
-- Various algorithmic advances enabled training models with 10 or more layers
-    
-- Early successes have fueled additional research
-
-## Some problems with deep learning 
-
-- Models cannot be easily interpreted (black box)
-- Models can be brittle (see "adversarial examples")
-- Models are often very expensive to train
-- Often difficuilt to outperform traditional modeling techniques
-
-## Deep learning hype makes things worse | My model is *deep* so it must be better!
-
-- Deep learning is experiencing unprecedted hype, and...
-- The current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
-- It can be quite difficult (or impossible!) to out-perform traditional modeling techniques on many problems, so...
-- We will be trolled by bad deep learning models for the forseeable future
-
-Of course we can help here by promoting a more balanced dialog about the strenghts and weaknesses of these methods.
-
-## In spite of problems, extraordinarly useful! | We should help DL find it's appropriate place rather than dismiss it
-
-<img src="images/google-adoption.png" width=700 style="margin-top: -20px;"/>
-
-## Explainability: Visualizing activations | <small>https://jjallaire.github.io/deep-learning-with-r-notebooks/notebooks/5.4-visualizing-what-convnets-learn.nb.html</small> 
-
-<div style="margin-top: -20px;">
-```{r}
-preds <- model %>% predict(img)
-imagenet_decode_predictions(preds, top = 3)[[1]]
-```
-```
-  class_name class_description       score
-1  n02504458  African_elephant 0.909420729
-2  n01871265            tusker 0.086183183
-3  n02504013   Indian_elephant 0.004354581
-```
-
-<img src="images/creative_commons_elephant.jpg" width=250"/>&nbsp;<img src="images/elephant_heatmap.png" width=167"/>&nbsp;<img src="images/elephant_overlay.png" width=250"/>
-</div>
-
-## Explainabilty: LIME | Local Interpretable Model-Agnostic Explanations {.smaller}
-
-<div style="margin-top: -30px;">
-- For any given prediction and any given classifier, determine a small set of features in the original data that has driven the outcome of the prediction.
-
-- Paper: <https://arxiv.org/abs/1602.04938>
-
-- R implementation: <https://github.com/thomasp85/lime>
-</div>
-
-<img src="images/lime-customer-churn.png" width=550 class="illustration"/>
-
-## Why should R users care about deep learning?
-
-- New problem domains for R:
-    - Computer vision
-    - Computer speech recognition and translation
-    - Various other forms of complex pattern recognition
-
-- Improved techniques for our traditional domains:
-    - Analyzing data with complex spatial or sequence dependencies
-    - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
-
-## Deep learning frontiers
-
-- Computer vision
-
-- Language translation
-
-- Time series
-
-- Biology
-
-- What next?
-
-
-## Computer vision | <https://dl.acm.org/citation.cfm?id=2999257> {.smaller}
-
-<div class="columns-2" style="margin-top: -20px;">
-
-<img src="images/imagenet-frontier.png" width=350 style="" class="illustration"/>
-
-- ImageNet: 3.2 million labelled images, separated into 5,247 categories, sorted into 12 subtrees like “mammal,” “vehicle,” and “furniture.”
-
-- ImageNet Challenge: an annual competition (2010-2017) to see which algorithms could identify objects in the dataset’s images with the lowest error rate.
-
-- Accuracy improved from 71.8% to 97.3% over the lifetime of the contest.
-
-- Deep learning was used for the first time in 2012, and beat the field by 10.8%.
-
-</div>
-
-## Language translation | https://arxiv.org/abs/1609.08144
-
-<div style="margin-top: -38px;">
-Google's Neural Machine Translation System
-
-<img src="images/language-frontier.png" width=700 style="" class="illustration"/>
-</div>
-
-## Time series | http://ieeexplore.ieee.org/document/7870510/
-
-<img src="images/timeseries-frontier.png" width=600 class="illustration" style="margin-top: -38px;"/>
-
-## Time series | http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180944
-
-<img src="images/timeseries-frontier-2.png" width=600 class="illustration" style="margin-top: -30px;"/>
-
-## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760
-
-<img src="images/biology-frontier.png" width=550 class="illustration" style="margin-top: -38px;"/>
-
-## What next? | <https://arxiv.org/abs/1801.07860>
-
-<img src="images/healthrecords-frontier.png" width=800 class="illustration" style="margin-top: -30px;"/>
-
-## Some examples | https://tensorflow.rstudio.com/gallery/
+## Some R examples | https://tensorflow.rstudio.com/gallery/
 
 - Image classification on small datasets
 - Time series forecasting with recurrent networks
@@ -861,6 +784,7 @@ Google's Neural Machine Translation System
 - Classifying duplicate questions from Quora
 - Deep learning to predict customer churn
 - Learning word embeddings for Amazon reviews
+- Work on explainabilty of predictions
 
 
 
@@ -963,6 +887,35 @@ Google's Neural Machine Translation System
 
 
 </div>
+
+## Explainability: Visualizing activations | <small>https://jjallaire.github.io/deep-learning-with-r-notebooks/notebooks/5.4-visualizing-what-convnets-learn.nb.html</small> 
+
+<div style="margin-top: -20px;">
+```{r}
+preds <- model %>% predict(img)
+imagenet_decode_predictions(preds, top = 3)[[1]]
+```
+```
+  class_name class_description       score
+1  n02504458  African_elephant 0.909420729
+2  n01871265            tusker 0.086183183
+3  n02504013   Indian_elephant 0.004354581
+```
+
+<img src="images/creative_commons_elephant.jpg" width=250"/>&nbsp;<img src="images/elephant_heatmap.png" width=167"/>&nbsp;<img src="images/elephant_overlay.png" width=250"/>
+</div>
+
+## Explainabilty: LIME | Local Interpretable Model-Agnostic Explanations {.smaller}
+
+<div style="margin-top: -30px;">
+- For any given prediction and any given classifier, determine a small set of features in the original data that has driven the outcome of the prediction.
+
+- Paper: <https://arxiv.org/abs/1602.04938>
+
+- R implementation: <https://github.com/thomasp85/lime>
+</div>
+
+<img src="images/lime-customer-churn.png" width=550 class="illustration"/>
 
 
 ## Deep learning frontiers (revisited)
@@ -1389,16 +1342,13 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 - Clients can typically find a way to do the preprocessing but it's often awkward and inconvenient. We'd like to make it much more straightforward and automatic.
 
 
-## Learning more | <https://tensorflow.rstudio.com/learn/>
+## Key takeaways
 
-- Recommended reading
+- TensorFlow is a new general purpose numerical computing library with lots to offer the R community.
 
-- Keras for R cheatsheet
+- Deep learning has made great progress and will likely increase in importance in various fields in the coming years.
 
-- Gallery and examples
-
-- Subscribe to the TensorFlow for R blog!
-
+- R now has a great set of APIs and suppporting tools for using TensorFlow and doing deep learning.
 
 ## Recommended reading
 
@@ -1409,15 +1359,6 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 <a style="border-bottom: none;"  href="https://www.amazon.com/Deep-Learning-Adaptive-Computation-Machine/dp/0262035618/"><img src="images/deep-learning-goodfellow.png" width=382 class="illustration"/></a>
 
 </div>
-
-
-## Keras for R cheatsheet | <https://github.com/rstudio/cheatsheets/raw/master/keras.pdf>
-
-<a style="border-bottom: none;" href="https://github.com/rstudio/cheatsheets/raw/master/keras.pdf"><img src="images/resources-cheatsheet.png" width=600 class="illustration" style="margin-top: -38px;"/></a>
-
-## Gallery and examples | <https://tensorflow.rstudio.com/learn/gallery.html>
-
-<a style="border-bottom: none;" href="https://tensorflow.rstudio.com/learn/gallery.html"><img src="images/gallery.png" width=625 class="illustration" style="margin-top: -38px;"/></a>
 
 ## Thank you! | https://tensorflow.rstudio.com
 
