@@ -23,7 +23,7 @@ small {
 
 ## Overview
 
-- TensorFlow Basics
+- Intro to TensorFlow
 
 - Deep Learning
 
@@ -65,6 +65,17 @@ small {
 - R has a lot to offer as an *interface language* for TensorFlow
 
 
+## TensorFlow Basics
+
+- Tensors 
+
+- Data flow
+
+- Runtime execution
+
+- Some example uses
+
+
 ## What are tensors? | *Data stored in multidimensional arrays*
 
 | Dimension | R object  | 
@@ -77,15 +88,13 @@ small {
 
 ## Some examples
 
-- *Vector data*—2D tensors of shape `(samples, features)`
- 
-- *Timeseries or sequence data*—3D tensors of shape `(samples, timesteps,
-features)`
- 
-- *Images*—4D tensors of shape `(samples, height, width, channels)`
-
-
-- *Video*—5D tensors of shape `(samples, frames, height, width, channels)` 
+| Data | Tensor  | 
+|---|---|
+| Vector data | 2D tensors of shape `(samples, features)` | 
+| Timeseries data | 3D tensors of shape `(samples, timesteps,
+features)` |
+| Images | 4D tensors of shape `(samples, height, width, channels)` |
+| Video | 5D tensors of shape `(samples, frames, height, width, channels)` |
 
 <br/>
 
@@ -163,6 +172,15 @@ head(data.matrix(iris), n = 10)
 - **Portability**--Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
 </div>
 
+## Uses of TensorFlow | <https://tensorflow.rstudio.com/learn/gallery/>
+
+- Image classification 
+- Time series forecasting 
+- Classifing peptides for cancer immunotherapy
+- Credit card fraud detection using an autoencoder
+- Classifying duplicate questions from Quora
+- Predicting customer churn
+- Learning word embeddings for Amazon reviews
 
 ## Deep Learning
 
