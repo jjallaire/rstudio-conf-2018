@@ -21,6 +21,13 @@ small {
 h4 {
   margin-bottom: 15px; 
 }
+a {
+  border-bottom: 0;
+}
+a:hover {
+  color: #2a7cdf |important;
+  border-bottom: 1px solid rgba(42, 124, 223, 0.5);
+}
 </style>
 
 
@@ -286,12 +293,25 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 </div>
 
-## Statistical modeling vs. machine learning | A difference in orientation
+## Statistical modeling vs. machine learning 
 
-- **Statistics**: Infer the process by which your data was generated.
+**Statistics**: Often focused on inferring the process by which data is generated.
 
-- **Machine learning**: Predict future data with respect to some variable.
+**Machine learning**: Care principally about predicting future data.
 
+<br/>
+
+<div style="font-size: 0.8em;">
+Breiman, L. (2001). [Statistical modeling: The two cultures](https://projecteuclid.org/download/pdf_1/euclid.ss/1009213726). *Statistical Science*, 16(3), 199--215.
+
+Ayres, I. (2008). [Super Crunchers: Why Thinking-By-Numbers is the New Way To Be Smart](https://www.amazon.com/Super-Crunchers-Thinking-Numbers-Smart/dp/0553384732), Bantam. 
+
+Shmueli, G. (2010). [To explain or to predict?](https://arxiv.org/pdf/1101.0891.pdf) *Statistical Science*, 25(3), 289--310.
+
+Breiman, L. (1997). [No Bayesians in foxholes](http://ieeexplore.ieee.org/document/642956/). *IEEE Expert*, 12(6), 21--24. 
+
+Boulesteix, A.-L., \& Schmid, M. (2014). [Machine learning versus statistical modeling](http://onlinelibrary.wiley.com/doi/10.1002/bimj.201300226/abstract). *Biometrical Journal*, 56(4), 588--593. (and other articles in this issue)
+</div>
 
 ## Learning representations | Transforming input data into useful representations
 
@@ -459,14 +479,12 @@ Google's Neural Machine Translation System
 - Can be brittle (see "adversarial examples")
 - Typically require large amounts of data to perform well
 - Are often very computationally expensive to train
-- Difficult to make them outperform traditional modeling techniques
-
 
 ## Deep learning hype makes things worse | My model is *deep* so it must be better!
 
 - Deep learning is experiencing unprecedted hype, and...
 - The current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
-- It can be quite difficult (or impossible!) to out-perform traditional modeling techniques on many problems, so...
+- It can be difficult to outperform traditional modeling techniques without a lot of effort, so...
 - We will be trolled by bad deep learning models for the forseeable future
 
 Of course we can help here by promoting a more balanced dialog about the strenghts and weaknesses of these methods.
