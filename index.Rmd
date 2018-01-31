@@ -376,6 +376,14 @@ model <- keras_model_sequential() %>%
 
 </div>
 
+## Natural language processing | https://arxiv.org/abs/1708.02709
+
+<div style="margin-top: -10px;">
+<img src="images/nlp-frontiers.png" width=400 style="margin-right: 15px;" class="illustration"/>
+<img src="images/computational-linguistics.png" width=478 style="" class="illustration"/>
+</div>
+
+
 ## Language translation | https://arxiv.org/abs/1609.08144
 
 <div style="margin-top: -38px;">
@@ -400,12 +408,14 @@ Google's Neural Machine Translation System
 
 <img src="images/healthrecords-frontier.png" width=800 class="illustration" style="margin-top: -30px;"/>
 
-## Some problems with deep learning 
+## Some problems with deep learning models
 
-- Models cannot be easily interpreted (black box)
-- Models can be brittle (see "adversarial examples")
-- Models are often very expensive to train
-- Often difficuilt to outperform traditional modeling techniques
+- Not easily interpreted (black box)
+- Can be brittle (see "adversarial examples")
+- Typically require large amounts of data to perform well
+- Are often very computationally expensive to train
+- Difficult to make them outperform traditional modeling techniques
+
 
 ## Deep learning hype makes things worse | My model is *deep* so it must be better!
 
