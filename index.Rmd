@@ -226,12 +226,8 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
     - Analyzing data with complex spatial or sequence dependencies
     - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
 
-## What is deep learning? | A subfield of machine learning, which is in turn a subfield of AI
 
-<img src="images/ai-ml-dl.png" width=675  style="margin-top: -38px;"/>
-
-
-## What is machine learning? | Learning model parameters via exposure to many example data points
+## Machine learning basics | Learning model parameters via exposure to many example data points
 
 <div style="margin-top: -38px;">
 <img src="images/gradient_descent_3d.png" width=400  align=right class="illustration" style="margin-left: 15px;"/>
