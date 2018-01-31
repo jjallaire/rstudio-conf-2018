@@ -477,7 +477,7 @@ Of course we can help here by promoting a more balanced dialog about the strengh
 
 
 
-## R interface to Tensorflow
+## R interface to Tensorflow | https://tensorflow.rstudio.com
 
 - High-level R interfaces for neural nets and traditional models
 
@@ -1414,8 +1414,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 </div>
 
 
-## Thank you! | https://tensorflow.rstudio.com
-
+## Thank you!
 <img src="images/r-logo.png" width=100/> <img src="images/tensorflow-logo.png" width=100 style="margin-left: 20px; ma"/> 
 
 <br/>
@@ -1423,6 +1422,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 Slides: <https://beta.rstudioconnect.com/ml-with-tensorflow-and-r/>
 
 <br/>
+
 
 Subscribe to the blog to stay up to date!
 
