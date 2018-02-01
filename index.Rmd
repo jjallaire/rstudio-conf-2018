@@ -888,10 +888,6 @@ model <- keras_model_sequential() %>%
 
 - Load pre-trained word embeddings (e.g. Word2vec, GloVe)
 
-
-
-
-
 ## Keras API: Compiling models
 
 Model compilation prepares the model for training by:
@@ -1547,6 +1543,10 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 
 - R now has a great set of APIs and suppporting tools for using TensorFlow and doing deep learning.
 
+## TensorFlow for R website | https://tensorflow.rstudio.com
+
+<img src="images/tensorflow-for-r-website.png" width=760 class="illustration" style="margin-top: -38px;"/>
+
 ## Recommended reading
 
 <div class="columns-2" style="margin-top: -30px">
@@ -1564,7 +1564,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 </div>
 
 
-## Thank you!
+## Thank you! 
 <img src="images/r-logo.png" width=100/> <img src="images/tensorflow-logo.png" width=100 style="margin-left: 20px; ma"/> 
 
 <br/>
