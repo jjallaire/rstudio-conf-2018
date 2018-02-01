@@ -189,6 +189,7 @@ head(data.matrix(iris), n = 10)
 
 ## Uses of TensorFlow | <https://tensorflow.rstudio.com/learn/gallery/>
 
+<div style="margin-top: -25px;">
 - Image classification 
 - Time series forecasting 
 - Classifying peptides for cancer immunotherapy
@@ -196,6 +197,46 @@ head(data.matrix(iris), n = 10)
 - Classifying duplicate questions from Quora
 - Predicting customer churn
 - Learning word embeddings for Amazon reviews
+</div>
+
+<br/>
+
+I'm confident the R community will also find novel new uses for TensorFlow...
+
+## Greta | Writing statistical models and fitting them by MCMC
+
+<div style="margin-top: -38px;">
+<https://greta-dev.github.io/greta/>
+
+<img src="images/greta.png" width=625px  class="illustration"/>
+</div>
+
+## Air Model: Greta vs. BUGS/JAGS
+
+<div style="margin-top: -20x;">
+```{r}
+# Greta
+theta <- normal(0, 32, dim = 2)
+mu <- alpha + beta * Z
+X <- normal(mu, sigma)
+p <- ilogit(theta[1] + theta[2] * X)
+distribution(y) <- binomial(n, p)
+```
+
+```{r}
+# BUGS/JAGS
+for(j in 1 : J) {
+   y[j] ~ dbin(p[j], n[j])
+   logit(p[j]) <- theta[1] + theta[2] * X[j]
+   X[j] ~ dnorm(mu[j], tau)
+   mu[j] <- alpha + beta * Z[j]
+}
+theta[1] ~ dnorm(0.0, 0.001)
+theta[2] ~ dnorm(0.0, 0.001)
+```
+</div>
+
+
 
 ## Deep Learning
 
@@ -640,38 +681,7 @@ for (step in 1:200)
   sess$run(train)
 ```
 
-## Greta | Writing statistical models and fitting them by MCMC
 
-<div style="margin-top: -38px;">
-<https://greta-dev.github.io/greta/>
-
-<img src="images/greta.png" width=625px  class="illustration"/>
-</div>
-
-## Air Model: Greta vs. BUGS/JAGS
-
-<div style="margin-top: -20x;">
-```{r}
-# Greta
-theta <- normal(0, 32, dim = 2)
-mu <- alpha + beta * Z
-X <- normal(mu, sigma)
-p <- ilogit(theta[1] + theta[2] * X)
-distribution(y) <- binomial(n, p)
-```
-
-```{r}
-# BUGS/JAGS
-for(j in 1 : J) {
-   y[j] ~ dbin(p[j], n[j])
-   logit(p[j]) <- theta[1] + theta[2] * X[j]
-   X[j] ~ dnorm(mu[j], tau)
-   mu[j] <- alpha + beta * Z[j]
-}
-theta[1] ~ dnorm(0.0, 0.001)
-theta[2] ~ dnorm(0.0, 0.001)
-```
-</div>
 
 ## R interface to Keras
 
