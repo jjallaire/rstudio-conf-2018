@@ -191,7 +191,7 @@ head(data.matrix(iris), n = 10)
 
 - Image classification 
 - Time series forecasting 
-- Classifing peptides for cancer immunotherapy
+- Classifying peptides for cancer immunotherapy
 - Credit card fraud detection using an autoencoder
 - Classifying duplicate questions from Quora
 - Predicting customer churn
@@ -541,12 +541,12 @@ Google's Neural Machine Translation System
 
 ## Deep learning hype makes things worse | My model is *deep* so it must be better!
 
-- Deep learning is experiencing unprecedted hype, and...
+- Deep learning is experiencing unprecedented hype, and...
 - The current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
 - It can be difficult to outperform traditional modeling techniques without a lot of effort, so...
-- We will be trolled by bad deep learning models for the forseeable future
+- We will be trolled by bad deep learning models for the foreseeable future
 
-Of course we can help here by promoting a more balanced dialog about the strenghts and weaknesses of these methods.
+Of course we can help here by promoting a more balanced dialog about the strengths and weaknesses of these methods.
 
 ## In spite of problems, extraordinarly useful! | We should help DL find it's appropriate place rather than dismiss it
 
@@ -966,7 +966,7 @@ model %>% compile(
 - Classifying duplicate questions from Quora
 - Deep learning to predict customer churn
 - Learning word embeddings for Amazon reviews
-- Work on explainabilty of predictions
+- Work on explainability of predictions
 
 
 
@@ -1120,7 +1120,7 @@ imagenet_decode_predictions(preds, top = 3)[[1]]
     - Hyperparameters (layer attributes, losses, learning rate, dropout, etc.)
     - Frustration and blind alleys are inevitable!
 
-- Over time you will develop stronger intutitions about the various tools available and how they might be succesfully combined to model your data.
+- Over time you will develop stronger intuitions about the various tools available and how they might be successfully combined to model your data.
 
 - Need lots of compute power!
 
@@ -1541,7 +1541,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 
 - Deep learning has made great progress and will likely increase in importance in various fields in the coming years.
 
-- R now has a great set of APIs and suppporting tools for using TensorFlow and doing deep learning.
+- R now has a great set of APIs and supporting tools for using TensorFlow and doing deep learning.
 
 ## TensorFlow for R website | https://tensorflow.rstudio.com
 
