@@ -304,27 +304,13 @@ Learning algorithms aren’t usually creative in finding these transformations; 
     - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
 
 
-## Statistical modeling vs. machine learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
+## Statistical modeling vs. machine learning | <span style="font-size: 0.8em; margin-top: -38px;"><https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning></span>
 
-<div style="margin-top: -38px;">
-<https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning>
-</div>
-
-<div class="columns-2" >
-
-<img src="images/stats-vs-ml-zoomed.png" width=470 class="illustration"/>
-
-<img src="images/machine_learning.png" width=323 />
-
-</div>
-
-## Statistical modeling vs. machine learning 
-
+<div style="padding-bottom: 50px;">
 **Statistics**: Often focused on inferring the process by which data is generated.
 
-**Machine learning**: Care principally about predicting future data.
-
-<br/>
+**Machine learning**: Principally focused on predicting future data.
+</div>
 
 <div style="font-size: 0.8em;">
 Breiman, L. (2001). [Statistical modeling: The two cultures](https://projecteuclid.org/download/pdf_1/euclid.ss/1009213726). *Statistical Science*, 16(3), 199--215.
