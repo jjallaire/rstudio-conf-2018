@@ -1,6 +1,6 @@
 ---
 title: "Machine Learning with TensorFlow and R"
-author: "J.J. Allaire --- RStudio"
+author: "J.J. Allaire --- CEO, RStudio"
 output: 
   ioslides_presentation:
     widescreen: true
@@ -1569,7 +1569,7 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 
 <br/>
 
-Slides: <https://beta.rstudioconnect.com/ml-with-tensorflow-and-r/>
+Slides: <https://rstd.io/ml-with-tensorflow-and-r/>
 
 <br/>
 
