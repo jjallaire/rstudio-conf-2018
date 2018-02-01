@@ -391,13 +391,11 @@ Other approaches to machine learning tend to focus on learning only one or two l
 library(keras)
 model <- keras_model_sequential() %>%
   layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
-                input_shape = input_shape) %>% 
+                input_shape = c(28,28,1)) %>% 
   layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
   layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
-  layer_dropout(rate = 0.25) %>% 
   layer_flatten() %>% 
   layer_dense(units = 128, activation = 'relu') %>% 
-  layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 10, activation = 'softmax')
 ```
 
@@ -410,7 +408,68 @@ Deep-learning models are mathematical machines for uncrumpling complicated manif
 
 Deep learning is turning meaning into vectors, into geometric spaces, and then incrementally learning complex geometric transformations that map one space to another.
 
-How can we do this with simple parametric models trained with gradient descent? We just need sufficiently large parametric models trained with gradient descent on sufficiently many examples. 
+How can we do this with simple parametric models trained with gradient descent? We just need *sufficiently large parametric models* trained with gradient descent on *sufficiently many examples*. 
+
+## Sufficiently large parametric models | Simple grayscale digit recognizer model has > 1 million parameters {.smaller}
+
+<div style="margin-top: -30px;">
+```{r}
+summary(model)
+```
+```
+______________________________________________________________________________________
+Layer (type)                          Output Shape                       Param #      
+======================================================================================
+conv2d_3 (Conv2D)                     (None, 26, 26, 32)                 320          
+______________________________________________________________________________________
+conv2d_4 (Conv2D)                     (None, 24, 24, 64)                 18496        
+______________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)        (None, 12, 12, 64)                 0            
+______________________________________________________________________________________
+flatten_2 (Flatten)                   (None, 9216)                       0            
+______________________________________________________________________________________
+dense_3 (Dense)                       (None, 128)                        1179776      
+______________________________________________________________________________________
+dense_4 (Dense)                       (None, 10)                         1290         
+======================================================================================
+Total params: 1,199,882
+Trainable params: 1,199,882
+Non-trainable params: 0
+______________________________________________________________________________________
+```
+</div>
+
+
+## Sufficiently large for computer vision | VGG has ~ 138 million parameters, Imagenet has ~ 14 million images {.smaller}
+
+<div style="margin-top: -30px;">
+```{r}
+summary(vgg16_imagenet_model)
+```
+```
+Layer (type)                          Output Shape                       Param #      
+======================================================================================
+input_1 (InputLayer)                  (None, 224, 224, 3)                0            
+______________________________________________________________________________________
+block1_conv1 (Conv2D)                 (None, 224, 224, 64)               1792         
+______________________________________________________________________________________
+block1_conv2 (Conv2D)                 (None, 224, 224, 64)               36928        
+______________________________________________________________________________________
+block1_pool (MaxPooling2D)            (None, 112, 112, 64)               0            
+______________________________________________________________________________________
+... (entire model not shown) ...
+______________________________________________________________________________________
+fc2 (Dense)                           (None, 4096)                       16781312     
+______________________________________________________________________________________
+predictions (Dense)                   (None, 1000)                       4097000      
+======================================================================================
+Total params: 138,357,544
+Trainable params: 138,357,544
+Non-trainable params: 0
+______________________________________________________________________________________
+
+```
+</div>
 
 ## Deep learning frontiers
 
@@ -774,6 +833,65 @@ model %>% predict_classes(x_test[1:100,])
 </div>
 
 
+## Keras API: Dense layers | Classic "fully connected" neural network layers
+
+<div style="margin-top: -25px;">
+```{r}
+layer_dense()
+```
+</div>
+
+<img src="images/dense-network.png" width=900 class="illustration"/>
+
+
+## Keras API: Convolutional layers | Filters for learning local (translation invariant) patterns in data
+
+<div style="margin-top: -25px;">
+```{r}
+layer_conv_2d()
+```
+</div>
+
+
+<img src="images/local_patterns.jpg" width=280 align=left class="illustration"/>
+<img src="images/response-map.png" width=672 style="margin-left: 20px;" class="illustration"/>
+
+
+## Keras API: Recurrent layers | Layers that maintain state based on previously seen data
+
+<div style="margin-top: -25px;">
+```{r}
+layer_simple_rnn()
+layer_gru()
+layer_lstm()
+```
+</div>
+
+<img src="images/unrolled_simplernn.png" width=900 class="illustration"/>
+
+
+## Keras API: Embedding layers | Vectorization of text that reflects semantic relationships between words
+
+<div style="margin-top: -1px;">
+```{r}
+model <- keras_model_sequential() %>%
+  layer_embedding(input_dim = 10000, output_dim = 8,
+                  input_length = 20) %>%
+  layer_flatten() %>%
+  layer_dense(units = 1, activation = "sigmoid")
+```
+</div>
+
+<br/>
+
+- Learn the embeddings jointly with the main task you care about (e.g. classification); or
+
+- Load pre-trained word embeddings (e.g. Word2vec, GloVe)
+
+
+
+
+
 ## Keras API: Compiling models
 
 Model compilation prepares the model for training by:
@@ -998,6 +1116,20 @@ imagenet_decode_predictions(preds, top = 3)[[1]]
     - Attempt to approach the frontier in your own work
     
 - To approach the frontier you need understanding of the full range of DL techniques, iteration, patience, and lots of compute power!    
+
+## Deep learning in practice
+
+- Success requires a large amount of experimentation with:
+    - Model architecture (i.e. number and type of layers)
+    - Hyperparameters (layer attributes, losses, learning rate, dropout, etc.)
+    - Frustration and blind alleys are inevitable!
+
+- Over time you will develop stronger intutitions about the various tools available and how they might be succesfully combined to model your data.
+
+- Need lots of compute power!
+
+- Need tools that help you get the most out of the compute you have. 
+
 
 ## Supporting tools
 
