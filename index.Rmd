@@ -261,6 +261,21 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 <img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
  class="illustration"/>
 
+## What are layers? | Data transformation functions parameterized by weights
+
+<div style="margin-top: -10px;">
+<img src="images/nn-basics-2.png" width=420 style="margin-top: -15px;"
+ class="illustration"/>&nbsp;&nbsp;<img src="images/nn-basics-1.jpeg" width=497 style="margin-top: -15px;"
+ class="illustration"/>
+</div>
+
+- A layer performs a geometric transformation on the data that goes through it
+
+- Weights determine the data transformation behavior of a layer 
+
+
+
+
 ## Learning representations | Transforming input data into useful representations
 
 <img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
