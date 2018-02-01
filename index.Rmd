@@ -940,7 +940,6 @@ model %>% compile(
 - Work on explainability of predictions
 
 
-
 ## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets</small> {.smaller}
 
 <div class="columns-2" style="margin-top: -10px;">
