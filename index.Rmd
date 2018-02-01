@@ -670,6 +670,16 @@ for (step in 1:200)
 - Losses, optimizers, and metrics
 - More examples
 
+## Keras adoption
+
+<div class="columns-2">
+
+<img src="images/keras-search.png" width=450 class="illustration"/>
+
+<img src="images/keras-research.png" width=400 class="illustration"/>
+
+</div>
+
 ## Keras: Data preprocessing 
 
 <img src="images/MNIST.png" width=200 class="illustration" style="margin-top: -38px;"/>
