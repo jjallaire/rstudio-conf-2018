@@ -256,13 +256,16 @@ theta[2] ~ dnorm(0.0, 0.001)
 
 Special thanks to François Chollet (creator of Keras) for the concepts and figures used to explain deep learning! (all drawn from Chapter 1 of his [Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) book)
 
+## What is deep learning? | Input to output via layers of representation
 
-
-
-## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
-
-<img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
+<img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
  class="illustration"/>
+
+## Learning representations | Transforming input data into useful representations
+
+<img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
+
+Learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
 
 
 ## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
@@ -295,30 +298,11 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
     - Computer vision
     - Computer speech recognition and translation
     - Various other forms of complex pattern recognition
-
+    
 - Improved techniques for our traditional domains:
     - Analyzing data with complex spatial or sequence dependencies
     - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
 
-
-## Machine learning basics | Learning model parameters via exposure to many example data points
-
-<div style="margin-top: -38px;">
-<img src="images/gradient_descent_3d.png" width=400  align=right class="illustration" style="margin-left: 15px;"/>
-
-- Input data points (e.g. *images*)
-
-- Labels (e.g. *cat* vs. *dog*)
-
-- Model architecture (e.g. *logistic regression*)
-
-- Loss function (measures performance of model, e.g. *categorical crossentroopy*)
-
-- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
-
-- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
-
-</div>
 
 ## Statistical modeling vs. machine learning | Could be an entire talk (or conference!). I'm not going there. {.smaller}
 
@@ -354,16 +338,6 @@ Breiman, L. (1997). [No Bayesians in foxholes](http://ieeexplore.ieee.org/docume
 Boulesteix, A.-L., \& Schmid, M. (2014). [Machine learning versus statistical modeling](http://onlinelibrary.wiley.com/doi/10.1002/bimj.201300226/abstract). *Biometrical Journal*, 56(4), 588--593. (and other articles in this issue)
 </div>
 
-## Learning representations | Transforming input data into useful representations
-
-<img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
-
-Learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
-
-## Input to output via layers of representation
-
-<img src="images/a_deep_network.png" width=850 style="margin-top: -15px;"
- class="illustration"/>
 
 
 ## The "deep" in deep learning 
@@ -393,6 +367,7 @@ Other approaches to machine learning tend to focus on learning only one or two l
 ## Using input data and labels to learn weights | A neural network is parameterized by its weights
 
 <img src="images/deep-learning-in-3-figures-1.png" width=750 style="margin-top: -38px;"/>
+
 
 ## Evaluate the loss for each training batch | A loss function measures the quality of the network’s output {.smaller}
 
@@ -440,8 +415,12 @@ model <- keras_model_sequential() %>%
   layer_dense(units = 10, activation = 'softmax')
 ```
 
+## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
 
-## What is deep learning? 
+<img src="images/twitter-what-is-dl.png" width=600 style="margin-top: -38px;"
+ class="illustration"/>
+
+## Geometric interpretation
 
 <img src="images/geometric_interpretation_4.jpg" width=600 style="margin-top: -25px;"/>
 
@@ -661,6 +640,7 @@ model <- keras_model_sequential() %>%
 | dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
 | dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
 
+
 ## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
 
 ```{r}
@@ -680,7 +660,6 @@ sess$run(tf$global_variables_initializer())
 for (step in 1:200)
   sess$run(train)
 ```
-
 
 
 ## R interface to Keras
@@ -746,34 +725,9 @@ model %>% compile(
 - Keras layers can be shared by multiple parts of a Keras model.
 
 
-## Keras: Model summary {.smaller}
+## Keras: Model training | Feeding mini-batches of data to the model thousands of times
 
-```{r}
-summary(model)
-```
-```
-_____________________________________________________________________________________
-Layer (type)                          Output Shape                      Param #      
-=====================================================================================
-dense_1 (Dense)                       (None, 256)                       200960       
-_____________________________________________________________________________________
-dropout_1 (Dropout)                   (None, 256)                       0            
-_____________________________________________________________________________________
-dense_2 (Dense)                       (None, 128)                       32896        
-_____________________________________________________________________________________
-dropout_2 (Dropout)                   (None, 128)                       0            
-_____________________________________________________________________________________
-dense_3 (Dense)                       (None, 10)                        1290         
-=====================================================================================
-Total params: 235,146
-Trainable params: 235,146
-Non-trainable params: 0
-_____________________________________________________________________________________
-```
-
-
-## Keras: Model training
-
+<div style="margin-top: -30px">
 ```{r}
 history <- model %>% fit(
   x_train, y_train,
@@ -782,18 +736,14 @@ history <- model %>% fit(
   validation_split = 0.2
 )
 ```
+</div>
 
-```{r}
-history
-```
-```
-Trained on 48,000 samples, validated on 12,000 samples (batch_size=128, epochs=30)
-Final epoch (plot to see history):
-     acc: 0.9057
-    loss: 1.5
- val_acc: 0.9317
-val_loss: 1.088 
-```
+- Feed 128 samples at a time to the model (`batch_size = 128`)
+
+- Traverse the input dataset 30 times (`epochs = 30`)
+
+- Hold out 20% of the data for validation (`validation_split = 0.2`)
+
 
 ## Keras: Model training (cont.)
 
@@ -1357,7 +1307,7 @@ model <- keras_model_sequential() %>%
 trainingInput:
   hyperparameters:
     goal: MAXIMIZE
-    hyperparameterMetricTag: acc
+    hyperparameterMetricTag: val_acc
     maxTrials: 10
     params:
       - parameterName: dropout1
@@ -1512,22 +1462,6 @@ Operation completed over 3 objects/1.9 MiB.
 Model created and available in https://console.cloud.google.com/mlengine/models/keras_mnist
 ```
 
-
-## Deployment: Embedded, mobile, and browser
-
-- Run on embedded devices (e.g. [Raspberry Pi](https://github.com/samjabrahams/tensorflow-on-raspberry-pi))
-
-- Keras models can be converted to iOS [CoreML](https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml)
-
-- Keras models can be deployed to the browser with [Keras.js](https://transcranial.github.io/keras-js/#/)
-
-- Additional projects:
-    - [TensorFlow Lite](https://www.tensorflow.org/mobile/tflite/)
-    - [deeplearn.js](https://deeplearnjs.org/)
-    
-
-Attend Javier Luraschi's *Deploying TensorFlow models with tfdeploy* talk after the break (interop track) to learn more!
-
 ## Deployment: Shiny
 
 <a href="https://jjallaire.shinyapps.io/keras-customer-churn/"><img src="images/keras-customer-churn.png" align="left" width=241 class="illustration" style="margin-right: 60px;"/></a>
@@ -1545,6 +1479,23 @@ model %>% predict(input)
 predict_savedmodel(input, "savedmodel")   # SavedModel
 ```
 
+
+## Deployment: Embedded, mobile, and browser
+
+- Run on embedded devices (e.g. [Raspberry Pi](https://github.com/samjabrahams/tensorflow-on-raspberry-pi))
+
+- Keras models can be converted to iOS [CoreML](https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml)
+
+- Keras models can be deployed to the browser with [Keras.js](https://transcranial.github.io/keras-js/#/)
+
+- Additional projects:
+    - [TensorFlow Lite](https://www.tensorflow.org/mobile/tflite/)
+    - [deeplearn.js](https://deeplearnjs.org/)
+    
+
+Attend Javier Luraschi's *Deploying TensorFlow models with tfdeploy* talk after the break (interop track) to learn more!
+
+
 ## Key takeaways
 
 - TensorFlow is a new general purpose numerical computing library with lots to offer the R community.
@@ -1559,15 +1510,13 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
 
 ## Recommended reading
 
-<div class="columns-2" style="margin-top: -30px">
+<div class="columns-2" style="margin-top: -10px">
 
 <div>
-#### *All code (no math)*
 <a style="border-bottom: none;"  href="https://www.amazon.com/Deep-Learning-R-Francois-Chollet/dp/161729554X"><img src="images/Allaire-DLwithR-HI.png" width=370 class="illustration"/></a>
 </div>
 
 <div>
-#### *All math (no code)*
 <a style="border-bottom: none;"  href="https://www.amazon.com/Deep-Learning-Adaptive-Computation-Machine/dp/0262035618/"><img src="images/deep-learning-goodfellow.png" width=347 class="illustration"/></a>
 </div>
 
