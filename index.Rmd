@@ -187,7 +187,7 @@ head(data.matrix(iris), n = 10)
 
 </div>
 
-## Uses of TensorFlow | <https://tensorflow.rstudio.com/learn/gallery/>
+## Uses of TensorFlow | <https://tensorflow.rstudio.com/gallery/>
 
 <div style="margin-top: -25px;">
 - Image classification 
