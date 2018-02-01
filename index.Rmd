@@ -25,7 +25,7 @@ a {
   border-bottom: 0;
 }
 a:hover {
-  color: #2a7cdf |important;
+  color: #2a7cdf !important;
   border-bottom: 1px solid rgba(42, 124, 223, 0.5);
 }
 </style>
