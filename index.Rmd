@@ -174,7 +174,7 @@ head(data.matrix(iris), n = 10)
 </div>
 
 
-## Why a dataflow graph? | Major gains in performance and scalability 
+## Why a dataflow graph? | Major gains in performance, scalability, and portability
 
 <div style="margin-top: -30px;">
   
@@ -269,19 +269,16 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
  class="illustration"/>
 </div>
 
-- A layer performs a geometric transformation on the data that goes through it
+- A layer is a geometric transformation function on the data that goes through it (transformations must be differentiable for stochastic gradient descent)
 
 - Weights determine the data transformation behavior of a layer 
-
-
 
 
 ## Learning representations | Transforming input data into useful representations
 
 <img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
 
-Learning algorithms aren’t usually creative in finding these transformations; they’re merely searching through a predefined set of operations, called a *hypothesis space*.
-
+The layers of representation in a deep learning model are the *feature engineering* for the model (i.e. feature transformations are learned rather than hard coded).
 
 ## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
 
@@ -311,12 +308,14 @@ Learning algorithms aren’t usually creative in finding these transformations; 
 
 - New problem domains for R:
     - Computer vision
-    - Computer speech recognition and translation
-    - Various other forms of complex pattern recognition
+    - Computer speech recognition 
+    - Reinforcement learning applications
     
-- Improved techniques for our traditional domains:
+- Improved techniques for our traditional domains?
     - Analyzing data with complex spatial or sequence dependencies
     - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
+  
+Deep learning is proven to be effective at various complex "perceptual" tasks but *not yet proven* to be of widespread benefit in other domains.
 
 
 ## Statistical modeling vs. machine learning | <span style="font-size: 0.8em; margin-top: -38px;"><https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning></span>
@@ -338,8 +337,6 @@ Breiman, L. (1997). [No Bayesians in foxholes](http://ieeexplore.ieee.org/docume
 
 Boulesteix, A.-L., \& Schmid, M. (2014). [Machine learning versus statistical modeling](http://onlinelibrary.wiley.com/doi/10.1002/bimj.201300226/abstract). *Biometrical Journal*, 56(4), 588--593. (and other articles in this issue)
 </div>
-
-
 
 ## The "deep" in deep learning 
 
@@ -363,6 +360,21 @@ Other approaches to machine learning tend to focus on learning only one or two l
 - Raw data goes in (in this case, grayscale images) 
 - Data is transformed so that irrelevant information is filtered out (for example, the specific visual appearance of the image).
 - Useful information is magnified and refined (for example, the class of the image).
+
+
+## Machine learning algorithms | Learning model parameters via exposure to many example data points
+
+- Input data points (e.g. *images*)
+
+- Labels (e.g. *cat* vs. *dog*)
+
+- Model architecture (e.g. *logistic regression*)
+
+- Loss function (measures performance of model, e.g. *categorical crossentroopy*)
+
+- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
+
+- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
 
 
 ## Using input data and labels to learn weights | A neural network is parameterized by its weights
@@ -523,11 +535,12 @@ ________________________________________________________________________________
 
 ## Natural language processing | https://arxiv.org/abs/1708.02709
 
-<div style="margin-top: -10px;">
+<div style="margin-top: -25px;">
 <img src="images/nlp-frontiers.png" width=400 style="margin-right: 15px;" class="illustration"/>
 <img src="images/computational-linguistics.png" width=478 style="" class="illustration"/>
 </div>
 
+Paper submissions could just indicate a passing fad or could be a fundamental transformation, we don't know yet!
 
 ## Language translation | https://arxiv.org/abs/1609.08144 {.smaller}
 
@@ -537,21 +550,57 @@ Google's Neural Machine Translation System
 <img src="images/language-frontier.png" width=650 style="" class="illustration"/>
 </div>
 
-## Time series | http://ieeexplore.ieee.org/document/7870510/
+## Time series | http://ieeexplore.ieee.org/document/7870510/ {.smaller}
 
-<img src="images/timeseries-frontier.png" width=600 class="illustration" style="margin-top: -38px;"/>
+<div style="margin-top: -25px;">
+<img src="images/timeseries-frontier.png" width=536 style="margin-right: 50px;" align=left class="illustration"/>
 
-## Time series | http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180944
+- Time series classification based on convolutional neural networks (same technique commonly used for images)
 
-<img src="images/timeseries-frontier-2.png" width=600 class="illustration" style="margin-top: -30px;"/>
+- Convolution and pooling operations are alternatively used to generate deep features of the raw data, which are then fed through standard dense layers.
 
-## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760
+<img src="images/time-series-classification.png" width=360 class="illustration"/>
+</div>
 
-<img src="images/biology-frontier.png" width=550 class="illustration" style="margin-top: -38px;"/>
 
-## What next? | <https://arxiv.org/abs/1801.07860>
+## Time series | http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180944 {.smaller}
 
-<img src="images/healthrecords-frontier.png" width=800 class="illustration" style="margin-top: -30px;"/>
+<div class="columns-2" style="margin-top: -25px">
+<img src="images/timeseries-frontier-2.png" width=450 class="illustration" />
+
+- Wavelet transforms used to address noise in financial time series. 
+
+- Stacked autoencoder used to learn the deep features of financial time series in an unsupervised manner.
+
+- Long Short-Term Memory (LSTM) used to retain time related information within layers for an arbitrary amount of time.
+</div>
+
+## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760 {.smaller}
+
+<div style="margin-top: -30px">
+<img src="images/biology-frontier.png" width=550 align=left style="margin-right: 50px;" class="illustration"/>
+
+- Applications of deep learning to a variety of biomedical problems---patient classification, fundamental biological processes, and treatment of patients.
+
+- While deep learning has yet to revolutionize or definitively resolve any of these problems, promising advances have been made on the prior state of the art.
+</div>
+
+## Electronic health records (EHR) | <https://arxiv.org/abs/1801.07860> 
+
+<div style="margin-top: -40px; font-size: 0.8em;">
+*January 2018 study by Google, UCSF, Stanford, and U of Chicago Medicine*
+</div>
+
+<img src="images/healthrecords-frontier.png" width=500 align=left style="margin-right: 50px;" class="illustration"/>
+
+<div style="font-size: 0.8em;">
+- Constructing predictive statistical models typically requires extraction of curated predictor variables from normalized EHR data, a labor-intensive process that discards the vast majority of information in each patient’s record.
+
+- Deep learning approach considers entire medical record (including physicians free-text notes). The network learns representations of the key factors and interactions from the data itself.
+</div>
+
+Produced predictions for a wide range of clinical problems and outcomes that outperformed state-of-the-art traditional predictive models.
+
 
 ## Some problems with deep learning models
 
@@ -681,7 +730,7 @@ for (step in 1:200)
 
 </div>
 
-## Keras: Data preprocessing 
+## Keras: Data preprocessing | Transform input data into tensors {.smaller}
 
 <img src="images/MNIST.png" width=200 class="illustration" style="margin-top: -38px;"/>
 
@@ -701,6 +750,7 @@ x_test <- x_test / 255
 y_train <- to_categorical(y_train, 10)
 y_test <- to_categorical(y_test, 10)
 ```
+
 
 ## Keras: Model definition
 
@@ -743,7 +793,7 @@ model %>% compile(
 history <- model %>% fit(
   x_train, y_train,
   batch_size = 128,
-  epochs = 30,
+  epochs = 10,
   validation_split = 0.2
 )
 ```
@@ -751,7 +801,7 @@ history <- model %>% fit(
 
 - Feed 128 samples at a time to the model (`batch_size = 128`)
 
-- Traverse the input dataset 30 times (`epochs = 30`)
+- Traverse the input dataset 10 times (`epochs = 10`)
 
 - Hold out 20% of the data for validation (`validation_split = 0.2`)
 
@@ -785,6 +835,10 @@ model %>% predict_classes(x_test[1:100,])
  [36] 2 7 1 2 1 1 7 4 2 3 5 1 2 4 4 6 3 5 5 6 0 4 1 9 5 7 8 9 3 7 4 6 4 3 0
  [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
 ```
+
+## Keras Demo
+
+<img src="images/rstudio-keras-demo.png" class=illustration style="margin-top: -38px;" width=800/>
 
 ## Keras API: Layers | 65 layers available (you can also create your own layers) {.smaller}
 
@@ -940,7 +994,7 @@ model %>% compile(
 - Work on explainability of predictions
 
 
-## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets</small> {.smaller}
+## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets.html</small> {.smaller}
 
 <div class="columns-2" style="margin-top: -10px;">
 
