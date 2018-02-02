@@ -5,8 +5,8 @@ account: jjallaire
 server: beta.rstudioconnect.com
 hostUrl: https://beta.rstudioconnect.com/__api__
 appId: 3247
-bundleId: 7069
+bundleId: 7070
 url: https://beta.rstudioconnect.com/ml-with-tensorflow-and-r/
-when: 1517527877.3671
+when: 1517531088.10139
 asMultiple: FALSE
 asStatic: FALSE
