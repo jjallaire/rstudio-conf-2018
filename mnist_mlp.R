@@ -1,3 +1,4 @@
+
 library(keras)
 
 # Load MNIST images datasets (built in to Keras)

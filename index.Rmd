@@ -280,6 +280,31 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 The layers of representation in a deep learning model are the *feature engineering* for the model (i.e. feature transformations are learned rather than hard coded).
 
+## Layers of representation | An information distillation pipeline {.smaller}
+
+<img src="images/mnist_representations.png" width=600 style="margin-top: -35px;"
+ class="illustration"/>
+ 
+- Raw data goes in (in this case, grayscale images) 
+- Data is transformed so that irrelevant information is filtered out (for example, the specific visual appearance of the image).
+- Useful information is magnified and refined (for example, the class of the image).
+
+
+## The "deep" in deep learning 
+
+A new take on learning representations from data that puts an emphasis on learning successive layers of increasingly meaningful representations.
+
+Other possibly more appropriate names for the field:
+
+- Layered representations learning
+- Hierarchical representations learning
+- Chained geometric transformation learning
+
+Modern deep learning often involves tens or even hundreds of successive layers of representation
+
+Other approaches to machine learning tend to focus on learning only one or two layers of representations of the data
+
+
 ## What has deep learning achieved? | Complex geometric transformations, broken down into simpler ones {.smaller}
 
 <img src="images/geometric_interpretation_4.jpg" width=600 style="margin-top: -38px;"/>
@@ -303,7 +328,6 @@ The layers of representation in a deep learning model are the *feature engineeri
 
 </div>
 
-
 ## Why should R users care about deep learning?
 
 - New problem domains for R:
@@ -317,6 +341,32 @@ The layers of representation in a deep learning model are the *feature engineeri
   
 Deep learning is proven to be effective at various complex "perceptual" tasks but *not yet proven* to be of widespread benefit in other domains.
 
+## How do we train deep learning models?
+
+- Basics of machine learning algorithms
+- Machine learning vs. statistical modeling
+- MNIST example
+    - Model definition in R
+    - Layers of representation
+- The training loop 
+
+A simple mechanism that, once scaled, ends up looking like magic
+
+## Machine learning algorithms | Learning model parameters via exposure to many example data points
+
+<div style="margin-top: -30px;">
+- Input data points (e.g. *images*)
+
+- Labels (e.g. *cat* vs. *dog*)
+
+- Model architecture (e.g. *logistic regression*)
+
+- Loss function (measures performance of model, e.g. *categorical cross entropy*)
+
+- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
+
+- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
+</div>
 
 ## Statistical modeling vs. machine learning | <span style="font-size: 0.8em; margin-top: -38px;"><https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning></span>
 
@@ -338,45 +388,25 @@ Breiman, L. (1997). [No Bayesians in foxholes](http://ieeexplore.ieee.org/docume
 Boulesteix, A.-L., \& Schmid, M. (2014). [Machine learning versus statistical modeling](http://onlinelibrary.wiley.com/doi/10.1002/bimj.201300226/abstract). *Biometrical Journal*, 56(4), 588--593. (and other articles in this issue)
 </div>
 
-## The "deep" in deep learning 
+## MNIST layers in R
 
-A new take on learning representations from data that puts an emphasis on learning successive layers of increasingly meaningful representations.
+```{r}
+library(keras)
+model <- keras_model_sequential() %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
+                input_shape = c(28,28,1)) %>% 
+  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
+  layer_flatten() %>% 
+  layer_dense(units = 128, activation = 'relu') %>% 
+  layer_dense(units = 10, activation = 'softmax')
+```
 
-Other possibly more appropriate names for the field:
+## MNIST layers of representation
 
-- Layered representations learning
-- Hierarchical representations learning
-- Chained geometric transformation learning
-
-Modern deep learning often involves tens or even hundreds of successive layers of representation
-
-Other approaches to machine learning tend to focus on learning only one or two layers of representations of the data
-
-## Layers of representation | An information distillation pipeline {.smaller}
-
-<img src="images/mnist_representations.png" width=600 style="margin-top: -35px;"
+<img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
  class="illustration"/>
  
-- Raw data goes in (in this case, grayscale images) 
-- Data is transformed so that irrelevant information is filtered out (for example, the specific visual appearance of the image).
-- Useful information is magnified and refined (for example, the class of the image).
-
-
-## Machine learning algorithms | Learning model parameters via exposure to many example data points
-
-- Input data points (e.g. *images*)
-
-- Labels (e.g. *cat* vs. *dog*)
-
-- Model architecture (e.g. *logistic regression*)
-
-- Loss function (measures performance of model, e.g. *categorical crossentroopy*)
-
-- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
-
-- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
-
-
 ## Using input data and labels to learn weights | A neural network is parameterized by its weights
 
 <img src="images/deep-learning-in-3-figures-1.png" width=750 style="margin-top: -38px;"/>
@@ -407,26 +437,6 @@ Other approaches to machine learning tend to focus on learning only one or two l
 - The training loop, which, repeated a sufficient number of times (typically tens of iterations over thousands of examples), yields weight values that minimize the loss function.
 
 </div>
-
-## MNIST layers of representation
-
-<img src="images/mnist_representations.png" width=850 style="margin-top: -15px;"
- class="illustration"/>
- 
-
-## MNIST layers in R
-
-```{r}
-library(keras)
-model <- keras_model_sequential() %>%
-  layer_conv_2d(filters = 32, kernel_size = c(3,3), activation = 'relu',
-                input_shape = c(28,28,1)) %>% 
-  layer_conv_2d(filters = 64, kernel_size = c(3,3), activation = 'relu') %>% 
-  layer_max_pooling_2d(pool_size = c(2, 2)) %>% 
-  layer_flatten() %>% 
-  layer_dense(units = 128, activation = 'relu') %>% 
-  layer_dense(units = 10, activation = 'softmax')
-```
 
 ## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
 
@@ -575,7 +585,7 @@ Google's Neural Machine Translation System
 - Long Short-Term Memory (LSTM) used to retain time related information within layers for an arbitrary amount of time.
 </div>
 
-## Biology | https://www.biorxiv.org/content/early/2018/01/19/142760 {.smaller}
+## Biomedical | https://www.biorxiv.org/content/early/2018/01/19/142760 {.smaller}
 
 <div style="margin-top: -30px">
 <img src="images/biology-frontier.png" width=550 align=left style="margin-right: 50px;" class="illustration"/>
