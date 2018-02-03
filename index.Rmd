@@ -1578,6 +1578,13 @@ Attend Javier Luraschi's *Deploying TensorFlow models with tfdeploy* talk after 
 
 - R now has a great set of APIs and supporting tools for using TensorFlow and doing deep learning.
 
+## Additional talks | interop track at 11am
+
+- *Large scale machine learning using TensorFlow, BigQuery and CloudML* (Michael Quinn)---Demonstrate modeling predictions on Google Store data plus details of an upcoming Kaggle contest for R users.
+
+- *Deploying TensorFlow models with tfdeploy* (Javier Luraschi). Demonstrate various ways to deploy Keras and TensorFlow models including deploying into a web browser with [Keras.js](https://transcranial.github.io/keras-js).
+
+
 ## TensorFlow for R website | https://tensorflow.rstudio.com
 
 <img src="images/tensorflow-for-r-website.png" width=760 class="illustration" style="margin-top: -38px;"/>
