@@ -1567,9 +1567,6 @@ predict_savedmodel(input, "savedmodel")   # SavedModel
     - [deeplearn.js](https://deeplearnjs.org/)
     
 
-Attend Javier Luraschi's *Deploying TensorFlow models with tfdeploy* talk after the break (interop track) to learn more!
-
-
 ## Key takeaways
 
 - TensorFlow is a new general purpose numerical computing library with lots to offer the R community.
@@ -1577,13 +1574,6 @@ Attend Javier Luraschi's *Deploying TensorFlow models with tfdeploy* talk after 
 - Deep learning has made great progress and will likely increase in importance in various fields in the coming years.
 
 - R now has a great set of APIs and supporting tools for using TensorFlow and doing deep learning.
-
-## Additional talks | interop track at 11am
-
-- *Large scale machine learning using TensorFlow, BigQuery and CloudML* (Michael Quinn)---Demonstrate modeling predictions on Google Store data plus details of an upcoming Kaggle contest for R users.
-
-- *Deploying TensorFlow models with tfdeploy* (Javier Luraschi). Demonstrate various ways to deploy Keras and TensorFlow models including deploying into a web browser with [Keras.js](https://transcranial.github.io/keras-js).
-
 
 ## TensorFlow for R website | https://tensorflow.rstudio.com
 
