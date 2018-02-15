@@ -352,22 +352,6 @@ Deep learning is proven to be effective at various complex "perceptual" tasks bu
 
 A simple mechanism that, once scaled, ends up looking like magic
 
-## Machine learning algorithms | Learning model parameters via exposure to many example data points
-
-<div style="margin-top: -30px;">
-- Input data points (e.g. *images*)
-
-- Labels (e.g. *cat* vs. *dog*)
-
-- Model architecture (e.g. *logistic regression*)
-
-- Loss function (measures performance of model, e.g. *categorical cross entropy*)
-
-- Loss is used as a feedback signal to an optimizer (e.g. *stochastic gradient descent*) to iteratively adjust the model parameters
-
-- *Training* consists of feeding batches of data to training process to learn the optimal model parameters.
-</div>
-
 ## Statistical modeling vs. machine learning | <span style="font-size: 0.8em; margin-top: -38px;"><https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning></span>
 
 <div style="padding-bottom: 50px;">
