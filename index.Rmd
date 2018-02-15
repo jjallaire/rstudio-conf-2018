@@ -672,7 +672,7 @@ Of course we can help here by promoting a more balanced dialog about the strengt
 </div>
 
 
-## TensorFlow Keras API | High level API for nueral networks <br/> <https://tensorflow.rstudio.com/keras/> 
+## TensorFlow Keras API | High level API for neural networks <br/> <https://tensorflow.rstudio.com/keras/> 
 
 ```{r}
 library(keras)
