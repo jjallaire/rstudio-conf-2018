@@ -1212,8 +1212,6 @@ Some applications---in particular, image processing with convolutional networks 
 </div>
 
 
-
-
 ## tfruns package | <https://tensorflow.rstudio.com/tools/tfruns/>
 
 Successful deep learning requires a huge amount of experimentation.
