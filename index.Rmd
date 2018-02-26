@@ -856,12 +856,21 @@ model %>% predict_classes(x_test[1:100,])
 
 <div style="margin-top: -25px;">
 ```{r}
-layer_dense()
+layer_dense(units = 128)
 ```
 </div>
 
-<img src="images/dense-network.png" width=900 class="illustration"/>
+*`output = activation(dot(input, kernel) + bias)`* 
 
+<div style="margin-top: 39px;">
+
+<img src="images/dense-network.png" align=left width=550 style="margin-right: 40px;" class="illustration"/>
+
+- `kernel` is a weights matrix 
+- `bias` is a bias vector 
+- `activation` is a function often used to introduce non-linearity (e.g. sigmoid) 
+
+</div>
 
 ## Keras API: Convolutional layers | Filters for learning local (translation invariant) patterns in data
 
