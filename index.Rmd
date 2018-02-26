@@ -1176,20 +1176,6 @@ Some applications---in particular, image processing with convolutional networks 
 
 <img src="images/google-datacenter.png" width=900 style="margin-top: -25px;" />
 
-## RStudio Server with TensorFlow-GPU for AWS | https://tensorflow.rstudio.com/tools/cloud_server_gpu.html#amazon-ec2
-
-<div>
-<img src="images/aws-marketplace.png" width=450 align=left class="illustration" style=" margin-right: 50px;" />
-
-- R and RStudio Server pre-installed and configured to work with TensorFlow
-
-- NVIDIA CUDA and cuDNN GPU libraries 
-
-- TensorFlow and Keras libraries 
-
-- R for TensorFlow packages and Tidyverse packages 
-</div>
-
 ## cloudml package | <https://tensorflow.rstudio.com/tools/cloudml/>
 
 <div  style="margin-top: -10px;">
@@ -1202,6 +1188,20 @@ Some applications---in particular, image processing with convolutional networks 
 
 - Hyperparameter tuning to optimize key attributes of model architectures in order to maximize predictive accuracy.
 
+</div>
+
+## RStudio Server with TensorFlow-GPU for AWS | https://tensorflow.rstudio.com/tools/cloud_server_gpu.html#amazon-ec2
+
+<div>
+<img src="images/aws-marketplace.png" width=450 align=left class="illustration" style=" margin-right: 50px;" />
+
+- R and RStudio Server pre-installed and configured to work with TensorFlow
+
+- NVIDIA CUDA and cuDNN GPU libraries 
+
+- TensorFlow and Keras libraries 
+
+- R for TensorFlow packages and Tidyverse packages 
 </div>
 
 
