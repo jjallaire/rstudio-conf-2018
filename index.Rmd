@@ -30,21 +30,15 @@ a:hover {
 }
 </style>
 
-
-
 ## Overview
 
-- Intro to TensorFlow
-
-- Deep Learning
+- Deep Learning Basics
 
 - R Interfaces to TensorFlow
 
-- Supporting Tools 
-
 - Learning More
 
-## What is TensorFlow? | *A general purpose numerical computing library* 
+## What is TensorFlow? | A general purpose numerical computing library
 
 <div style="margin-top: -30px;">
 <img src="images/tensorflow-logo-large.png" align=right width=350/>
@@ -57,134 +51,6 @@ a:hover {
     - TPU ([Tensor Processing Unit](https://en.wikipedia.org/wiki/Tensor_processing_unit))
 - Supports [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation)
 - Distributed execution and large datasets
-</div>
-
-## Why should R users care? 
-
-- A new general purpose numerical computing library! 
-     - Hardware independent
-     - Distributed execution
-     - Large datasets
-     - Automatic differentiation
-     
-- Very general built-in optimization algorithms (SGD, Adam) that don't require that all data is in RAM
-
-- Robust foundation for machine learning and deep learning applications
-
-- TensorFlow models can be deployed with a low-latency C++ runtime
-
-- R has a lot to offer as an *interface language* for TensorFlow
-
-
-## TensorFlow Basics
-
-- Tensors 
-
-- Data flow
-
-- Runtime execution
-
-- Some example uses
-
-
-## What are tensors? | *Data stored in multidimensional arrays*
-
-| Dimension | R object  | 
-|---|---|
-| 0D | `42` | 
-| 1D | `c(42, 42, 42)` 
-| 2D | `matrix(42, nrow = 2, ncol = 2)`  |
-| 3D | `array(42, dim = c(2,3,2))` |
-| 4D | `array(42, dim = c(2,3,2,3))` |
-
-## Some examples
-
-| Data | Tensor  | 
-|---|---|
-| Vector data | 2D tensors of shape `(samples, features)` | 
-| Timeseries data | 3D tensors of shape `(samples, timesteps,
-features)` |
-| Images | 4D tensors of shape `(samples, height, width, channels)` |
-| Video | 5D tensors of shape `(samples, frames, height, width, channels)` |
-
-<br/>
-
-Note that `samples` is always the first dimension
-
-
-## 2D tensors | *Vector data*
-
-```{r}
-head(data.matrix(iris), n = 10)
-```
-```
-      Sepal.Length Sepal.Width Petal.Length Petal.Width Species
- [1,]          5.1         3.5          1.4         0.2       1
- [2,]          4.9         3.0          1.4         0.2       1
- [3,]          4.7         3.2          1.3         0.2       1
- [4,]          4.6         3.1          1.5         0.2       1
- [5,]          5.0         3.6          1.4         0.2       1
- [6,]          5.4         3.9          1.7         0.4       1
- [7,]          4.6         3.4          1.4         0.3       1
- [8,]          5.0         3.4          1.5         0.2       1
- [9,]          4.4         2.9          1.4         0.2       1
-[10,]          4.9         3.1          1.5         0.1       1
-```
-
-## 3D tensors | *Timeseries or sequence data*
-
-<img src="images/timeseries_data.png" width=800/>
-
-
-## 4D tensors | *Image data*
-
-<img src="images/image_data.png" width=450/>
-
-
-## What is tensor "flow"? | A dataflow graph with nodes representing units of computation
-
-<div style="margin-top: -20px;">
-
-<img src="images/tensors_flowing.gif" style="margin-right: 60px; margin-top: -15px;" align=left />
- 
-- You define the graph in R
-
-- Graph is compiled and optimized
-
-- Graph is executed on devices 
-
-- Nodes represent computations
-
-- Data (tensors) flows between them
-
-</div>
-
-## Graph is generated automatically from R code
-
-<div class="columns-2">
-  
-**R Code**
-
-<img src="images/keras-graph-code.png" class="illustration" width=450 style="margin-bottom: 150px;" />
-  
-**TensorFlow Graph**  
-
-<img src="images/keras-graph.png" class="illustration" width=450/>
-
-</div>
-
-
-## Why a dataflow graph? | Major gains in performance, scalability, and portability
-
-<div style="margin-top: -30px;">
-  
-<img src="images/tensors_flowing.gif" style="margin-right: 50px; margin-top: -15px;" align=left />
-
-- **Parallelism**---System runs operations in parallel.
-- **Distributed execution**---Graph is partitioned across multiple devices.
-- **Compilation**---Use the information in your dataflow graph to generate faster code (e.g. fusing operations)
-- **Portability**---Dataflow graph is a language-independent representation of the code in your model (deploy with C++ runtime)
-
 </div>
 
 ## Uses of TensorFlow | <https://tensorflow.rstudio.com/gallery/>
@@ -202,41 +68,6 @@ head(data.matrix(iris), n = 10)
 <br/>
 
 I'm confident the R community will also find novel new uses for TensorFlow...
-
-## Greta | Writing statistical models and fitting them by MCMC
-
-<div style="margin-top: -38px;">
-<https://greta-dev.github.io/greta/>
-
-<img src="images/greta.png" width=625px  class="illustration"/>
-</div>
-
-## Air Model: Greta vs. BUGS/JAGS
-
-<div style="margin-top: -20x;">
-```{r}
-# Greta
-theta <- normal(0, 32, dim = 2)
-mu <- alpha + beta * Z
-X <- normal(mu, sigma)
-p <- ilogit(theta[1] + theta[2] * X)
-distribution(y) <- binomial(n, p)
-```
-
-```{r}
-# BUGS/JAGS
-for(j in 1 : J) {
-   y[j] ~ dbin(p[j], n[j])
-   logit(p[j]) <- theta[1] + theta[2] * X[j]
-   X[j] ~ dnorm(mu[j], tau)
-   mu[j] <- alpha + beta * Z[j]
-}
-theta[1] ~ dnorm(0.0, 0.001)
-theta[2] ~ dnorm(0.0, 0.001)
-```
-</div>
-
-
 
 ## Deep Learning
 
@@ -278,7 +109,7 @@ Special thanks to François Chollet (creator of Keras) for the concepts and figu
 
 <img src="images/learning_representations.png" width=700 style="margin-top: -38px;" class="illustration"/>
 
-The layers of representation in a deep learning model are the *feature engineering* for the model (i.e. feature transformations are learned rather than hard coded).
+The layers of representation in a deep learning model are the feature engineering for the model (i.e. feature transformations are learned rather than hard coded).
 
 ## Layers of representation | An information distillation pipeline {.smaller}
 
@@ -339,7 +170,7 @@ Other approaches to machine learning tend to focus on learning only one or two l
     - Analyzing data with complex spatial or sequence dependencies
     - Analyzing data which requires a large amount of (potentially brittle) feature engineering to model effectively
   
-Deep learning is proven to be effective at various complex "perceptual" tasks but *not yet proven* to be of widespread benefit in other domains.
+Deep learning is proven to be effective at various complex "perceptual" tasks but not yet proven to be of widespread benefit in other domains.
 
 ## How do we train deep learning models?
 
@@ -351,26 +182,6 @@ Deep learning is proven to be effective at various complex "perceptual" tasks bu
 - The training loop 
 
 A simple mechanism that, once scaled, ends up looking like magic
-
-## Statistical modeling vs. machine learning | <span style="font-size: 0.8em; margin-top: -38px;"><https://stats.stackexchange.com/questions/6/the-two-cultures-statistics-vs-machine-learning></span>
-
-<div style="padding-bottom: 50px;">
-**Statistics**: Often focused on inferring the process by which data is generated.
-
-**Machine learning**: Principally focused on predicting future data.
-</div>
-
-<div style="font-size: 0.8em;">
-Breiman, L. (2001). [Statistical modeling: The two cultures](https://projecteuclid.org/download/pdf_1/euclid.ss/1009213726). *Statistical Science*, 16(3), 199--215.
-
-Ayres, I. (2008). [Super Crunchers: Why Thinking-By-Numbers is the New Way To Be Smart](https://www.amazon.com/Super-Crunchers-Thinking-Numbers-Smart/dp/0553384732), Bantam. 
-
-Shmueli, G. (2010). [To explain or to predict?](https://arxiv.org/pdf/1101.0891.pdf) *Statistical Science*, 25(3), 289--310.
-
-Breiman, L. (1997). [No Bayesians in foxholes](http://ieeexplore.ieee.org/document/642956/). *IEEE Expert*, 12(6), 21--24. 
-
-Boulesteix, A.-L., \& Schmid, M. (2014). [Machine learning versus statistical modeling](http://onlinelibrary.wiley.com/doi/10.1002/bimj.201300226/abstract). *Biometrical Journal*, 56(4), 588--593. (and other articles in this issue)
-</div>
 
 ## MNIST layers in R
 
@@ -398,29 +209,12 @@ model <- keras_model_sequential() %>%
 
 ## Evaluate the loss for each training batch | A loss function measures the quality of the network’s output {.smaller}
 
-<div class="columns-2" style="margin-top: -20px;">
 
-<img src="images/deep-learning-in-3-figures-2.png" width=450 class="illustration"/>
-
-- The *loss function* takes the predictions of the network and the true targets (what you wanted the network to output) and computes a distance score, capturing how well the network has done on a batch of examples. 
-
-- The fundamental trick in deep learning is to use this score as a feedback signal to adjust the value of the weights a little, in a direction that will lower the loss score for the current batch of examples. This adjustment is the job of the *optimizer*.
-
-</div>
+<img src="images/deep-learning-in-3-figures-2.png" width=750 style="margin-top: -38px;" class="illustration"/>
 
 ## Loss is a feedback signal used to adjust weights {.smaller}
 
-<div class="columns-2"  style="margin-top: -20px;">
-
-<img src="images/deep-learning-in-3-figures-3.png" width=450 class="illustration"/>
-
-- Updates are done via the [backpropagation algorithm](https://en.wikipedia.org/wiki/Backpropagation), using the [chain rule](https://en.wikipedia.org/wiki/Chain_rule) to iteratively compute gradients for each layer.
-
-- Traditional optimization algorithms update weights by averaging the gradients of all data points. To economize computational cost we use [stochastic gradient descent](https://en.wikipedia.org/wiki/Stochastic_gradient_descent) and only calculate gradients for a small random sample of the data. 
-
-- The training loop, which, repeated a sufficient number of times (typically tens of iterations over thousands of examples), yields weight values that minimize the loss function.
-
-</div>
+<img src="images/deep-learning-in-3-figures-3.png" width=750 style="margin-top: -38px;" class="illustration"/>
 
 ## What is deep learning? | A simple mechanism that, once scaled, ends up looking like magic
 
@@ -435,7 +229,7 @@ Deep-learning models are mathematical machines for uncrumpling complicated manif
 
 Deep learning is turning meaning into vectors, into geometric spaces, and then incrementally learning complex geometric transformations that map one space to another.
 
-How can we do this with simple parametric models trained with gradient descent? We just need *sufficiently large parametric models* trained with gradient descent on *sufficiently many examples*. 
+How can we do this with simple parametric models trained with gradient descent? We just need sufficiently large parametric models trained with gradient descent on sufficiently many examples. 
 
 ## Sufficiently large parametric models | Simple grayscale digit recognizer model has > 1 million parameters {.smaller}
 
@@ -559,8 +353,8 @@ Google's Neural Machine Translation System
 
 ## Time series | http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0180944 {.smaller}
 
-<div class="columns-2" style="margin-top: -25px">
-<img src="images/timeseries-frontier-2.png" width=450 class="illustration" />
+<div style="margin-top: -25px">
+<img src="images/timeseries-frontier-2.png" width=536 style="margin-right: 50px;" align=left class="illustration"/>
 
 - Wavelet transforms used to address noise in financial time series. 
 
@@ -582,7 +376,7 @@ Google's Neural Machine Translation System
 ## Electronic health records (EHR) | <https://arxiv.org/abs/1801.07860> 
 
 <div style="margin-top: -40px; font-size: 0.8em;">
-*January 2018 study by Google, UCSF, Stanford, and U of Chicago Medicine*
+January 2018 study by Google, UCSF, Stanford, and U of Chicago Medicine
 </div>
 
 <img src="images/healthrecords-frontier.png" width=500 align=left style="margin-right: 50px;" class="illustration"/>
@@ -603,7 +397,7 @@ Produced predictions for a wide range of clinical problems and outcomes that out
 - Typically require large amounts of data to perform well
 - Are often very computationally expensive to train
 
-## Deep learning hype makes things worse | My model is *deep* so it must be better!
+## Deep learning hype makes things worse | My model is deep so it must be better!
 
 - Deep learning is experiencing unprecedented hype, and...
 - The current generation of tools make deep learning accessible to many with no prior experience in statistics or modeling, however...
@@ -631,31 +425,6 @@ Of course we can help here by promoting a more balanced dialog about the strengt
 - Breadth and depth of educational resources
 
 
-## TensorFlow APIs | Distinct interfaces for various tasks and levels of abstraction
-
-<img src="images/tensorflow-apis.png" width=1000/>
-
-
-## R packages
-
-<div class="columns-2">
-
-### TensorFlow APIs
-
-- [keras](https://tensorflow.rstudio.com/keras/)---Interface for neural networks, with a focus on enabling fast experimentation.
-- [tfestimators](https://tensorflow.rstudio.com/tfestimators/)--- Implementations of common model types such as regressors and classifiers. 
-- [tensorflow](https://tensorflow.rstudio.com/tensorflow/)---Low-level interface to the TensorFlow computational graph.
-- [tfdatasets](https://tensorflow.rstudio.com/tools/tfdatasets/)---Scalable input pipelines for TensorFlow models. 
-
-### Supporting tools
-
-- [tfruns](https://tensorflow.rstudio.com/tools/tfruns/)---Track, visualize, and manage TensorFlow training runs and experiments.
-- [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/)---Tools designed to make exporting and serving TensorFlow models straightforward.
-- [cloudml](https://tensorflow.rstudio.com/tools/cloudml/)---R interface to Google Cloud Machine Learning Engine. 
-
-</div>
-
-
 ## TensorFlow Keras API | High level API for neural networks <br/> <https://tensorflow.rstudio.com/keras/> 
 
 ```{r}
@@ -671,48 +440,6 @@ model <- keras_model_sequential() %>%
   layer_dropout(rate = 0.5) %>% 
   layer_dense(units = 10, activation = 'softmax')
 ```
-
-
-## TensorFlow Estimators | High level API for TensorFlow models <https://tensorflow.rstudio.com/tfestimators/> {.smaller}
-
-| Estimator | Description |
-|---|--------------|
-| linear_regressor() | Linear regressor model. |
-| linear_classifier()	| Linear classifier model. |
-| dnn_regressor()	| Dynamic neural network regression. |
-| dnn_classifier() |	Dynamic neural network classification. |
-| dnn_linear_combined_regressor() |	DNN Linear Combined Regression. |
-| dnn_linear_combined_classifier() | DNN Linear Combined Classification. |
-
-
-## TensorFlow Core API | Low level access to TensorFlow graph operations <https://tensorflow.rstudio.com/tensorflow/> {.smaller}
-
-```{r}
-library(tensorflow)
-
-W <- tf$Variable(tf$random_uniform(shape(1L), -1.0, 1.0))
-b <- tf$Variable(tf$zeros(shape(1L)))
-y <- W * x_data + b
-
-loss <- tf$reduce_mean((y - y_data) ^ 2)
-optimizer <- tf$train$GradientDescentOptimizer(0.5)
-train <- optimizer$minimize(loss)
-
-sess = tf$Session()
-sess$run(tf$global_variables_initializer())
-
-for (step in 1:200)
-  sess$run(train)
-```
-
-
-## R interface to Keras
-
-- Step-by-step example
-- Keras layers
-- Compiling models
-- Losses, optimizers, and metrics
-- More examples
 
 ## Keras adoption
 
@@ -764,22 +491,6 @@ model %>% compile(
 ```
 
 
-## Note: Models are modified in-place | Object semantics are not by-value! (as is conventional in R)
-
-```{r}
-# Modify model object in place (note that it is not assigned back to)
-model %>% compile(
-  optimizer = 'rmsprop',
-  loss = 'binary_crossentropy',
-  metrics = c('accuracy')
-)
-```
-
-- Keras models are directed acyclic graphs of layers whose state is updated during training.
-
-- Keras layers can be shared by multiple parts of a Keras model.
-
-
 ## Keras: Model training | Feeding mini-batches of data to the model thousands of times
 
 <div style="margin-top: -30px">
@@ -829,10 +540,6 @@ model %>% predict_classes(x_test[1:100,])
  [36] 2 7 1 2 1 1 7 4 2 3 5 1 2 4 4 6 3 5 5 6 0 4 1 9 5 7 8 9 3 7 4 6 4 3 0
  [71] 7 0 2 9 1 7 3 2 9 7 7 6 2 7 8 4 7 3 6 1 3 6 9 3 1 4 1 7 6 9
 ```
-
-## Keras Demo
-
-<img src="images/rstudio-keras-demo.png" class=illustration style="margin-top: -38px;" width=800/>
 
 ## Keras API: Layers | 65 layers available (you can also create your own layers) {.smaller}
 
@@ -996,14 +703,13 @@ model %>% compile(
 - Learning word embeddings for Amazon reviews
 - Work on explainability of predictions
 
-
 ## Image classification on small datasets | <small>https://tensorflow.rstudio.com/blog/keras-image-classification-on-small-datasets.html</small> {.smaller}
 
-<div class="columns-2" style="margin-top: -10px;">
+<div style="margin-top: -25px;">
 
-<img src="images/swapping_fc_classifier.png" width=440 class="illustration"/>
+<img src="images/swapping_fc_classifier.png" width=440 style="margin-right: 50px;" align=left class="illustration"/>
 
-- Demonstrates *transfer learning* (training a new model with a pre-trained model as a starting point) for image classification.
+- Demonstrates transfer learning (training a new model with a pre-trained model as a starting point) for image classification.
 
 - Achieves 97% prediction accuracy on dogs-vs-cats dataset trained on only 2,000 input images.
 </div>
@@ -1012,9 +718,9 @@ model %>% compile(
 
 ## Time series forecasting with recurrent networks | <small>https://tensorflow.rstudio.com/blog/time-series-forecasting-with-recurrent-neural-networks.html</small> {.smaller}
 
-<div class="columns-2" style="margin-top: -10px;">
+<div style="margin-top: -25px;">
 
-<img src="images/jena_temp-r.png" width=440 class="illustration"/>
+<img src="images/jena_temp-r.png" width=440 style="margin-right: 50px;" align=left class="illustration"/>
 
 - Forecasting temperatures with a [weather timeseries dataset](https://www.bgc-jena.mpg.de/wetter/) recorded at the Weather Station at the Max Planck Institute for Biogeochemistry in Jena, Germany.
 
@@ -1027,9 +733,9 @@ model %>% compile(
 ## Deep learning for cancer immunotherapy | <https://tensorflow.rstudio.com/blog/dl-for-cancer-immunotherapy.html> {.smaller}
 
 
-<div class="columns-2" style="margin-top: -10px;">
+<div style="margin-top: -25px;">
 
-<img src="images/cancer-immunotherapy.png" width=400 class="illustration"/>
+<img src="images/cancer-immunotherapy.png" width=440 style="margin-right: 50px;" align=left class="illustration"/>
 
 - Illustrates how deep learning is successfully being applied to model key molecular interactions in the human immune system.
 
@@ -1041,9 +747,9 @@ model %>% compile(
 
 ## Credit card fraud detection using an autoencoder | <https://tensorflow.rstudio.com/blog/keras-fraud-autoencoder.html> {.smaller}
 
-<div class="columns-2" style="margin-top: -30px;">
+<div style="margin-top: -25px;">
 
-<img src="images/joy-division.png" width=400 class="illustration"/>
+<img src="images/joy-division.png" width=400 style="margin-right: 50px;" align=left class="illustration"/>
 
 - An [autoencoder](https://en.wikipedia.org/wiki/Autoencoder) is a neural network that is used to learn a representation (encoding) for a set of data, typically for the purpose of dimensionality reduction.
 
@@ -1056,9 +762,9 @@ model %>% compile(
 
 ## Classifying duplicate questions from Quora | <small>https://tensorflow.rstudio.com/blog/keras-duplicate-questions-quora.html</small> {.smaller}
 
-<div class="columns-2" style="margin-top: -30px;">
+<div style="margin-top: -25px;">
 
-<img src="images/keras-duplicate-questions-quora.png" width=400 class="illustration"/>
+<img src="images/keras-duplicate-questions-quora.png" width=440 style="margin-right: 50px;" align=left class="illustration"/>
 
 - Uses Kaggle [Quora Question Pairs](https://www.kaggle.com/c/quora-question-pairs) dataset and consists of approximately 400,000 pairs of questions along with a column indicating if the question pair is considered a duplicate.
 
@@ -1071,9 +777,9 @@ model %>% compile(
 
 ## Deep learning to predict customer churn | <small>https://tensorflow.rstudio.com/blog/keras-customer-churn.html</small> {.smaller}
 
-<div class="columns-2" style="margin-top: -30px;">
+<div style="margin-top: -25px;">
 
-<img src="images/keras-customer-churn.png" width=449 class="illustration"/>
+<img src="images/keras-customer-churn.png" width=440 style="margin-right: 50px;" align=left class="illustration"/>
 
 - Model customer churn risk using a simple multi-layer perceptron
 - Demonstrates the use of the [recipes](https://topepo.github.io/recipes/) package for data preprocessing.
@@ -1086,9 +792,9 @@ model %>% compile(
 ## Learning word embeddings for Amazon reviews | <small>https://tensorflow.rstudio.com/blog/word-embeddings-with-keras.html</small>{.smaller}
 
 
-<div class="columns-2" style="margin-top: -30px;">
+<div style="margin-top: -25px;">
 
-<img src="images/word-embeddings-with-keras.png" width=449 class="illustration"/>
+<img src="images/word-embeddings-with-keras.png" width=440 style="margin-right: 50px;" align=left class="illustration"/>
 
 - Word embedding is a method used to map words of a vocabulary to dense vectors of real numbers where semantically similar words are mapped to nearby points. 
 
@@ -1096,36 +802,6 @@ model %>% compile(
 
 
 </div>
-
-## Explainability: Visualizing activations | <small>https://jjallaire.github.io/deep-learning-with-r-notebooks/notebooks/5.4-visualizing-what-convnets-learn.nb.html</small> 
-
-<div style="margin-top: -20px;">
-```{r}
-preds <- model %>% predict(img)
-imagenet_decode_predictions(preds, top = 3)[[1]]
-```
-```
-  class_name class_description       score
-1  n02504458  African_elephant 0.909420729
-2  n01871265            tusker 0.086183183
-3  n02504013   Indian_elephant 0.004354581
-```
-
-<img src="images/creative_commons_elephant.jpg" width=250"/>&nbsp;<img src="images/elephant_heatmap.png" width=167"/>&nbsp;<img src="images/elephant_overlay.png" width=250"/>
-</div>
-
-## Explainabilty: LIME | Local Interpretable Model-Agnostic Explanations {.smaller}
-
-<div style="margin-top: -30px;">
-- For any given prediction and any given classifier, determine a small set of features in the original data that has driven the outcome of the prediction.
-
-- Paper: <https://arxiv.org/abs/1602.04938>
-
-- R implementation: <https://github.com/thomasp85/lime>
-</div>
-
-<img src="images/lime-customer-churn.png" width=550 class="illustration"/>
-
 
 ## Deep learning frontiers (revisited)
 
@@ -1140,433 +816,6 @@ imagenet_decode_predictions(preds, top = 3)[[1]]
     
 - To approach the frontier you need understanding of the full range of DL techniques, iteration, patience, and lots of compute power!    
 
-## Deep learning in practice
-
-- Success requires a large amount of experimentation with:
-    - Model architecture (i.e. number and type of layers)
-    - Hyperparameters (layer attributes, losses, learning rate, dropout, etc.)
-    - Frustration and blind alleys are inevitable!
-
-- Over time you will develop stronger intuitions about the various tools available and how they might be successfully combined to model your data.
-
-- Need lots of compute power!
-
-- Need tools that help you get the most out of the compute you have. 
-
-
-## Supporting tools
-
-| Tool | Description |
-|---------------|---------------------------------------------------------------|
-| [GPUs](https://tensorflow.rstudio.com/tools/gpu/)  | Using GPUs locally or in the cloud.  |
-| [tfruns](https://tensorflow.rstudio.com/tools/tfruns/)  | Track and manage  training runs and experiments. |
-| [cloudml](https://tensorflow.rstudio.com/tools/cloudml/) |  R interface to [Google Cloud Machine Learning Engine](https://cloud.google.com/ml-engine/). |
-| [tfdeploy](https://tensorflow.rstudio.com/tools/tfdeploy/)  | Exporting and deploying TensorFlow models. |
-
-## GPUs | <https://tensorflow.rstudio.com/tools/gpu/> {.smaller}
-
-<div style="margin-top: -30px;">
-Some applications---in particular, image processing with convolutional networks and sequence processing with recurrent neural networks---will be excruciatingly slow on CPU.
-</div>
-
-<img src="images/gpu.png" width=700 class="illustration"/>
-
-
-
-
-## tfruns package | <https://tensorflow.rstudio.com/tools/tfruns/>
-
-Successful deep learning requires a huge amount of experimentation.
-
-This requires a systematic approach to conducting and tracking the results of experiments.
-
-The `training_run()` function is like the `source()` function, but it automatically tracks and records output and metadata for the execution of the script:
-
-```{r}
-library(tfruns)
-training_run("mnist_mlp.R")
-```
-
-## tfruns::ls_runs() {.smaller}
-
-```{r}
-ls_runs()
-```
-```
-Data frame: 4 x 28 
-                    run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
-1 runs/2017-12-09T21-01-11Z    0.1485   0.9562      0.2577     0.9240          0.1482         0.9545
-2 runs/2017-12-09T21-00-11Z    0.1438   0.9573      0.2655     0.9208          0.1505         0.9559
-3 runs/2017-12-09T19-59-44Z    0.1407   0.9580      0.2597     0.9241          0.1402         0.9578
-4 runs/2017-12-09T19-56-48Z    0.1437   0.9555      0.2610     0.9227          0.1459         0.9551
-```
-
-```{r}
-ls_runs(eval_acc > 0.9570, order = eval_acc)
-```
-```
-Data frame: 2 x 28 
-                    run_dir eval_acc eval_loss metric_loss metric_acc metric_val_loss metric_val_acc
-1 runs/2017-12-09T19-59-44Z   0.9580    0.1407      0.2597     0.9241          0.1402         0.9578
-2 runs/2017-12-09T21-00-11Z   0.9573    0.1438      0.2655     0.9208          0.1505         0.9559
-```
-## tfruns::view_run()
-
-<img src="images/view_run.png" width=560 class="illustration" style="margin-top: -38px; margin-left: 100px;"/>
-
-## tfruns::compare_runs()
-
-<img src="images/compare_runs.png" width=560 class="illustration" style="margin-top: -38px; margin-left: 100px;"/>
-
-## tfruns::flags()
-
-```{r}
-# define flags and their defaults
-FLAGS <- flags(
-  flag_integer("dense_units1", 128),
-  flag_numeric("dropout1", 0.4),
-  flag_integer("dense_units2", 128),
-  flag_numeric("dropout2", 0.3)
-)
-```
-
-```{r}
-# use flag 
-layer_dropout(rate = FLAGS$dropout1)
-```
-
-```{r}
-# train with flag
-training_run("mnist_mlp.R", flags = list(dropout1 = 0.3))
-```
-
-## tfruns::tuning_run() {.smaller}
-
-```{r}
-# run various combinations of dropout1 and dropout2
-runs <- tuning_run("mnist_mlp.R", flags = list(
-  dropout1 = c(0.2, 0.3, 0.4),
-  dropout2 = c(0.2, 0.3, 0.4)
-))
-```
-
-```{r}
-# find the best evaluation accuracy
-runs[order(runs$eval_acc, decreasing = TRUE), ]
-```
-```
-Data frame: 9 x 28 
-                    run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
-9 runs/2018-01-26T13-21-03Z    0.1002   0.9817      0.0346     0.9900          0.1086         0.9794
-6 runs/2018-01-26T13-23-26Z    0.1133   0.9799      0.0409     0.9880          0.1236         0.9778
-5 runs/2018-01-26T13-24-11Z    0.1056   0.9796      0.0613     0.9826          0.1119         0.9777
-4 runs/2018-01-26T13-24-57Z    0.1098   0.9788      0.0868     0.9770          0.1071         0.9771
-2 runs/2018-01-26T13-26-28Z    0.1185   0.9783      0.0688     0.9819          0.1150         0.9783
-3 runs/2018-01-26T13-25-43Z    0.1238   0.9782      0.0431     0.9883          0.1246         0.9779
-8 runs/2018-01-26T13-21-53Z    0.1064   0.9781      0.0539     0.9843          0.1086         0.9795
-7 runs/2018-01-26T13-22-40Z    0.1043   0.9778      0.0796     0.9772          0.1094         0.9777
-1 runs/2018-01-26T13-27-14Z    0.1330   0.9769      0.0957     0.9744          0.1304         0.9751
-```
-
-## cloudml package | <https://tensorflow.rstudio.com/tools/cloudml/>
-
-<div  style="margin-top: -10px;">
-
-<img src="images/cloudml.png" align="left" style="margin-top: -10px; margin-right: 60px;"/>
-
-- Scalable training of models built with the keras, tfestimators, and tensorflow R packages.
-
-- On-demand access to training on GPUs, including the new Tesla P100 GPUs from NVIDIA®.
-
-- Hyperparameter tuning to optimize key attributes of model architectures in order to maximize predictive accuracy.
-
-</div>
-
-## Use this from the comfort of your own laptop!
-
-<img src="images/google-datacenter.png" width=900 style="margin-top: -25px;" />
-
-## cloudml::cloudml_train() 
-
-Train on default CPU instance:
-
-```{r}
-library(cloudml)
-cloudml_train("mnist_mlp.R")
-```
-
-Automatically uploads contents of working directory along with script
-
-Automatically installs all required R packages on CloudML servers
-
-
-```{r}
-# Train on a GPU instance
-cloudml_train("mnist_mlp.R", master_type = "standard_gpu")
-
-# Train on an NVIDIA Tesla P100 GPU
-cloudml_train("mnist_mlp.R", master_type = "standard_p100")
-```
-
-
-## cloudml::job_collect()
-
-```{r}
-job_collect()
-```
-
-<div class="columns-2">
-<img src="images/cloudml-training-run.png" width=400 class="illustration"/>
-
-- Collects job metadata and all files created by the job (e.g. event logs, saved models)
-
-- Uses tfruns to allow inspection, enumeration, and comparison of jobs
-
-</div>
-
-## cloudml: ls_runs() {.smaller}
-
-```{r}
-ls_runs()
-```
-```
-Data frame: 6 x 37 
-                            run_dir eval_loss eval_acc metric_loss metric_acc metric_val_loss metric_val_acc
-6 runs/cloudml_2018_01_26_135812740    0.1049   0.9789      0.0852     0.9760          0.1093         0.9770
-2 runs/cloudml_2018_01_26_140015601    0.1402   0.9664      0.1708     0.9517          0.1379         0.9687
-5 runs/cloudml_2018_01_26_135848817    0.1159   0.9793      0.0378     0.9887          0.1130         0.9792
-3 runs/cloudml_2018_01_26_135936130    0.0963   0.9780      0.0701     0.9792          0.0969         0.9790
-1 runs/cloudml_2018_01_26_140045584    0.1486   0.9682      0.1860     0.9504          0.1453         0.9693
-4 runs/cloudml_2018_01_26_135912819    0.1141   0.9759      0.1272     0.9655          0.1087         0.9762
-# ... with 30 more columns:
-#   flag_dense_units1, flag_dropout1, flag_dense_units2, flag_dropout2, samples, validation_samples,
-#   batch_size, epochs, epochs_completed, metrics, model, loss_function, optimizer, learning_rate,
-#   script, start, end, completed, output, source_code, context, type, cloudml_console_url,
-#   cloudml_created, cloudml_end, cloudml_job, cloudml_log_url, cloudml_ml_units, cloudml_start,
-#   cloudml_state
-```
-
-## CloudML hyperparameter tuning | Start by using FLAGS in your training script
-
-<div style="margin-top: -38px;">
-```{r}
-FLAGS <- flags(
-  flag_integer("dense_units1", 128),
-  flag_numeric("dropout1", 0.4),
-  flag_integer("dense_units2", 128),
-  flag_numeric("dropout2", 0.3)
-)
-
-model <- keras_model_sequential() %>% 
-  layer_dense(units = FLAGS$dense_units1, activation = 'relu', 
-              input_shape = c(784)) %>%
-  layer_dropout(rate = FLAGS$dropout1) %>%
-  layer_dense(units = FLAGS$dense_units2, activation = 'relu') %>%
-  layer_dropout(rate = FLAGS$dropout2) %>%
-  layer_dense(units = 10, activation = 'softmax')
-```
-</div>
-
-## CloudML hyperparameter tuning (cont.) | Create a tuning configuration file (tuning.yml)
-
-<div style="margin-top: -38px;">
-```yaml
-trainingInput:
-  hyperparameters:
-    goal: MAXIMIZE
-    hyperparameterMetricTag: val_acc
-    maxTrials: 10
-    params:
-      - parameterName: dropout1
-        type: DOUBLE
-        minValue: 0.2
-        maxValue: 0.6
-        scaleType: UNIT_LINEAR_SCALE
-      - parameterName: dropout2
-        type: DOUBLE
-        minValue: 0.1
-        maxValue: 0.5
-        scaleType: UNIT_LINEAR_SCALE
-```
-</div>
-
-## CloudML hyperparameter tuning (cont.) | Run the tuning job and inspect trials{.smaller}
-
-<div style="margin-top: -38px;">
-```{r}
-cloudml_train("minst_mlp.R", config = "tuning.yml")
-```
-
-```{r}
-job_trials()
-```
-```
-finalMetric.objectiveValue finalMetric.trainingStep hyperparameters.dropout1 hyperparameters.dropout2 trialId
-1                    0.973854                       19       0.2011326172916916      0.32774705750441724      10
-2                    0.973458                       19      0.20090378506439671      0.10079321757280404       3
-3                    0.973354                       19       0.5476299090261757      0.49998941144858033       6
-4                    0.972875                       19        0.597820322273044       0.4074512354566201       7
-5                    0.972729                       19      0.25969787952729828      0.42851076497180118       1
-6                    0.972417                       19      0.20045494784980847      0.15927383711937335       4
-7                    0.972188                       19      0.33367593781223304      0.10077055587860367       5
-8                    0.972188                       19      0.59880072314674071      0.10476853415572558       9
-9                    0.972021                       19         0.40078175292512      0.49982245025905447       8
-10          
-```
-</div>
-
-## CloudML hyperparameter tuning (cont.) | Collect the best performing trial
-
-<div style="margin-top: -38px;">
-```{r}
-job_collect(trials = "best")
-```
-
-<div class="columns-2">
-<img src="images/cloudml-training-run.png" width=400 class="illustration"/>
-
-- Collects trial with best objective metric by default
-
-- Specify `trials = "all"` to collect all trials (runs) and then perform offline analysis of hyperparameter interactions via `ls_runs()`.
-
-</div>
-</div>
-
-## tfdeploy package | <https://tensorflow.rstudio.com/tools/tfdeploy/>
-
-- TensorFlow was built from the ground up to enable deployment using a low-latency C++ runtime.
-
-- Deploying TensorFlow models requires no runtime R or Python code.
-
-- Key enabler for this is the TensorFlow [SavedModel](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/saved_model/README.md format):
-
-    *SavedModel provides a language-neutral format to save machine-learned models that is recoverable and hermetic. It enables higher-level systems and tools to produce, consume and transform TensorFlow models.*
-
-- TensorFlow models can be deployed to servers, embedded devices, mobile phones, and even to a web browser!
-
-## Deployment: Exporting a SavedModel
-
-```{r}
-model <- keras_model_sequential( %>% )
-  layer_dense(units = 256, activation = 'relu', input_shape = c(784),
-### <b>
-              name = "image") %>%
-### </b>
-  layer_dense(units = 128, activation = 'relu') %>%
-  layer_dense(units = 10, activation = 'softmax',
-### <b>
-              name = "prediction")
-### </b>
-```
-
-Note that we give the input and output layers names ("image" and "prediction")
-
-```{r}
-# ...compile and fit model
-
-# export model
-library(tfdeploy)
-export_savedmodel(model, "savedmodel")
-```
-
-## Deployment: serve_savedmodel() | Provide a local HTTP REST interface to the model from R
-
-<div style="margin-top: -38px;">
-```{r}
-serve_savedmodel("savedmodel")
-```
-
-<img src="images/swagger.png" width=400 class="illustration" style="margin-left: 100px;"/>
-</div>
-
-## Deployment: TensorFlow Serving | <https://www.tensorflow.org/serving/>
-
-<div style="margin-top: -38px;">
-<div class="columns-2">
-<img src="images/tf_serving_diagram.svg" width="400" class="illustration"/>
-
-TensorFlow Serving is a flexible, high-performance serving system for machine learning models, designed for production environments. 
-
-TensorFlow Serving makes it easy to deploy new algorithms and experiments, while keeping the same server architecture and APIs. 
-
-TensorFlow Serving provides out-of-the-box integration with TensorFlow models, but can be easily extended to serve other types of models and data.
-
-</div>
-</div>
-
-
-## Deployment: RStudio Connect | <https://www.rstudio.com/products/connect/>
-
-<div style="margin-top: -30px;">
-```{r}
-library(rsconnect)
-deployTFModel("savedmodel", account = <username>, server = <internal_connect_server>)
-```
-
-<div class="columns-2">
-<img src="images/rsconnect-server.png" width=350 class="illustration"/>
-
-
-
-</div>
-</div>
-
-
-
-## Deployment: CloudML | <https://tensorflow.rstudio.com/tools/cloudml/articles/deployment.html>
-
-```{r}
-library(cloudml)
-cloudml_deploy("savedmodel", name = "keras_mnist")
-```
-```
-Copying file://savedmodel/variables/variables.data-00000-of-00001 ...
-Copying file://savedmodel/saved_model.pb ...
-Copying file://savedmodel/variables/variables.index ...
-/ [3/3 files][  1.9 MiB/  1.9 MiB] 100% Done                                    
-Operation completed over 3 objects/1.9 MiB.
-
-Model created and available in https://console.cloud.google.com/mlengine/models/keras_mnist
-```
-
-## Deployment: Shiny
-
-<a href="https://jjallaire.shinyapps.io/keras-customer-churn/"><img src="images/keras-customer-churn.png" align="left" width=241 class="illustration" style="margin-right: 60px;"/></a>
-
-- Straightforward to load already trained models into Shiny applications.
-
-- Training code (and hardware!) not required for inference.
-
-<div style="clear: both; margin-bottom: 50px;"></div>
-
-```{r}
-model <- load_model_hdf5("model.hdf5")    # Keras 
-model %>% predict(input)
-
-predict_savedmodel(input, "savedmodel")   # SavedModel
-```
-
-
-## Deployment: Embedded, mobile, and browser
-
-- Run on embedded devices (e.g. [Raspberry Pi](https://github.com/samjabrahams/tensorflow-on-raspberry-pi))
-
-- Keras models can be converted to iOS [CoreML](https://developer.apple.com/documentation/coreml/converting_trained_models_to_core_ml)
-
-- Keras models can be deployed to the browser with [Keras.js](https://transcranial.github.io/keras-js/#/)
-
-- Additional projects:
-    - [TensorFlow Lite](https://www.tensorflow.org/mobile/tflite/)
-    - [deeplearn.js](https://deeplearnjs.org/)
-    
-
-## Key takeaways
-
-- TensorFlow is a new general purpose numerical computing library with lots to offer the R community.
-
-- Deep learning has made great progress and will likely increase in importance in various fields in the coming years.
-
-- R now has a great set of APIs and supporting tools for using TensorFlow and doing deep learning.
 
 ## TensorFlow for R website | https://tensorflow.rstudio.com
 
